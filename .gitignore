@@ -4,7 +4,7 @@ db.json
 *.log
 node_modules/
 public/
-package-lock.json
 github-deploy-key
 github-deploy-key.pub
 .deploy*/
+package-lock.json
