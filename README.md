@@ -1,1 +1,1 @@
-# yuki0320.githuc.io
+# yuki0320.github.io
