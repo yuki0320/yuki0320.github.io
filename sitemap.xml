@@ -39,7 +39,7 @@
 
   <url>
     <loc>https://blog.yuki520.cn/</loc>
-    <lastmod>2020-12-31</lastmod>
+    <lastmod>2021-01-04</lastmod>
     <changefreq>daily</changefreq>
     <priority>1.0</priority>
   </url>
@@ -47,14 +47,14 @@
   
   <url>
     <loc>https://blog.yuki520.cn/tags/Testing/</loc>
-    <lastmod>2020-12-31</lastmod>
+    <lastmod>2021-01-04</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
     <loc>https://blog.yuki520.cn/tags/Another-Tag/</loc>
-    <lastmod>2020-12-31</lastmod>
+    <lastmod>2021-01-04</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
