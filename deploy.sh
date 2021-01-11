@@ -1,25 +1,34 @@
 #!/usr/bin/env sh
 
-# abort on errors
+# 确保脚本抛出遇到的错误
 set -e
 
-# build
+# 生成静态文件
 npm run build
 
-# navigate into the build output directory
+# 进入生成的文件夹
 cd docs/.vuepress/dist
 
-# if you are deploying to a custom domain
+# deploy to github
 echo 'blog.yuki520.cn' > CNAME
-
+if [ -z "$GITHUB_TOKEN" ]; then
+  msg='deploy'
+  githubUrl=git@github.com:yuki0320/yuki0320.github.io.git
+else
+  msg='来自github actions的自动部署'
+  githubUrl=https://yuki0320:${GITHUB_TOKEN}@github.com/yuki0320/yuki0320.github.io.git
+  git config --global user.name "yukitan"
+  git config --global user.email "yukitan0202@gmail.com"
+fi
 git init
 git add -A
-git commit -m 'deploy'
+git commit -m "${msg}"
+git push -f $githubUrl master:gh-pages # 推送到github
 
-# if you are deploying to https://<USERNAME>.github.io
-git push -f git@github.com:yuki0320/yuki0320.github.io.git gh-pages
+# deploy to coding
+# echo 'www.xugaoyi.com\nxugaoyi.com' > CNAME  # 自定义域名
+# echo 'google.com, pub-7828333725993554, DIRECT, f08c47fec0942fa0' > ads.txt # 谷歌广告相关文件
 
-# if you are deploying to https://<USERNAME>.github.io/<REPO>
-# git push -f git@github.com:<USERNAME>/<REPO>.git master:gh-pages
 
-cd -
+cd - # 退回开始所在目录
+rm -rf docs/.vuepress/dist
