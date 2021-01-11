@@ -18,7 +18,7 @@ export default {
       imgSrc: ""
     };
   },
-  created() {
+  mounted() {
     this.chooseTip();
   },
   methods: {
@@ -44,7 +44,7 @@ img {
     width: 12%;
     float: left;
 }
-p { 
+p {
   overflow-wrap: break-word
 }
 </style>

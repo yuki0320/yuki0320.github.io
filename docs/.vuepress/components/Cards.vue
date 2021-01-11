@@ -32,7 +32,7 @@ export default {
       card: {}
     };
   },
-  created() {
+  mounted() {
     this.getData("https://yuki-1252851979.cos.ap-nanjing.myqcloud.com/docs/"  + this.locate + "/cards/"  + this.cards + ".json");
   },
   methods: {

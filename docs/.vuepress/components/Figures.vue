@@ -11,7 +11,7 @@
           scrolling="no"
           @load="frameAdapt"
         />
-        <img v-if="!isHtml" :src="pngSrc" @click="jumpToHtml" />
+        <img v-if="!isHtml" :src="pngSrc" />
       </div>
     </div>
     <div class="fgtitle">
@@ -35,7 +35,7 @@ export default {
       isHtml: false
     };
   },
-  created() {
+  mounted() {
     this.locateResources();
   },
   methods: {
@@ -62,30 +62,30 @@ export default {
       frame.width = doc.scrollWidth;
       frame.height = doc.scrollHeight;
       doc.style.margin = "0";
-    },
-    jumpToHtml() {
-      let tmp = this.figure.split("-");
-      if (tmp[0] === "17") {
-        window.open(
-          'https://yuki-1252851979.cos.ap-nanjing.myqcloud.com/docs/' + this.locate + "/htmlfigures/ch17/index.html"
-        );
-      } else if (tmp[0] === "18") {
-        window.open(
-          'https://yuki-1252851979.cos.ap-nanjing.myqcloud.com/docs/' + this.locate + "/htmlfigures/ch18/index.html"
-        );
-      } else {
-        axios
-          .get(this.htmlSrc)
-          .then(resp => {
-            if (resp) {
-              window.open(this.htmlSrc);
-            }
-          })
-          .catch(e => {
-            console.log("抱歉，没有找到此图片对应的 HTML 页面！");
-          });
-      }
     }
+    // jumpToHtml() {
+    //   let tmp = this.figure.split("-");
+    //   if (tmp[0] === "17") {
+    //     window.open(
+    //       'https://yuki-1252851979.cos.ap-nanjing.myqcloud.com/docs/' + this.locate + "/htmlfigures/ch17/index.html"
+    //     );
+    //   } else if (tmp[0] === "18") {
+    //     window.open(
+    //       'https://yuki-1252851979.cos.ap-nanjing.myqcloud.com/docs/' + this.locate + "/htmlfigures/ch18/index.html"
+    //     );
+    //   } else {
+    //     axios
+    //       .get(this.htmlSrc)
+    //       .then(resp => {
+    //         if (resp) {
+    //           window.open(this.htmlSrc);
+    //         }
+    //       })
+    //       .catch(e => {
+    //         console.log("抱歉，没有找到此图片对应的 HTML 页面！");
+    //       });
+    //   }
+    // }
   }
 };
 </script>

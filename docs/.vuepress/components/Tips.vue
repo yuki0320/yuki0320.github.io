@@ -20,7 +20,7 @@ export default {
       imgSrc: ""
     };
   },
-  created() {
+  mounted() {
     this.chooseTip();
   },
   methods: {
@@ -53,7 +53,7 @@ export default {
   padding-left: 16px;
   width: 88%;
 }
-p { 
+p {
   overflow-wrap: break-word;
   margin: 0
 }

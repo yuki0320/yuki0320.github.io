@@ -12,7 +12,7 @@ export default {
       pngSrc: ""
     };
   },
-  created() {
+  mounted() {
     this.locateResources();
   },
   methods: {
