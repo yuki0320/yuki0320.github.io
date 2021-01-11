@@ -225,7 +225,7 @@ function getCardListDOM (dataList, row) {
   dataList.forEach(item => {
     listDOM += `
       <${item.link ? 'a href="' + item.link + '" target="_blank"' : 'span'} class="card-item ${row ? 'row-' + row : ''}"
-         style="${item.bgColor ? 'background-color:' + item.bgColor + ';--randomColor:' + item.bgColor + ';' : '--randomColor: var(--bodyBg);'}${item.textColor ? 'color:' + item.textColor + ';' : ''}"
+        style="${item.bgColor ? 'background-color:' + item.bgColor + ';--randomColor:' + item.bgColor + ';' : '--randomColor: var(--bodyBg);'}${item.textColor ? 'color:' + item.textColor + ';' : ''}"
       >
         ${item.avatar ? '<img src="' + item.avatar + '" class="no-zoom">' : ''}
         <div>
