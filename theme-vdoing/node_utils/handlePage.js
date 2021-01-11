@@ -48,7 +48,7 @@ article: false
 
   if (content) {
     fs.writeFileSync(pagePath, content)
-    log(chalk.blue('tip ') + chalk.green(`create page(生成页面): ${pagePath}`))
+    log(chalk.blue('tip ') + chalk.green(`create page(生成页面): ${pagePath}`)+ content)
   }
 }
 

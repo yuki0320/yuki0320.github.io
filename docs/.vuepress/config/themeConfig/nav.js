@@ -45,7 +45,7 @@ module.exports = [
     ],
   },
   {
-    text: '技术',
+    text: '文档',
     link: '/technology/',
     items: [
       { text: '前端文档', link: '/pages/9a7ee40fc232253e/' }
