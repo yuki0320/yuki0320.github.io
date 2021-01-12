@@ -48,7 +48,16 @@ module.exports = [
     text: '文档',
     link: '/technology/',
     items: [
-      { text: '前端文档', link: '/pages/9a7ee40fc232253e/' }
+      { 
+        text: '前端文档', 
+        link: '/pages/a18b2c/',
+        items: [
+          {
+            text: 'CSS权威指南第4版', 
+            link: '/pages/a18b2c/'
+          }
+        ]
+      }
     ],
   },
   {
