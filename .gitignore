@@ -1,18 +1,7 @@
-# npm
-package-lock.json
-node_modules
-.idea
-# yarn
-yarn.lock
-
-# vscode
-.vscode
-
-# vuepress
-docs/.vuepress/dist
-
-# 百度链接推送
-urls.txt
-
-# mac
 .DS_Store
+Thumbs.db
+db.json
+*.log
+node_modules/
+public/
+.deploy*/

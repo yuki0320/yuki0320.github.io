@@ -1,28 +1,41 @@
-name: CI
+name: Hexo Deploy
 
-# 在master分支发生push事件时触发。
-on: 
+on:
   push:
     branches:
       - main
-jobs: # 工作流
+
+jobs:
   build:
-    runs-on: ubuntu-latest #运行在虚拟机环境ubuntu-latest
+    runs-on: ubuntu-18.04
+    if: github.event.repository.owner.id == github.event.sender.id
 
-    strategy:
-      matrix:
-        node-version: [12.x]
-
-    steps: 
-      - name: Checkout # 步骤1
-        uses: actions/checkout@v1 # 使用的动作。格式：userName/repoName。作用：检出仓库，获取源码。 官方actions库：https://github.com/actions
-      - name: Use Node.js ${{ matrix.node-version }} # 步骤2
-        uses: actions/setup-node@v1 # 作用：安装nodejs
+    steps:
+      - name: Checkout source
+        uses: actions/checkout@v2
         with:
-          node-version: ${{ matrix.node-version }} # 版本
-      - name: run deploy.sh # 步骤3 （同时部署到github和coding）
-        env: # 设置环境变量
-          GITHUB_TOKEN: ${{ secrets.ACCESS_TOKEN }} # toKen私密变量
-          # CODING_TOKEN: ${{ secrets.CODING_TOKEN }} # 腾讯云开发者平台（coding）私密token
-        run: npm install && npm run deploy # 执行的命令  
-        # package.json 中添加 "deploy": "bash deploy.sh"
+          ref: main
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v1
+        with:
+          node-version: '12'
+
+      - name: Setup Hexo
+        env:
+          ACTION_DEPLOY_KEY: ${{ secrets.ACCESS_TOKEN }}
+        run: |
+          mkdir -p ~/.ssh/
+          echo "$ACTION_DEPLOY_KEY" > ~/.ssh/id_rsa
+          chmod 700 ~/.ssh
+          chmod 600 ~/.ssh/id_rsa
+          ssh-keyscan github.com >> ~/.ssh/known_hosts
+          git config --global user.email "yukitan0202@gmail.com"
+          git config --global user.name "Yukitan"
+          npm install hexo-cli -g
+          npm install
+
+      - name: Deploy
+        run: |
+          hexo clean
+          hexo deploy
