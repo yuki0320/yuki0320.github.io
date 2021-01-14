@@ -32,6 +32,9 @@ jobs:
         run: |
           npm i -g hexo-cli
           npm i
+      - name: Generate Clean
+        run: |
+          hexo clean
       - name: Generate hexo
         run: |
           hexo generate
