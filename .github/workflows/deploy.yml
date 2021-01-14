@@ -15,7 +15,7 @@ jobs:
           node_version: ${{ matrix.node_version }}
       - name: Configuration environment
         env:
-          DEPLOY_KEY: ${{secrets.HEXO_DEPLOY_PUB}}
+          DEPLOY_KEY: ${{secrets.DEPLOY_KEY}}
         run: |
           mkdir -p ~/.ssh/
           echo "$DEPLOY_KEY" | tr -d '\r' > ~/.ssh/id_rsa
