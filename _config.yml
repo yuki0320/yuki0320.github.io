@@ -5,7 +5,7 @@
 # Site
 title: Yuki's Blog
 subtitle: '记录每一天'
-description: ''
+description: '起风了！唯有努力生存'
 keywords:
 author: Yuki
 language: zh-CN
@@ -103,6 +103,24 @@ ignore:
 ## Themes: https://hexo.io/themes/
 theme: next
 
+# 本地搜索
+search:
+  path: search.xml
+  field: post
+  format: html
+  limit: 100
+feed:
+  type: atom
+  path: atom.xml
+  limit: 20
+  hub:
+  content:
+  content_limit: 140
+  content_limit_delim: ' '
+  order_by: -date
+  icon: icon.png
+  autodiscovery: true
+  template:
 # 外部链接优化
 nofollow:
   enable: true
@@ -110,6 +128,13 @@ nofollow:
   exclude:
     - 'www.yuki520.cn'
     - 'yukitan.gitee.io'
+symbols_count_time:
+  #文章内是否显示
+  symbols: true
+  time: true
+  # 网页底部是否显示
+  total_symbols: true
+  total_time: true
 
 # Deployment
 ## Docs: https://hexo.io/docs/one-command-deployment
