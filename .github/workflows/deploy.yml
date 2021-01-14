@@ -6,10 +6,13 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
-
+    strategy:
+      matrix:
+        node-version: [12.x]
     steps:
-      - uses: actions/checkout@v1
-      - name: Use Node.js ${{ matrix.node_version }}
+      - name: Checkout # 步骤1
+        uses: actions/checkout@v1
+      - name: Use Node.js ${{ matrix.node-version }} # 步骤2
         uses: actions/setup-node@v1
         with:
           node_version: ${{ matrix.node_version }}
