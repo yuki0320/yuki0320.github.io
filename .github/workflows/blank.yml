@@ -1,32 +1,40 @@
-name: Blog CI
-
-# 在master分支发生push事件时触发。
-on: 
+name: CI
+on:
   push:
     branches:
-      - main
-jobs: # 工作流
+      - backup 
+jobs:
   build:
-    runs-on: ubuntu-latest #运行在虚拟机环境ubuntu-latest
+    runs-on: ubuntu-latest
 
-    strategy:
-      matrix:
-        node-version: [12.x]
-
-    steps: 
-      - name: Checkout # 步骤1
-        uses: actions/checkout@v1 # 使用的动作。格式：userName/repoName。作用：检出仓库，获取源码。 官方actions库：https://github.com/actions
-      - name: Use Node.js ${{ matrix.node-version }} # 步骤2
-        uses: actions/setup-node@v1 # 作用：安装nodejs
+    steps:
+      - uses: actions/checkout@v1
+      - name: Use Node.js ${{ matrix.node_version }}
+        uses: actions/setup-node@v1
         with:
-          node-version: ${{ matrix.node-version }} # 版本
-      - name: run deploy.sh # 步骤3 （同时部署到github和coding）
-        env: # 设置环境变量
-          GITHUB_TOKEN: ${{ secrets.ACCESS_TOKEN }} # toKen私密变量
-          # CODING_TOKEN: ${{ secrets.CODING_TOKEN }} # 腾讯云开发者平台（coding）私密token
-        run: npm install  && npm install hexo-cli -g  # 执行的命令  
-        # package.json 中添加 "deploy": "bash deploy.sh"
-      - name: Deploy
+          node_version: ${{ matrix.node_version }}
+      - name: Configuration environment
+        env:
+          DEPLOY_KEY: ${{secrets.HEXO_DEPLOY_PUB}}
         run: |
-          hexo clean
-          npm run deploy
+          mkdir -p ~/.ssh/
+          echo "$DEPLOY_KEY" | tr -d '\r' > ~/.ssh/id_rsa
+          echo "$DEPLOY_KEY"
+          chmod 600 ~/.ssh/id_rsa
+          ssh-keyscan github.com >> ~/.ssh/known_hosts
+          git config --global user.name "yukitan"
+          git config --global user.email "yukitan0202@gmail.com"
+      - name: Update themes
+        run: |
+          git submodule init
+          git submodule update
+      - name: Install dependencies
+        run: |
+          npm i -g hexo-cli
+          npm i
+      - name: Generate hexo
+        run: |
+          hexo generate
+      - name: Deploy hexo
+        run: |
+          hexo deploy
