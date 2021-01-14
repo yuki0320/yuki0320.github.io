@@ -3,17 +3,17 @@
 ## Source: https://github.com/hexojs/hexo/
 
 # Site
-title: Hexo
-subtitle: ''
+title: Yuki's Blog
+subtitle: '记录每一天'
 description: ''
 keywords:
-author: John Doe
-language: en
-timezone: ''
+author: Yuki
+language: zh-CN
+timezone: UTC
 
 # URL
 ## If your site is put in a subdirectory, set url as 'http://example.com/child' and root as '/child/'
-url: http://example.com
+url: https://blog.yuki520.cn
 root: /
 permalink: :year/:month/:day/:title/
 permalink_defaults:
@@ -99,6 +99,14 @@ ignore:
 ## Plugins: https://hexo.io/plugins/
 ## Themes: https://hexo.io/themes/
 theme: next
+
+# 外部链接优化
+nofollow:
+  enable: true
+  field: site
+  exclude:
+    - 'www.yuki520.cn'
+    - 'yukitan.gitee.io'
 
 # Deployment
 ## Docs: https://hexo.io/docs/one-command-deployment
