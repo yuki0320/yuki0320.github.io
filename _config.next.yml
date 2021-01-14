@@ -366,7 +366,7 @@ codeblock:
     style:
 
 back2top:
-  enable: true
+  enable: false
   # Back to top in sidebar.
   sidebar: false
   # Scroll percent label in b2t button.
@@ -672,7 +672,7 @@ add_this_id:
 
 # Google Analytics
 google_analytics:
-  tracking_id: 2226175059 # <app_id>
+  tracking_id: G-TY1REQXEDG # <app_id>
   # By default, NexT will load an external gtag.js script on your site.
   # If you only need the pageview feature, set the following option to true to get a better performance.
   only_pageview: false
