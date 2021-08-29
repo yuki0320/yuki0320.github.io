@@ -163,7 +163,7 @@ sidebar:
 # Sidebar Avatar
 avatar:
   # Replace the default image and set the url here.
-  url: https://yuki-1252851979.cos.ap-nanjing.myqcloud.com/blog/avatar.jpg
+  url: https://cos.yuki520.cn/blog/avatar.jpg
   # If true, the avatar will be dispalyed in circle.
   rounded: true
   # If true, the avatar will be rotated with the cursor.
