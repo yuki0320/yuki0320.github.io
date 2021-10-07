@@ -1,10 +1,12 @@
+---
 title: 编程语言通识与JavaScript语言设计
 tags:
-   -工程化
-   -前端
-   -JavaScript
-   -语言设计
+- 工程化
+- 前端
+- JavaScript
+- 语言设计
 categories: 前端
+abbrlink: 8868e6e9
 ---
 # 编程语言通识与JavaScript语言设计
 
