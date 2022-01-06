@@ -1,0 +1,732 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"blog.yuki520.cn","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":false,"style":null},"back2top":{"enable":false,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="编程语言通识与JavaScript语言设计语言按语法分类非形式语言 中文，英文…  形式语言（乔姆斯基谱系） 0型 无限制文法 ?::&#x3D;?  1型 上下文相关文法 ??::&#x3D;??  2型 上下文无关文法 ::&#x3D;?  3型 正则文法 ::&#x3D;?      文法 语言 自动机 产生式规则    0-型 递归可枚举语言 图灵机 α -&gt; β（无限制）   1-型 上下文相关语言 线性有界非确定图灵机">
+<meta property="og:type" content="article">
+<meta property="og:title" content="编程语言通识与JavaScript语言设计">
+<meta property="og:url" content="https://blog.yuki520.cn/archives/8868e6e9.html">
+<meta property="og:site_name" content="Yuki&#39;s Blog">
+<meta property="og:description" content="编程语言通识与JavaScript语言设计语言按语法分类非形式语言 中文，英文…  形式语言（乔姆斯基谱系） 0型 无限制文法 ?::&#x3D;?  1型 上下文相关文法 ??::&#x3D;??  2型 上下文无关文法 ::&#x3D;?  3型 正则文法 ::&#x3D;?      文法 语言 自动机 产生式规则    0-型 递归可枚举语言 图灵机 α -&gt; β（无限制）   1-型 上下文相关语言 线性有界非确定图灵机">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2022-01-06T04:37:43.143Z">
+<meta property="article:modified_time" content="2022-01-06T04:37:43.143Z">
+<meta property="article:author" content="Yuki">
+<meta property="article:tag" content="工程化">
+<meta property="article:tag" content="前端">
+<meta property="article:tag" content="JavaScript">
+<meta property="article:tag" content="语言设计">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="https://blog.yuki520.cn/archives/8868e6e9.html">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>编程语言通识与JavaScript语言设计 | Yuki's Blog</title>
+  
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-TY1REQXEDG"></script>
+    <script>
+      if (CONFIG.hostname === location.hostname) {
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'G-TY1REQXEDG');
+      }
+    </script>
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+<link rel="alternate" href="/atom.xml" title="Yuki's Blog" type="application/atom+xml">
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Yuki's Blog</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">记录每一天</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://blog.yuki520.cn/archives/8868e6e9.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="https://cos.yuki520.cn/blog/avatar.jpg">
+      <meta itemprop="name" content="Yuki">
+      <meta itemprop="description" content="起风了！唯有努力生存">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Yuki's Blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          编程语言通识与JavaScript语言设计
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2022-01-06 04:37:43" itemprop="dateCreated datePublished" datetime="2022-01-06T04:37:43Z">2022-01-06</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E5%89%8D%E7%AB%AF/" itemprop="url" rel="index"><span itemprop="name">前端</span></a>
+                </span>
+            </span>
+
+          
+            <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv" style="display: none;">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span id="busuanzi_value_page_pv"></span>
+            </span><br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>3.2k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>3 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h1 id="编程语言通识与JavaScript语言设计"><a href="#编程语言通识与JavaScript语言设计" class="headerlink" title="编程语言通识与JavaScript语言设计"></a>编程语言通识与JavaScript语言设计</h1><h2 id="语言按语法分类"><a href="#语言按语法分类" class="headerlink" title="语言按语法分类"></a>语言按语法分类</h2><h3 id="非形式语言"><a href="#非形式语言" class="headerlink" title="非形式语言"></a>非形式语言</h3><ul>
+<li>中文，英文…</li>
+</ul>
+<h3 id="形式语言（乔姆斯基谱系）"><a href="#形式语言（乔姆斯基谱系）" class="headerlink" title="形式语言（乔姆斯基谱系）"></a>形式语言（乔姆斯基谱系）</h3><ul>
+<li><p>0型 无限制文法</p>
+<p>?::=?</p>
+</li>
+<li><p>1型 上下文相关文法</p>
+<p>?<A>?::=?<B>?</p>
+</li>
+<li><p>2型 上下文无关文法</p>
+<p><A>::=?</p>
+</li>
+<li><p>3型 正则文法</p>
+<p><A>::=<A>?</p>
+</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th align="center">文法</th>
+<th align="center">语言</th>
+<th align="center">自动机</th>
+<th align="center">产生式规则</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">0-型</td>
+<td align="center">递归可枚举语言</td>
+<td align="center">图灵机</td>
+<td align="center">α -&gt; β（无限制）</td>
+</tr>
+<tr>
+<td align="center">1-型</td>
+<td align="center">上下文相关语言</td>
+<td align="center">线性有界非确定图灵机</td>
+<td align="center">α<em>A</em>β -&gt; αγβ</td>
+</tr>
+<tr>
+<td align="center">2-型</td>
+<td align="center">上下文无关语言</td>
+<td align="center">非确定下推自动机</td>
+<td align="center"><em>A</em> -&gt; γ</td>
+</tr>
+<tr>
+<td align="center">3-型</td>
+<td align="center">正则语言</td>
+<td align="center">有限状态自动机</td>
+<td align="center"><em>A</em> -&gt; <em>aB</em> <em>A</em> -&gt; <em>a</em></td>
+</tr>
+</tbody></table>
+<h2 id="文法"><a href="#文法" class="headerlink" title="文法"></a>文法</h2><h3 id="文法的概念"><a href="#文法的概念" class="headerlink" title="文法的概念"></a>文法的概念</h3><p>在形式语言理论中，<strong>文法</strong>（为了避免歧义，常称作“形式文法”）是形式语言中字符串的一套产生式规则。这些规则描述了如何用语言的字母表生成符合语法的有效的字符串。文法不描述字符串的含义，也不描述在任何上下文中可以用它们做什么——只描述它们的形式。</p>
+<h3 id="BNF范式"><a href="#BNF范式" class="headerlink" title="BNF范式"></a>BNF范式</h3><p>BNF(Backus-Naur Form)是描述<strong>编程语言的文法</strong>。巴科斯范式是一种用于表示上下文无关文法的语言，上下文无关文法描述了一类形式语言。</p>
+<p>BNF规定是推导规则(产生式)的集合，写为：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">符号 ::&#x3D; &lt;使用符号的表达式&gt;</span><br></pre></td></tr></table></figure>
+
+<p>这里的 <code>&lt;符号&gt;</code> 是非终结符，而表达式由一个符号序列，或用指示选择的竖杠 <code>&#39;|&#39;</code> 分隔的多个符号序列构成，每个符号序列整体都是左端的符号的一种可能的替代。从未在左端出现的符号叫做终结符。</p>
+<h2 id="终结符和非终结符"><a href="#终结符和非终结符" class="headerlink" title="终结符和非终结符"></a>终结符和非终结符</h2><p><strong>终结符</strong>：终结符是一个形式语言的基本符号。就是说，它们能在一个形式语法的推导规则的输入或输出字符串存在，而且他们不能被分解为更小的单位。确切的说，一个语法的规则不能改变终结符。一个形式语法所推导的形式语言必须完全由终结符组成。</p>
+<p><strong>非终结符</strong>：非终结符是可以被取代的符号。一个形式文法中必须有一个起始符号，这个起始符号属于非终结符的集合。在上下文无关文法中，每个推导规则的左边只能有一个非终结符而不能有两个以上的非终结符或终结符。（并非所有的语言都可以被上下文无关文法产生）</p>
+<h2 id="BNF范式的语法"><a href="#BNF范式的语法" class="headerlink" title="BNF范式的语法"></a>BNF范式的语法</h2><p>在BNF中，双引号中的字(“word”)代表着这些字符本身。而double_quote用来代表双引号。</p>
+<p>在双引号外的字（有可能有下划线）代表着语法部分。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">&lt; &gt;     : 内包含的为必选项。</span><br><span class="line">[ ]     : 内包含的为可选项。</span><br><span class="line">&#123; &#125;     : 内包含的为可重复0至无数次的项。</span><br><span class="line">|       : 表示在其左右两边任选一项，相当于&quot;OR&quot;的意思。</span><br><span class="line">::&#x3D;     : 是“被定义为”的意思</span><br><span class="line">&quot;...&quot;   : 术语符号</span><br><span class="line">[...]   : 选项，最多出现一次</span><br><span class="line">&#123;...&#125;   : 重复项，任意次数，包括 0 次</span><br><span class="line">(...)   : 分组</span><br><span class="line">|       : 并列选项，只能选一个</span><br></pre></td></tr></table></figure>
+
+<p>例如，Java语言总的<code>for</code>语句的BNF范式定义如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">FOR_STATEMENT ::&#x3D;</span><br><span class="line">    &quot;for&quot; &quot;(&quot; ( variable_declaration |</span><br><span class="line">    ( expression &quot;;&quot; ) | &quot;;&quot; )</span><br><span class="line">    [ expression ] &quot;;&quot;</span><br><span class="line">    [ expression ]</span><br><span class="line">    &quot;)&quot; statement</span><br></pre></td></tr></table></figure>
+
+<h2 id="ABBF"><a href="#ABBF" class="headerlink" title="ABBF"></a>ABBF</h2><p>RFC2234 定义了扩展的巴科斯范式(ABNF)。近年来在Internet的定义中 ABNF 被广泛使用。扩充巴科斯-诺尔范式(ABNF)基于了巴科斯-诺尔范式(BNF)，但由它自己的语法和推导规则构成。这种元语言的发起原则是描述作为通信协议(双向规范)的语言的形式系统。</p>
+<p>ABNF 规定是一组推导规则，写为：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">规则 &#x3D; 定义 ; 注释 CR LF</span><br></pre></td></tr></table></figure>
+
+<p>这里的规则是大小写敏感的非终止符，定义由定义这个规则的符号序列，一个文档注释组成，并结束于回车换行。</p>
+<p>规则名字是大小写不敏感的: <code>&lt;rulename&gt;</code>, <code>&lt;Rulename&gt;</code>, <code>&lt;RULENAME&gt;</code> 和 <code>&lt;rUlENamE&gt;</code> 都提及同一个规则。规则名字由开始于一个字母的字母、数字和连字符组成。不要求用尖括号(“<code>&lt;</code>”, “<code>&gt;</code>”) (如 BNF 那样)包围规则名字。但是它们可以用来界定规则名字，比如在冗文中识别出规则名字的时候。ABNF 使用 7-位 ASCII 编码，在 8-位域中把高位置零。</p>
+<p>终结符由一个或多个数值字符指定。数值字符可以指定为跟随着基数(b = 二进制, d = 十进制, x = 十六进制)的一个百分号“%”，随后是这个数值，或数值的串联(用“.” 来指示)。例如回车可以指定为十进制的 %d13 或十六进制的 %x0D。回车换行可以指定为 %d13.10。</p>
+<p>文字正文通过使用包围在引号(“)中字符串来指定。这些字符串是大小写不敏感的，使用的字符集是 US-ASCII。所以字符串“abc”将匹配“abc”, “Abc”, “aBc”, “abC”, “ABc”, “AbC”, “aBC” 和 “ABC”。对于大小写敏感匹配，必须定义明确的字符: 要匹配 “aBc” 定义将是 %d97 %d66 %d99。</p>
+<h4 id="用括号括起来的名称来表示语法结构名"><a href="#用括号括起来的名称来表示语法结构名" class="headerlink" title="用括号括起来的名称来表示语法结构名"></a>用括号括起来的名称来表示语法结构名</h4><h4 id="语法结构分成基础结构和需要用其他语法结构定义的复合结构"><a href="#语法结构分成基础结构和需要用其他语法结构定义的复合结构" class="headerlink" title="语法结构分成基础结构和需要用其他语法结构定义的复合结构"></a>语法结构分成基础结构和需要用其他语法结构定义的复合结构</h4><ul>
+<li>基础结构称终结符</li>
+<li>复合结构称非终结符</li>
+</ul>
+<h4 id="引号和中间的字符表示终结符"><a href="#引号和中间的字符表示终结符" class="headerlink" title="引号和中间的字符表示终结符"></a>引号和中间的字符表示终结符</h4><h4 id="可以有括号"><a href="#可以有括号" class="headerlink" title="可以有括号"></a>可以有括号</h4><h4 id="表示重复多次"><a href="#表示重复多次" class="headerlink" title="*表示重复多次"></a>*表示重复多次</h4><h4 id="表示或"><a href="#表示或" class="headerlink" title="|表示或"></a>|表示或</h4><h4 id="表示至少一次"><a href="#表示至少一次" class="headerlink" title="+表示至少一次"></a>+表示至少一次</h4><h4 id="四则运算："><a href="#四则运算：" class="headerlink" title="四则运算："></a>四则运算：</h4><ul>
+<li>1+2*3</li>
+</ul>
+<h4 id="终结符"><a href="#终结符" class="headerlink" title="终结符:"></a>终结符:</h4><ul>
+<li>Number</li>
+<li>+-*/</li>
+</ul>
+<h4 id="非终结符："><a href="#非终结符：" class="headerlink" title="非终结符："></a>非终结符：</h4><ul>
+<li>MultiplicativeExpression</li>
+<li>AddtiveExpression</li>
+</ul>
+<h2 id="现代语言的特例"><a href="#现代语言的特例" class="headerlink" title="现代语言的特例"></a>现代语言的特例</h2><ul>
+<li>C++中，*可以表示乘号或者指针，具体是哪个，取决于星号前面 的标识符是否被声明为类型</li>
+<li>VB中，&lt;可能是小于号，也可能是XML直接量的开始，取决于当前位置是否可以接受XML直接量</li>
+<li>Python中，行首的tab和空格会根据上一行的行首空白以一定规则被处理成虚拟终结符indent或者dedent</li>
+<li>Javascript中，/可能是除号，也可能是正则表达式开头，处理方式类似于VB，字符串模板中也需要特殊处理，还有自动插入分号规则</li>
+</ul>
+<h2 id="图灵完备性"><a href="#图灵完备性" class="headerlink" title="图灵完备性"></a>图灵完备性</h2><h3 id="图灵机"><a href="#图灵机" class="headerlink" title="图灵机"></a>图灵机</h3><p>又称确定型图灵机，其更抽象的意义为一种<a target="_blank" rel="noopener external nofollow noreferrer" href="https://zh.wikipedia.org/wiki/%E8%AE%A1%E7%AE%97%E6%A8%A1%E5%9E%8B">计算模型</a>，可以看作等价于任何有限逻辑数学过程的终极强大逻辑机器。</p>
+<h3 id="图灵完备性-1"><a href="#图灵完备性-1" class="headerlink" title="图灵完备性"></a>图灵完备性</h3><p>在<a target="_blank" rel="noopener external nofollow noreferrer" href="https://zh.wikipedia.org/wiki/%E5%8F%AF%E8%AE%A1%E7%AE%97%E6%80%A7%E7%90%86%E8%AE%BA">可计算性理论</a>，如果一系列操作数据的规则（如<a target="_blank" rel="noopener external nofollow noreferrer" href="https://zh.wikipedia.org/wiki/%E6%8C%87%E4%BB%A4%E9%9B%86">指令集</a>、<a target="_blank" rel="noopener external nofollow noreferrer" href="https://zh.wikipedia.org/wiki/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80">编程语言</a>、<a target="_blank" rel="noopener external nofollow noreferrer" href="https://zh.wikipedia.org/wiki/%E7%B4%B0%E8%83%9E%E8%87%AA%E5%8B%95%E6%A9%9F">细胞自动机</a>）可以用来模拟任何<a target="_blank" rel="noopener external nofollow noreferrer" href="https://zh.wikipedia.org/wiki/%E5%9B%BE%E7%81%B5%E6%9C%BA">图灵机</a>，那么它是<strong>图灵完备</strong>的。这意味着这个系统也可以识别其他数据处理规则集，图灵完备性被用作表达这种数据处理规则集的一种属性。</p>
+<p><strong>命令式—图灵机</strong></p>
+<ul>
+<li>goto</li>
+<li>if 和while</li>
+</ul>
+<p><strong>声明式—lambda</strong></p>
+<ul>
+<li>递归</li>
+</ul>
+<h2 id="动态与静态"><a href="#动态与静态" class="headerlink" title="动态与静态"></a>动态与静态</h2><h3 id="动态"><a href="#动态" class="headerlink" title="动态"></a>动态</h3><ul>
+<li>在用户的设备/在线服务器上</li>
+<li>产品实际运行时</li>
+<li>Runtime</li>
+</ul>
+<h3 id="静态"><a href="#静态" class="headerlink" title="静态"></a>静态</h3><ul>
+<li>在程序员的设备上</li>
+<li>产品开始时</li>
+<li>Compiletime</li>
+</ul>
+<h2 id="类型系统"><a href="#类型系统" class="headerlink" title="类型系统"></a>类型系统</h2><h3 id="动态类型系统与静态类型系统"><a href="#动态类型系统与静态类型系统" class="headerlink" title="动态类型系统与静态类型系统"></a>动态类型系统与静态类型系统</h3><h3 id="强类型与弱类型"><a href="#强类型与弱类型" class="headerlink" title="强类型与弱类型"></a>强类型与弱类型</h3><ul>
+<li>String + Number</li>
+<li>String == Boolean</li>
+</ul>
+<h3 id="复合类型"><a href="#复合类型" class="headerlink" title="复合类型"></a>复合类型</h3><ul>
+<li>结构体</li>
+<li>函数签名</li>
+</ul>
+<h3 id="子类型"><a href="#子类型" class="headerlink" title="子类型"></a>子类型</h3><ul>
+<li>逆变/协变</li>
+</ul>
+<h2 id="一般命令式编程语言"><a href="#一般命令式编程语言" class="headerlink" title="一般命令式编程语言"></a>一般命令式编程语言</h2><h3 id="Atom"><a href="#Atom" class="headerlink" title="Atom"></a>Atom</h3><ul>
+<li>Identifier</li>
+<li>Literal</li>
+</ul>
+<h3 id="Expression"><a href="#Expression" class="headerlink" title="Expression"></a>Expression</h3><ul>
+<li>Atom</li>
+<li>Operator</li>
+<li>Punctuator</li>
+</ul>
+<h3 id="Statement"><a href="#Statement" class="headerlink" title="Statement"></a>Statement</h3><ul>
+<li>Expression</li>
+<li>Keyword</li>
+<li>Punctuator</li>
+</ul>
+<h3 id="Structure"><a href="#Structure" class="headerlink" title="Structure"></a>Structure</h3><ul>
+<li>Function</li>
+<li>Class</li>
+<li>Process</li>
+<li>NameSpace</li>
+<li>…</li>
+</ul>
+<h3 id="Program"><a href="#Program" class="headerlink" title="Program"></a>Program</h3><ul>
+<li>Program</li>
+<li>Module</li>
+<li>Package</li>
+<li>Library</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">docker run -p 3306:3306 --name mysql \</span><br><span class="line">-v &#x2F;mydata&#x2F;mysql&#x2F;log:&#x2F;var&#x2F;log&#x2F;mysql \</span><br><span class="line">-v &#x2F;mydata&#x2F;mysql&#x2F;data:&#x2F;var&#x2F;lib&#x2F;mysql \</span><br><span class="line">-v &#x2F;mydata&#x2F;mysql&#x2F;conf:&#x2F;etc&#x2F;mysql \</span><br><span class="line">-e MYSQL_ROOT_PASSWORD&#x3D;root  \</span><br><span class="line">-d mysql:5.7</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+
+    </div>
+
+    
+    
+    
+      
+  <div class="popular-posts-header">相关文章推荐</div>
+  <ul class="popular-posts">
+    <li class="popular-posts-item">
+      <div class="popular-posts-title"><a href="/archives/f86000d3.html" rel="bookmark">前端工程化简介</a></div>
+    </li>
+    <li class="popular-posts-item">
+      <div class="popular-posts-title"><a href="/archives/c3d6d626.html" rel="bookmark">数据驱动的思考方式</a></div>
+    </li>
+    <li class="popular-posts-item">
+      <div class="popular-posts-title"><a href="/archives/263f3be4.html" rel="bookmark">原型</a></div>
+    </li>
+    <li class="popular-posts-item">
+      <div class="popular-posts-title"><a href="/archives/9b1b0f9c.html" rel="bookmark">定型数组</a></div>
+    </li>
+    <li class="popular-posts-item">
+      <div class="popular-posts-title"><a href="/archives/8135dd95.html" rel="bookmark">CSS实现气球泡泡对话框</a></div>
+    </li>
+  </ul>
+
+        
+
+<div>
+<ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者： </strong>Yuki
+  </li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="https://blog.yuki520.cn/archives/8868e6e9.html" title="编程语言通识与JavaScript语言设计">https://blog.yuki520.cn/archives/8868e6e9.html</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener external nofollow noreferrer" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/%E5%B7%A5%E7%A8%8B%E5%8C%96/" rel="tag"># 工程化</a>
+              <a href="/tags/%E5%89%8D%E7%AB%AF/" rel="tag"># 前端</a>
+              <a href="/tags/JavaScript/" rel="tag"># JavaScript</a>
+              <a href="/tags/%E8%AF%AD%E8%A8%80%E8%AE%BE%E8%AE%A1/" rel="tag"># 语言设计</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/archives/a070bf7.html" rel="prev" title="编译原理概述">
+      <i class="fa fa-chevron-left"></i> 编译原理概述
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/archives/8135dd95.html" rel="next" title="CSS实现气球泡泡对话框">
+      CSS实现气球泡泡对话框 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80%E9%80%9A%E8%AF%86%E4%B8%8EJavaScript%E8%AF%AD%E8%A8%80%E8%AE%BE%E8%AE%A1"><span class="nav-number">1.</span> <span class="nav-text">编程语言通识与JavaScript语言设计</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%AF%AD%E8%A8%80%E6%8C%89%E8%AF%AD%E6%B3%95%E5%88%86%E7%B1%BB"><span class="nav-number">1.1.</span> <span class="nav-text">语言按语法分类</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%9D%9E%E5%BD%A2%E5%BC%8F%E8%AF%AD%E8%A8%80"><span class="nav-number">1.1.1.</span> <span class="nav-text">非形式语言</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%BD%A2%E5%BC%8F%E8%AF%AD%E8%A8%80%EF%BC%88%E4%B9%94%E5%A7%86%E6%96%AF%E5%9F%BA%E8%B0%B1%E7%B3%BB%EF%BC%89"><span class="nav-number">1.1.2.</span> <span class="nav-text">形式语言（乔姆斯基谱系）</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%96%87%E6%B3%95"><span class="nav-number">1.2.</span> <span class="nav-text">文法</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%96%87%E6%B3%95%E7%9A%84%E6%A6%82%E5%BF%B5"><span class="nav-number">1.2.1.</span> <span class="nav-text">文法的概念</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#BNF%E8%8C%83%E5%BC%8F"><span class="nav-number">1.2.2.</span> <span class="nav-text">BNF范式</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%BB%88%E7%BB%93%E7%AC%A6%E5%92%8C%E9%9D%9E%E7%BB%88%E7%BB%93%E7%AC%A6"><span class="nav-number">1.3.</span> <span class="nav-text">终结符和非终结符</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#BNF%E8%8C%83%E5%BC%8F%E7%9A%84%E8%AF%AD%E6%B3%95"><span class="nav-number">1.4.</span> <span class="nav-text">BNF范式的语法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#ABBF"><span class="nav-number">1.5.</span> <span class="nav-text">ABBF</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%94%A8%E6%8B%AC%E5%8F%B7%E6%8B%AC%E8%B5%B7%E6%9D%A5%E7%9A%84%E5%90%8D%E7%A7%B0%E6%9D%A5%E8%A1%A8%E7%A4%BA%E8%AF%AD%E6%B3%95%E7%BB%93%E6%9E%84%E5%90%8D"><span class="nav-number">1.5.0.1.</span> <span class="nav-text">用括号括起来的名称来表示语法结构名</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%AF%AD%E6%B3%95%E7%BB%93%E6%9E%84%E5%88%86%E6%88%90%E5%9F%BA%E7%A1%80%E7%BB%93%E6%9E%84%E5%92%8C%E9%9C%80%E8%A6%81%E7%94%A8%E5%85%B6%E4%BB%96%E8%AF%AD%E6%B3%95%E7%BB%93%E6%9E%84%E5%AE%9A%E4%B9%89%E7%9A%84%E5%A4%8D%E5%90%88%E7%BB%93%E6%9E%84"><span class="nav-number">1.5.0.2.</span> <span class="nav-text">语法结构分成基础结构和需要用其他语法结构定义的复合结构</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%BC%95%E5%8F%B7%E5%92%8C%E4%B8%AD%E9%97%B4%E7%9A%84%E5%AD%97%E7%AC%A6%E8%A1%A8%E7%A4%BA%E7%BB%88%E7%BB%93%E7%AC%A6"><span class="nav-number">1.5.0.3.</span> <span class="nav-text">引号和中间的字符表示终结符</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%8F%AF%E4%BB%A5%E6%9C%89%E6%8B%AC%E5%8F%B7"><span class="nav-number">1.5.0.4.</span> <span class="nav-text">可以有括号</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%A1%A8%E7%A4%BA%E9%87%8D%E5%A4%8D%E5%A4%9A%E6%AC%A1"><span class="nav-number">1.5.0.5.</span> <span class="nav-text">*表示重复多次</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%A1%A8%E7%A4%BA%E6%88%96"><span class="nav-number">1.5.0.6.</span> <span class="nav-text">|表示或</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%A1%A8%E7%A4%BA%E8%87%B3%E5%B0%91%E4%B8%80%E6%AC%A1"><span class="nav-number">1.5.0.7.</span> <span class="nav-text">+表示至少一次</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%9B%9B%E5%88%99%E8%BF%90%E7%AE%97%EF%BC%9A"><span class="nav-number">1.5.0.8.</span> <span class="nav-text">四则运算：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%BB%88%E7%BB%93%E7%AC%A6"><span class="nav-number">1.5.0.9.</span> <span class="nav-text">终结符:</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%9D%9E%E7%BB%88%E7%BB%93%E7%AC%A6%EF%BC%9A"><span class="nav-number">1.5.0.10.</span> <span class="nav-text">非终结符：</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%8E%B0%E4%BB%A3%E8%AF%AD%E8%A8%80%E7%9A%84%E7%89%B9%E4%BE%8B"><span class="nav-number">1.6.</span> <span class="nav-text">现代语言的特例</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%9B%BE%E7%81%B5%E5%AE%8C%E5%A4%87%E6%80%A7"><span class="nav-number">1.7.</span> <span class="nav-text">图灵完备性</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%9B%BE%E7%81%B5%E6%9C%BA"><span class="nav-number">1.7.1.</span> <span class="nav-text">图灵机</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%9B%BE%E7%81%B5%E5%AE%8C%E5%A4%87%E6%80%A7-1"><span class="nav-number">1.7.2.</span> <span class="nav-text">图灵完备性</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8A%A8%E6%80%81%E4%B8%8E%E9%9D%99%E6%80%81"><span class="nav-number">1.8.</span> <span class="nav-text">动态与静态</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8A%A8%E6%80%81"><span class="nav-number">1.8.1.</span> <span class="nav-text">动态</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%9D%99%E6%80%81"><span class="nav-number">1.8.2.</span> <span class="nav-text">静态</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%B1%BB%E5%9E%8B%E7%B3%BB%E7%BB%9F"><span class="nav-number">1.9.</span> <span class="nav-text">类型系统</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8A%A8%E6%80%81%E7%B1%BB%E5%9E%8B%E7%B3%BB%E7%BB%9F%E4%B8%8E%E9%9D%99%E6%80%81%E7%B1%BB%E5%9E%8B%E7%B3%BB%E7%BB%9F"><span class="nav-number">1.9.1.</span> <span class="nav-text">动态类型系统与静态类型系统</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%BC%BA%E7%B1%BB%E5%9E%8B%E4%B8%8E%E5%BC%B1%E7%B1%BB%E5%9E%8B"><span class="nav-number">1.9.2.</span> <span class="nav-text">强类型与弱类型</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%A4%8D%E5%90%88%E7%B1%BB%E5%9E%8B"><span class="nav-number">1.9.3.</span> <span class="nav-text">复合类型</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AD%90%E7%B1%BB%E5%9E%8B"><span class="nav-number">1.9.4.</span> <span class="nav-text">子类型</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%80%E8%88%AC%E5%91%BD%E4%BB%A4%E5%BC%8F%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80"><span class="nav-number">1.10.</span> <span class="nav-text">一般命令式编程语言</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Atom"><span class="nav-number">1.10.1.</span> <span class="nav-text">Atom</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Expression"><span class="nav-number">1.10.2.</span> <span class="nav-text">Expression</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Statement"><span class="nav-number">1.10.3.</span> <span class="nav-text">Statement</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Structure"><span class="nav-number">1.10.4.</span> <span class="nav-text">Structure</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Program"><span class="nav-number">1.10.5.</span> <span class="nav-text">Program</span></a></li></ol></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Yuki"
+      src="https://cos.yuki520.cn/blog/avatar.jpg">
+  <p class="site-author-name" itemprop="name">Yuki</p>
+  <div class="site-description" itemprop="description">起风了！唯有努力生存</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">10</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">5</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">20</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/yuki0320" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;yuki0320" rel="noopener external nofollow noreferrer" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:yukitan0202@gmail.com" title="E-Mail → mailto:yukitan0202@gmail.com" rel="noopener external nofollow noreferrer" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Yuki</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-area"></i>
+    </span>
+      <span class="post-meta-item-text">站点总字数：</span>
+    <span title="站点总字数">74k</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+      <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
+    <span title="站点阅读时长">1:07</span>
+</div>
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span class="post-meta-item" id="busuanzi_container_site_uv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+<div class="moon-menu">
+  <div class="moon-menu-items">
+    
+    <div class="moon-menu-item" onclick="back2bottom()">
+      <i class='fa fa-chevron-down'></i>    </div>
+    
+    <div class="moon-menu-item" onclick="back2top()">
+      <i class='fa fa-chevron-up'></i>    </div>
+    
+  </div>
+  <div class="moon-menu-button">
+    <svg class="moon-menu-bg">
+      <circle class="moon-menu-cricle" cx="50%" cy="50%" r="44%"></circle>
+      <circle class="moon-menu-border" cx="50%" cy="50%" r="48%"></circle>
+    </svg>
+    <div class="moon-menu-content">
+      <div class="moon-menu-icon"><i class='fas fa-ellipsis-v'></i></div>
+      <div class="moon-menu-text"></div>
+    </div>
+  </div>
+</div><script src="/js/injector.js"></script>
+</body>
+</html>

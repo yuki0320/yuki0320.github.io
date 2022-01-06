@@ -1,0 +1,1973 @@
+<?xml version="1.0" encoding="utf-8"?>
+<search>
+  <entry>
+    <title>前端工程化简介</title>
+    <url>/archives/f86000d3.html</url>
+    <content><![CDATA[<h2 id="什么是前端工程化？"><a href="#什么是前端工程化？" class="headerlink" title="什么是前端工程化？"></a>什么是前端工程化？</h2><p>前端工程化是指将前端开发的流程规范化、标准化，包括开发流程、技术选型、代码规范、构建发布等，用于提升前端工程师的开发效率和代码质量。</p>
+<p><strong>开发流程</strong>：需求分析、版本控制、缺陷管理、文档管理、自动化、性能测试、发布部署</p>
+<p><strong>技术选型</strong>：</p>
+<p>​    <strong>UI框架</strong>：iView、Ant、Element、Mint、Cube</p>
+<p>​    <strong>JS框架</strong>：MVVM</p>
+<p><strong>代码规范</strong>：</p>
+<p>​    标准：Standard、airbnb、Prettier</p>
+<p>​    公司：google、百度、腾讯、美团、饿了么</p>
+<p>​    <strong>模块化</strong></p>
+<p><strong>构建发布：</strong></p>
+<p>​    Jenkins、Webpack、Gulp、Yarn、Docker、Rancher、Kubernetes、Harbor、ECS</p>
+<h2 id="为什么需要前端工程化？"><a href="#为什么需要前端工程化？" class="headerlink" title="为什么需要前端工程化？"></a>为什么需要前端工程化？</h2><p><strong>复杂度高</strong>：前端项目的多功能、多页面、多状态、多系统</p>
+<p><strong>规模大</strong>：团队开发、多人协作、代码质量管理</p>
+<p><strong>要求高</strong>：页面性能优化（CDN/异步加载/请求合并），CSS兼容性、单页面应用、服务端渲染…</p>
+<h2 id="怎么做？"><a href="#怎么做？" class="headerlink" title="怎么做？"></a>怎么做？</h2><p><strong>从业务着手</strong></p>
+<p>简单的单页面应用，使用gulp打包+同步工具实现开发全流程</p>
+<p><strong>从复杂度考虑</strong></p>
+<p>jenkins git/gilab webpack React/Vue/Angular</p>
+<p><strong>从已知向未知扩展</strong></p>
+<p>不同的技术有不同的适应点，选择适合的才是最好的</p>
+]]></content>
+      <categories>
+        <category>前端</category>
+      </categories>
+      <tags>
+        <tag>工程化</tag>
+        <tag>前端</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>原型</title>
+    <url>/archives/263f3be4.html</url>
+    <content><![CDATA[<p>原型（prototype）是JavaScript里的一个重要概念。它本来是极简单的。但因为一些原因，原型时常让试图了解它的人感到复杂。</p>
+<p><strong>原型是对象的属性，它可以让一个对象从其他对象处获得额外的数据和方法</strong>。对象的原型一般也是对象，它也可以有原型，这便形成了<strong>原型链</strong>。</p>
+<p><img src="https://robberfree.github.io/fe/2021-01-03/image/prototype.png" alt="img"></p>
+<h2 id="1-设置对象的原型"><a href="#1-设置对象的原型" class="headerlink" title="1.设置对象的原型"></a>1.设置对象的原型</h2><p>可以通过如下几种方式设置对象的原型。</p>
+<ul>
+<li><p>.<strong>proto</strong><br>因为原型就是对象的属性，直接设置对象的__proto__属性是最<strong>符合直觉</strong>的。但这反而是ES标准不推荐的用法。部分原因是并不是所有的浏览器都暴露了__proto__属性。</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> fish=&#123;&#125;;</span><br><span class="line">fish.__proto__=&#123;</span><br><span class="line">    age:<span class="number">16</span></span><br><span class="line">&#125;</span><br><span class="line">fish.age;<span class="comment">//16</span></span><br></pre></td></tr></table></figure>
+
+
+
+</li>
+</ul>
+<ul>
+<li><p>Object.setPrototypeOf(object,prototype)<br>推荐的设置对象原型的方式。</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> fish = &#123;&#125;;</span><br><span class="line"><span class="built_in">Object</span>.setPrototypeOf(fish, &#123; <span class="attr">age</span>: <span class="number">16</span> &#125;);</span><br><span class="line">fish.age; <span class="comment">//16</span></span><br></pre></td></tr></table></figure>
+
+
+
+</li>
+</ul>
+<ul>
+<li><p>Constructor.prototype<br>设置构造器函数的prototype属性，那么通过new Constructor()生成的对象的原型就是Constructor.prototype本身。不要和对象的__proto__属性混淆了，只有函数（构造器函数）有prototype属性。这两个属性是两种设置对象原型的方式，殊途同归。</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Fish</span>(<span class="params">age</span>) </span>&#123;</span><br><span class="line">  <span class="built_in">this</span>.age = age;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">Fish.prototype.sayHello = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">&#x27;我是一条鱼，今年&#x27;</span> + <span class="built_in">this</span>.age + <span class="string">&#x27;岁&#x27;</span>);</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> fish = <span class="keyword">new</span> Fish(<span class="number">16</span>);</span><br><span class="line">fish.sayHello(); <span class="comment">//我是一条鱼，今年16岁</span></span><br><span class="line">fish.__proto__ === Fish.prototype; <span class="comment">// true</span></span><br></pre></td></tr></table></figure>
+
+
+
+</li>
+</ul>
+<ul>
+<li><p>Object.create(prototype)<br>创建对象时，指定它的原型。</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> fish = <span class="built_in">Object</span>.create(&#123; <span class="attr">age</span>: <span class="number">16</span> &#125;);</span><br><span class="line">fish.age; <span class="comment">//16</span></span><br></pre></td></tr></table></figure>
+
+
+
+</li>
+</ul>
+<h2 id="2-读取对象的原型"><a href="#2-读取对象的原型" class="headerlink" title="2.读取对象的原型"></a>2.读取对象的原型</h2><p>与设置对象的原型相对应，读取对象的原型有以下几种方式</p>
+<ul>
+<li>  .<strong>proto</strong></li>
+<li>  Object.getPrototypeOf(object)</li>
+<li>  Constructor.prototype</li>
+</ul>
+<h2 id="3-原型有什么用？"><a href="#3-原型有什么用？" class="headerlink" title="3.原型有什么用？"></a>3.原型有什么用？</h2><p>无论通过哪种方式设置对象的原型，目的都是<strong>让对象获得额外的数据和方法</strong>。</p>
+<p>有点像是A对象在“借”B对象的属性，海棠花“借得梅花一缕魂”的那个借。比如内置的数组对象，它的原型是Array.prototype，每个数组自然就“有”了Array.prototype里的方法。</p>
+<p>另外原型链的存在，可以让一个对象“借”得更远。比如A的原型是B，B的原型是C，那么A也可以访问C的属性。</p>
+]]></content>
+      <categories>
+        <category>前端</category>
+      </categories>
+      <tags>
+        <tag>前端</tag>
+        <tag>原型</tag>
+        <tag>JavaScript</tag>
+        <tag>语言基础</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>定型数组</title>
+    <url>/archives/9b1b0f9c.html</url>
+    <content><![CDATA[<h2 id="1-ArrayBuffer和TypedArray、DataView的关系"><a href="#1-ArrayBuffer和TypedArray、DataView的关系" class="headerlink" title="1. ArrayBuffer和TypedArray、DataView的关系"></a>1. ArrayBuffer和TypedArray、DataView的关系</h2><p>ArrayBuffer存储了固定byte(字节)的raw binary data(原始二进制数据)。不能直接通过ArrayBuffer读取和修改数据。只能通过view(<strong>视图</strong>)来操作。其他编程语言里有相似的概念，一般叫做byte array(字节数组)，可以直接操作，元素值的范围在[0,255]之间，类似于Uint8Array。个人觉得ByteArray比ArrayBuffer这个命名要好。同一ArrayBuffer可以用不同的视图，以不同的<strong>“视角”</strong>去读写。</p>
+<p><img src="/images/relationship.png" alt="img"></p>
+<h3 id="1-1-TypedArray是ArrayBuffer的视图"><a href="#1-1-TypedArray是ArrayBuffer的视图" class="headerlink" title="1.1 TypedArray是ArrayBuffer的视图"></a>1.1 TypedArray是ArrayBuffer的视图</h3><p>TypedArray是类数组对象，TypedArray里元素值的类型都相同(Array元素值的类型可以不相同)。共有10种具体的TypedArray:</p>
+<ul>
+<li>  Int8Array</li>
+<li>  Uint8Array</li>
+<li>  Uint8ClampedArray</li>
+<li>  Uint16Array</li>
+<li>  Int32Array</li>
+<li>  Uint32Array</li>
+<li>  Float32Array</li>
+<li>  Float64Array</li>
+<li>  BigInt64Array</li>
+<li>  BigUint64Array</li>
+</ul>
+<p>Uint8Array的常见使用场景:</p>
+<ul>
+<li>  16进制是二进制数据的标准数字格式，8位无符号(+-)二进制的范围是[0,255]，表示成16进制是[00,ff]，在需要处理二进制数据时，多使用Uint8Array。</li>
+<li>  Uint8Array还可以用来存储<strong>ASCII</strong>字符码，ASCII也使用无符号的8位来存储字符码，共编码了128个字符。</li>
+</ul>
+<p>Uint8ClampedArray的元素值被“裁切”限制在[0,255]之间。用它来存储颜色值是个不错的选择。</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> u8a = <span class="keyword">new</span> <span class="built_in">Uint8Array</span>(<span class="number">3</span>); </span><br><span class="line">u8a.fill(<span class="number">256</span>);<span class="comment">//[0,0,0]</span></span><br><span class="line"><span class="keyword">const</span> u8ca=<span class="keyword">new</span> <span class="built_in">Uint8ClampedArray</span>(<span class="number">3</span>); </span><br><span class="line">u8ca.fill(<span class="number">256</span>); <span class="comment">//[255,255,255]</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="1-2-DataView是ArrayBuffer的另一种视图"><a href="#1-2-DataView是ArrayBuffer的另一种视图" class="headerlink" title="1.2 DataView是ArrayBuffer的另一种视图"></a>1.2 DataView是ArrayBuffer的另一种视图</h3><ol start="2">
+<li>如何创建ArrayBuffer</li>
+</ol>
+<hr>
+<p>创建ArrayBuffer主要有两种方式:</p>
+<h3 id="2-1-通过构造器函数创建"><a href="#2-1-通过构造器函数创建" class="headerlink" title="2.1 通过构造器函数创建"></a>2.1 通过构造器函数创建</h3><figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="comment">//创建了8个字节长度的ArrayBuffer </span></span><br><span class="line"><span class="keyword">var</span> buffer=<span class="keyword">new</span> <span class="built_in">ArrayBuffer</span>(<span class="number">8</span>);<span class="string">`</span></span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="2-2-通过既有数据转化"><a href="#2-2-通过既有数据转化" class="headerlink" title="2.2 通过既有数据转化"></a>2.2 通过既有数据转化</h3><p>比如读取本地文件再转换成ArrayBuffer。</p>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> fileReader = <span class="keyword">new</span> FileReader(); fileReader.readAsArrayBuffer(file);</span><br></pre></td></tr></table></figure>
+
+
+
+<ol start="3">
+<li>举例</li>
+</ol>
+<hr>
+<p>MDN上有个稍微复杂的例子—— <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Typed_arrays#Working_with_complex_data_structures">Working with complex data structures</a>。但这个例子太理论化了。我想做一个更实际的例子——<a href="https://robberfree.github.io/free-front-end/02_arraybuffer/demo/index.html">通过ArrayBuffer检测文件的类型</a>(示例只检测了图片类型，可以根据具体情况予以完善，<a href="https://github.com/sindresorhus/file-type">file-type</a>这个js库检测的类型很全面)。算法的核心流程大致如下: <img src="/images/flow.png" alt="img"></p>
+<ul>
+<li>  文件里的<strong>magic number</strong>简单理解就是文件数据里的常量，用来标识这个文件的数据，检测这些magic number可以简单有效地区分文件的格式。详情参考<a href="https://en.wikipedia.org/wiki/Magic_number_(programming)#Magic_numbers_in_files">wiki</a>。如果无法访问，可以浏览<a href="https://enacademic.com/dic.nsf/enwiki/206430/Magic_number_(programming)#Magic_numbers_in_files">enacademic</a>。</li>
+<li>  16进制中A-F是<strong>大小写无关</strong>的。js里toString(16)返回的a-f是小写的。</li>
+<li>  Char Array和<del>Hex Array</del>并不同时需要。因为magic number这个常量一定可以用16进制数值表示，有些也可以用ASCII字符表示。ASCII字符可能直观一点，16进制数值更直接。</li>
+<li>  并不需要提前把Uint8Array转成Char Array或<del>Hex Array</del>。可以在与magic number比较时，再转换。这样延迟操作既可以节约空间、又可以避免过早地浪费计算能力。(十进制数和16进制数可以直接比较，所以<del>Hex Array</del>多余了。)</li>
+</ul>
+<ol start="4">
+<li>思考题</li>
+</ol>
+<hr>
+<p>使用ArrayBuffer做一个简易版的hex editor。可以参考<a href="https://github.com/ridiculousfish/HexFiend">Hex Fiend</a>。</p>
+<ol start="5">
+<li>参考</li>
+</ol>
+<hr>
+<ul>
+<li>  <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/ArrayBuffer">https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/ArrayBuffer</a></li>
+<li>  [<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/TypedArray]">https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/TypedArray]</a>(</li>
+</ul>
+]]></content>
+      <categories>
+        <category>前端</category>
+      </categories>
+      <tags>
+        <tag>前端</tag>
+        <tag>JavaScript</tag>
+        <tag>语言基础</tag>
+        <tag>定型数组</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>思维概述</title>
+    <url>/archives/e9df773b.html</url>
+    <content><![CDATA[<h2 id="科学思维"><a href="#科学思维" class="headerlink" title="科学思维"></a>科学思维</h2><h3 id="什么是思维？"><a href="#什么是思维？" class="headerlink" title="什么是思维？"></a>什么是思维？</h3><p>“思维”是人接收信息、存储信息、加工信息以及输出信息的活动过程，而且是概括地反应客观现实的过程。从思维的本质来说，思维是具有意识的人脑对客观现实的本质属性、内部规律的自觉的间接的和概括的反映。</p>
+<p>科学思维是指人类从事科学活动的思维形式。因此科学思维通常是指理性认知及其过程，是在科学研究中通过对各种经验材料的比较与分析，去其次要本质因素，形成科学抽象的成果–概念、符号和思想模型所进行的揭示研究对象的普遍规律和因果关系的思维方法，是主体对客体本质理性的、逻辑的、系统的认识过程，是人脑对客观事物能动的和科学的反映。</p>
+<p>在科学思维的谱系中，具备了系统和完善的表达体系的思维模式只有三个：逻辑思维、实证思维、计算思维。</p>
+<h3 id="什么是逻辑思维（数学代表）？"><a href="#什么是逻辑思维（数学代表）？" class="headerlink" title="什么是逻辑思维（数学代表）？"></a>什么是逻辑思维（数学代表）？</h3><p>逻辑思维又称理论思维，其推理来源于数学，是通过定义、定理、证明和公理化方法，以推理和演绎为特征，利用抽象概括建立描述事物本质的概念，并应用科学的方法探寻概念之间的一种思维方法。逻辑思维以数学学科为代表，支撑着所有的学科领域。</p>
+<h3 id="什么是实证思维（物理代表）？"><a href="#什么是实证思维（物理代表）？" class="headerlink" title="什么是实证思维（物理代表）？"></a>什么是实证思维（物理代表）？</h3><p>通过观察和实验获得自然规律法则的一种思维方法。实证思维以观察和归纳自然规律为特征，往往需要借助特定设备来获取数据并进行分析，以物理学科为代表。</p>
+<h3 id="什么是计算思维？"><a href="#什么是计算思维？" class="headerlink" title="什么是计算思维？"></a>什么是计算思维？</h3><p>计算思维是通过简约、抽象、转化和仿真等方法，利用计算机学科的基本概念把困难的问题重新阐述，或利用一个何时的方式去陈述问题，或对问题相关方面进行建模使其变得易于处理的思维方法。它以设计和构造为特征，以计算机学科为代表，其本质为抽象和自动化。</p>
+]]></content>
+      <categories>
+        <category>思维</category>
+      </categories>
+      <tags>
+        <tag>逻辑思维</tag>
+        <tag>计算思维</tag>
+        <tag>实证思维</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>数据驱动的思考方式</title>
+    <url>/archives/c3d6d626.html</url>
+    <content><![CDATA[<h3 id="数据驱动的思考方式"><a href="#数据驱动的思考方式" class="headerlink" title="数据驱动的思考方式"></a>数据驱动的思考方式</h3><p><img src="/images/image-20211006142903090.png" alt="image-20211006142903090"></p>
+<h3 id="前端技能模型"><a href="#前端技能模型" class="headerlink" title="前端技能模型"></a>前端技能模型</h3><p><img src="/images/image-20211006144752628.png" alt="image-20211006144752628"></p>
+<h3 id="工具链"><a href="#工具链" class="headerlink" title="工具链"></a>工具链</h3><p><img src="/images/image-20211006145025735.png" alt="image-20211006145025735"></p>
+<h3 id="持续集成"><a href="#持续集成" class="headerlink" title="持续集成"></a>持续集成</h3><p><strong>客户端软件持续集成</strong>：Daily build，BVT</p>
+<p><strong>前端持续集成</strong>：Check-in build，Lint + Rule Check</p>
+<p><img src="/images/image-20211006150858373.png" alt="image-20211006150858373"></p>
+<h3 id="技术架构"><a href="#技术架构" class="headerlink" title="技术架构"></a>技术架构</h3><p><strong>客户端架构</strong>：解决软件需求规模带来的复杂性</p>
+<p><strong>服务端架构</strong>：解决大量用户访问带来的复杂性</p>
+<p><strong>前端架构</strong>：解决大量页面需求带来的重复劳动问题</p>
+<p><strong>库</strong>：有复用价值的代码</p>
+<ul>
+<li>URL</li>
+<li>AJAX</li>
+<li>ENV</li>
+</ul>
+<p><strong>组件</strong>：UI上多次出现的元素</p>
+<ul>
+<li>轮播</li>
+<li>Tab</li>
+</ul>
+<p><strong>模块</strong>：经常被使用的业务区块</p>
+<ul>
+<li>登录</li>
+</ul>
+]]></content>
+      <categories>
+        <category>前端</category>
+      </categories>
+      <tags>
+        <tag>工程化</tag>
+        <tag>前端</tag>
+        <tag>数据驱动</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>CSS实现气球泡泡对话框</title>
+    <url>/archives/8135dd95.html</url>
+    <content><![CDATA[<h3 id="一、关于纯-CSS-实现气泡对话框"><a href="#一、关于纯-CSS-实现气泡对话框" class="headerlink" title="一、关于纯 CSS 实现气泡对话框"></a>一、关于纯 CSS 实现气泡对话框</h3><p>首先，来张大图：<br><a href="http://image.zhangxinxu.com/image/blog/201003/2010-03-12_222928.png"><img src="http://image.zhangxinxu.com/image/blog/201003/2010-03-12_222928.png"></a></p>
+<p>上边这张黄黄的，大大的，圆圆的，有个小尾巴，文字内容有些 YY 的图片，就是使用纯 CSS 实现的气泡对话框效果，一点图片都没有哦。看到这里，你是不是跟我一样，有些惊叹 CSS 的潜力呢。关于这张图片，暂时先放到一边，下面我要讲一些与主旨相关的比较重要的，同时又很实用的一些技术。</p>
+<p>我们首先看下面这一张图片（截自人人网）：<br><a href="http://image.zhangxinxu.com/image/blog/201003/2010-03-12_224559.png"><img src="http://image.zhangxinxu.com/image/blog/201003/2010-03-12_224559.png"></a></p>
+<p>可能颜色有点淡，在左上角有个 90 度的尖角，于是整个形成了一个气泡对话框。现在考考你，如果你来实现这个效果，你会怎么做？//zxx: 假设你已经思考了一会儿｡◕‿◕｡ 我想，如果您没有看本文标题，可能就想到的是做个 90 度等腰三角形小图片；就算您知道可以用 CSS 实现上面的效果，但是您知道是什么方法吗？当然，是绝对兼容的方法（从已经在美国办了隆重葬礼的 IE6 到很多人喜欢的 Firefox 和 Safari）。您有主意吗？</p>
+<p>好，我们先来看看人人网是怎么实现的，我们用小 bug（//zxx: 指 firebug，我喜欢亲切的称之为 “小 bug”）看一看，原来也是使用的图片，600*6 像素的图片，见下图：<br><a href="http://image.zhangxinxu.com/image/blog/201003/2010-03-12_230212.png"><img src="http://image.zhangxinxu.com/image/blog/201003/2010-03-12_230212.png"></a></p>
+<p>查看此图片点此链接：<a href="http://xnimg.cn/imgpro/box/box_arrow.png" title="点击查看原图">http://xnimg.cn/imgpro/box/box_arrow.png</a></p>
+<p>这可是活生生的多了一次图片请求啊，而且是个独立的小图片，关键是在访问量惊人的首页上。优秀与平庸的差异在哪里呢？前者追求极致，后者追随大流。</p>
+<p>这里的图片完全没有必要，使用 CSS 可以实现近乎一样的效果，并且方法不止一种，我目前知道的有两种方法可以实现上面人人网的气泡对话框效果。我将这两个方法自己定义为 “边框法” 与“字符法”。</p>
+<p>本文地址： <a href="http://www.zhangxinxu.com/wordpress/?p=651">http://www.zhangxinxu.com/wordpress/?p=651</a></p>
+<h3 id="二、“字符法”-与-“边框法”"><a href="#二、“字符法”-与-“边框法”" class="headerlink" title="二、“字符法” 与 “边框法”"></a>二、“字符法” 与 “边框法”</h3><p><strong>1. 字符法</strong><br>关于 “字符法”，其实在我的 “<a href="http://www.zhangxinxu.com/wordpress/?p=332" title="打开告别图片—使用字符实现兼容性的圆角尖角效果beta版一文 张鑫旭-鑫空间-鑫生活">告别图片—使用字符实现兼容性的圆角尖角效果 beta 版</a>” 一文中已经比较详尽的提及过。</p>
+<p>这里再简单讲述下，世界上的语言多种多样，字符的种类也是千差万别，形状也是千奇百怪，所以，有些字符就可以当作图形来使用，以模拟一些 web 表现效果。例如，上面的人人网对话框尖角就可以使用棱形字符 (◆) 来实现，看到这个形状上面的 90 度的尖角了吗，我们可以让其溢出 div 显示，不就有了尖角效果了吗！定位可以使用 margin 负值或是 absolute 绝对定位。</p>
+<p>在我的网站上就应用了这个方法，您可以在网站的 “<a href="http://www.zhangxinxu.com/php/question.php">提问与交流</a>” 页面看到类似下图所示的内容：<br><a href="http://image.zhangxinxu.com/image/blog/201003/2010-03-13_000543.png"><img src="http://image.zhangxinxu.com/image/blog/201003/2010-03-13_000543.png"></a></p>
+<p>具体使用，您可以狠狠地点击这里：<a href="http://www.zhangxinxu.com/study/201003/pure-css-speech-bubbles.html">“字符法” 实现气泡对话框 demo</a><br>里面显示了 CSS 与 HTML 代码。</p>
+<p><strong>2. 边框法</strong><br>关于 “边框法”，这说起来话就长了。不急，慢慢来。<br>我们首先来看下面一段样式代码：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">.test&#123;width:10px; height:10px; border:10px solid; border-color:#ff3300 #0000ff #339966 #00ff00;&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>当某个 div 应用了上面这个样式后，结果会如何？见下图（截自 Firefox3.5，IE 浏览器有细节上的差异）：<br><a href="http://image.zhangxinxu.com/image/blog/201003/2010-03-13_001825.png"><img src="http://image.zhangxinxu.com/image/blog/201003/2010-03-13_001825.png"></a></p>
+<p>仔细观察边框色的交界处，四个角落有 4 个 45° 的斜边，将整个边框分成了四个等腰梯形。</p>
+<p>现在，设想一下，如果我们现在只保留一个一个上边框，其余边框均 transparent 透明（或与背景色同色），那么是不是就只显示一个上面红色的边框了，我们测试下，与上面类似的代码，只是修改下其余三个边框的颜色。</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">.test&#123;width:10px; height:10px; border:10px solid; border-color:#ff3300 #ffffff #ffffff #ffffff;&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>结果如下图（截自 Firefox3.5）：<br><a href="http://image.zhangxinxu.com/image/blog/201003/2010-03-13_002528.png"><img src="http://image.zhangxinxu.com/image/blog/201003/2010-03-13_002528.png"></a></p>
+<p>可见显示结果正如我们预想的。现在，再次开动脑筋，试想下，如果上面样式中的宽度和高度都是 0，也就是<code>width:10px; height:10px;</code>变成了<code>width:0; height:0;</code>。对了，那么显示的将不会是个等腰梯形了，而是个等腰直角三角形。做个简单测试就知道答案了，如下的代码：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">.test&#123;width:0; height:0; border:10px solid; border-color:#ff3300 #ffffff #ffffff #ffffff;&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>结果如下（依旧截图自 Firefox3.5）：<br><a href="http://image.zhangxinxu.com/image/blog/201003/2010-03-13_003545.png"><img src="http://image.zhangxinxu.com/image/blog/201003/2010-03-13_003545.png"></a></p>
+<p>此时，我们惊奇的发现，使用 border 属性居然产生了一个等腰直角三角形，而这个等腰直角三角形用做气泡对话框的尖角再合适不过了。所以，上面的人人网对话框的尖角就可以用 border 实现了，只要让下边框有颜色，其他透明（或与外背景同色）就好了。</p>
+<p>关于 “边框法” 实现的效果，您可以狠狠地点击这里：<a href="http://www.zhangxinxu.com/study/201003/pure-css-speech-bubbles.html">“边框法” 实现气泡对话框 demo</a>，或参见下图。<br><a href="http://image.zhangxinxu.com/image/blog/201003/2010-03-13_004216.png"><img src="http://image.zhangxinxu.com/image/blog/201003/2010-03-13_004216.png"></a></p>
+<p>还没完，我们现在再开动我们智慧的大脑，设想下，如果各个边框的宽度不一致，又会产生怎样的结果呢？我们把测试代码再修改一下，让其边框宽度不一致，如下：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">.test&#123;width:0; height:0; border-width:20px 10px; border-style:solid; border-color:#ff3300 #ffffff #ffffff #ffffff;&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>得到的结果如下图：<br><a href="http://image.zhangxinxu.com/image/blog/201003/2010-03-13_005156.png"><img src="http://image.zhangxinxu.com/image/blog/201003/2010-03-13_005156.png"></a></p>
+<p>可以发现，尖角被拉高了，也就是相邻边框宽度的比例会影响单个边框形状的高与低的比例，这不难理解。</p>
+<p>现在，我们再开动一下我们的脑筋，如果我们让相邻两个边框显示颜色会怎么样呢？测试一下吧，如下代码：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">.test&#123;width:0; height:0; border-width:20px 10px; border-style:solid; border-color:#ff3300 #ff3300 #ffffff #ffffff;&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>结果如下图：<br><a href="http://image.zhangxinxu.com/image/blog/201003/2010-03-13_005753.png"><img src="http://image.zhangxinxu.com/image/blog/201003/2010-03-13_005753.png"></a></p>
+<p>这不就不多说什么了，大伙儿都看到，上个相邻边框尖角实现的气泡对话框效果吧。<br><a href="http://image.zhangxinxu.com/image/blog/201003/2010-03-13_010328.png"><img src="http://image.zhangxinxu.com/image/blog/201003/2010-03-13_010328.png"></a></p>
+<p>本文地址： <a href="http://www.zhangxinxu.com/wordpress/?p=651">http://www.zhangxinxu.com/wordpress/?p=651</a></p>
+<h3 id="三、“边框法”-的高级应用"><a href="#三、“边框法”-的高级应用" class="headerlink" title="三、“边框法” 的高级应用"></a>三、“边框法” 的高级应用</h3><p>说是高级应用，准确讲应该是 “复杂应用”。就是说用两个标签（或无标签 – 使用: before 与: after 伪类）形成的两个不同的边框进行组合显示实现的一些效果。</p>
+<p>看下面两个图，本单元就是要实现下面两种效果：<br><a href="http://image.zhangxinxu.com/image/blog/201003/2010-03-13_014809.png"><img src="http://image.zhangxinxu.com/image/blog/201003/2010-03-13_014809.png"></a><br><a href="http://image.zhangxinxu.com/image/blog/201003/2010-03-13_020758.png"><img src="http://image.zhangxinxu.com/image/blog/201003/2010-03-13_020758.png"></a></p>
+<p><strong>1、效果 (1)</strong><br>CSS 代码如下：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">.test&#123;width:300px; padding:30px 20px; margin-left:60px; background:#beceeb; position:relative;&#125;</span><br><span class="line">.test span&#123;width:0; height:0; font-size:0; overflow:hidden; position:absolute;&#125;</span><br><span class="line">.test span.bot&#123;</span><br><span class="line">    border-width:20px; </span><br><span class="line">    border-style:solid; </span><br><span class="line">    border-color:#ffffff #beceeb #beceeb #ffffff; </span><br><span class="line">    left:-40px; </span><br><span class="line">    top:40px;</span><br><span class="line">&#125;</span><br><span class="line">.test span.top&#123;</span><br><span class="line">    border-width:10px 20px; </span><br><span class="line">    border-style:dashed solid solid dashed; </span><br><span class="line">    border-color:transparent #ffffff #ffffff transparent; </span><br><span class="line">    left:-40px; </span><br><span class="line">    top:60px;</span><br><span class="line">&#125;</span><br><span class="line">                </span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>HTML 代码如下：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&lt;div&gt;</span><br><span class="line">    &lt;span&gt;&lt;&#x2F;span&gt;</span><br><span class="line">    &lt;span&gt;&lt;&#x2F;span&gt;</span><br><span class="line">    CSS “边框法”实现气泡对话框效果一</span><br><span class="line">&lt;&#x2F;div&gt;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>您可以狠狠地点击这里：<a href="http://www.zhangxinxu.com/study/201003/css-border-popup-effect-demo1.html">效果 (1)demo</a></p>
+<p><strong>2、效果 (2)</strong><br>CSS 代码如下：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">.test&#123;width:300px; padding:30px 20px; border:5px solid #beceeb; position:relative;&#125;</span><br><span class="line">.test span&#123;width:0; height:0; font-size:0; overflow:hidden; position:absolute;&#125;</span><br><span class="line">.test span.bot&#123;</span><br><span class="line">    border-width:20px; </span><br><span class="line">    border-style:solid dashed dashed; </span><br><span class="line">    border-color:#beceeb transparent transparent; </span><br><span class="line">    left:80px; </span><br><span class="line">    bottom:-40px;</span><br><span class="line">&#125;</span><br><span class="line">.test span.top&#123;</span><br><span class="line">    border-width:20px; </span><br><span class="line">    border-style:solid dashed dashed; </span><br><span class="line">    border-color:#ffffff transparent transparent; </span><br><span class="line">    left:80px; </span><br><span class="line">    bottom:-33px;</span><br><span class="line">&#125;                </span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>HTML 代码如下：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&lt;div&gt;</span><br><span class="line">    &lt;span&gt;&lt;&#x2F;span&gt;</span><br><span class="line">    &lt;span&gt;&lt;&#x2F;span&gt;</span><br><span class="line">    CSS “边框法”实现气泡对话框效果二</span><br><span class="line">&lt;&#x2F;div&gt;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>您可以狠狠地点击这里：<a href="http://www.zhangxinxu.com/study/201003/css-border-popup-effect-demo2.html">效果 (2)demo</a></p>
+<p><strong>3、效果原理简述</strong><br>原理的关键字就是 “覆盖”，另外一个边框形成的尖角覆盖之前的一个，只要控制好覆盖的位置，然后就形成了实际上的不规则尖角或是尖角边框。您还可以发挥您的创造力，实现更多其它的效果。</p>
+<p>本文地址： <a href="http://www.zhangxinxu.com/wordpress/?p=651">http://www.zhangxinxu.com/wordpress/?p=651</a></p>
+<h3 id="四、关于-“边框法”-的一些说明"><a href="#四、关于-“边框法”-的一些说明" class="headerlink" title="四、关于 “边框法” 的一些说明"></a>四、关于 “边框法” 的一些说明</h3><p>关于 “边框法”，有一些知识必须要提一下。</p>
+<p><strong>1. IE6 的奇偶 bug</strong><br>如果定位外框高度或是宽度为奇数，则 IE6 下，绝对定位元素的低定位和右定位会有 1 像素的误差。所以，尽量保证外框的高度或宽度为偶数值。</p>
+<p><strong>2. IE6 的空 div 莫名高度 bug</strong><br>IE6 下，空 div 会有莫名的高度，也就是说 height:0; 不顶用，此时形成的尖角的实际占高于其他浏览器是有差异的。可使用 font-size:0; + overflow:hidden; 修复此问题。</p>
+<p><strong>3. IE6 不支持实线边框透明 transparent 属性</strong><br>IE6 不支持实线边框透明 transparent 属性，当某边框设置为 transparent 属性，且有宽度的话，那么透明会以默认的黑色显示的。解决方法有两个，一是将需要隐藏的颜色设置为背景色，这样与透明效果一样，此法有局限性，在复杂 “边框法” 应用下是行不通的；二是可以使用 dashed 代替 solid，可以实现 IE6 下边框 transparent 透明。为什么能够实现透明？您可以参考默尘的这篇文章 <a href="http://blog.silentash.com/2009/12/ie6-border-transparent/" title="Permanent Link to Dotted&amp;Dashed终极分析及IE6透明边框">Dotted&amp;Dashed 终极分析及 IE6 透明边框</a>，我说点题外话，其对原因的解释似乎说的通，但是，是不是如此，我是相当怀疑的，我尚未有时间验证，这个可以标记一下。</p>
+<p>本文地址： <a href="http://www.zhangxinxu.com/wordpress/?p=651">http://www.zhangxinxu.com/wordpress/?p=651</a></p>
+<h3 id="五、利用-CSS3-实现气泡样式的对话框"><a href="#五、利用-CSS3-实现气泡样式的对话框" class="headerlink" title="五、利用 CSS3 实现气泡样式的对话框"></a>五、利用 CSS3 实现气泡样式的对话框</h3><p>之前我们所说的一切，是全兼容现在所有主流浏览器的。而这里的方法，只支持对 CSS3 支持良好的浏览器，例如 Firefox3.5+，chrome 以及 Safari。本文一开头的那张黄黄的大图就是使用的 CSS3 实现的圆形以及圆弧状的拐角尾巴。</p>
+<p>效果的核心就是 CSS3 的圆角属性：<a href="http://www.zhangxinxu.com/css3/css3-border-radius.php">border-radius</a>，例如开始的大尾巴图片，就是使用 border-radius 实现的三个圆组成的，大圆形成主体内容，两个小一点的圆相互遮盖，形成圆弧小尾巴，但这个不具体讲，现在，以一个相对简单点的例子做示例。</p>
+<p>CSS 代码如下：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">.test&#123;</span><br><span class="line">    width:300px;</span><br><span class="line">    padding:80px 20px;</span><br><span class="line">    margin-left:100px;</span><br><span class="line">    background:#beceeb;</span><br><span class="line">    -webkit-border-top-left-radius:220px 120px;</span><br><span class="line">    -webkit-border-top-right-radius:220px 120px;</span><br><span class="line">    -webkit-border-bottom-right-radius:220px 120px;</span><br><span class="line">    -webkit-border-bottom-left-radius:220px 120px;</span><br><span class="line">    -moz-border-radius:220px &#x2F; 120px;</span><br><span class="line">    border-radius:220px &#x2F; 120px;</span><br><span class="line">    position:relative;</span><br><span class="line">&#125;</span><br><span class="line">.test span&#123;width:0; height:0; font-size:0; background:#beceeb; overflow:hidden; position:absolute;&#125;</span><br><span class="line">.test span.bot&#123;</span><br><span class="line">    width:30px;</span><br><span class="line">    height:30px;</span><br><span class="line">    -moz-border-radius:30px;</span><br><span class="line">    -webkit-border-radius:30px;</span><br><span class="line">    border-radius:30px;</span><br><span class="line">    left:10px;</span><br><span class="line">    bottom:-20px;</span><br><span class="line">&#125;</span><br><span class="line">.test span.top&#123;</span><br><span class="line">    width:15px;</span><br><span class="line">    height:15px;</span><br><span class="line">    -moz-border-radius:15px;</span><br><span class="line">    -webkit-border-radius:15px;</span><br><span class="line">    border-radius:15px;</span><br><span class="line">    left:0px;</span><br><span class="line">    bottom:-40px;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>HTML 代码如下：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&lt;div&gt;</span><br><span class="line">    &lt;span&gt;&lt;&#x2F;span&gt;</span><br><span class="line">    &lt;span&gt;&lt;&#x2F;span&gt;</span><br><span class="line">    CSS3 border-radius实现气泡对话框效果 </span><br><span class="line">&lt;&#x2F;div&gt;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>最后的效果如下图：<br><a href="http://image.zhangxinxu.com/image/blog/201003/2010-03-13_030217.png"><img src="http://image.zhangxinxu.com/image/blog/201003/2010-03-13_030217.png"></a></p>
+<p>您可以狠狠地点击这里：<a href="http://www.zhangxinxu.com/study/201003/css-border-popup-effect-demo3.html">效果 (3)demo</a></p>
+<h3 id="六、结语"><a href="#六、结语" class="headerlink" title="六、结语"></a>六、结语</h3><p>还是那句话，资历有限，错误难免，欢迎大力指正。</p>
+<p>（本篇完）<img src="https://image.zhangxinxu.com/image/emtion/emoji/1f44d.svg"> 是不是学到了很多？可以分享到微信！<br><img src="https://image.zhangxinxu.com/image/emtion/emoji/1f44a.svg"> 有话要说？点击<a href="#comment" title="点击定位到评论">这里</a>。</p>
+]]></content>
+      <categories>
+        <category>前端</category>
+      </categories>
+      <tags>
+        <tag>前端</tag>
+        <tag>css模块</tag>
+        <tag>样式</tag>
+        <tag>CSS</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>编程语言通识与JavaScript语言设计</title>
+    <url>/archives/8868e6e9.html</url>
+    <content><![CDATA[<h1 id="编程语言通识与JavaScript语言设计"><a href="#编程语言通识与JavaScript语言设计" class="headerlink" title="编程语言通识与JavaScript语言设计"></a>编程语言通识与JavaScript语言设计</h1><h2 id="语言按语法分类"><a href="#语言按语法分类" class="headerlink" title="语言按语法分类"></a>语言按语法分类</h2><h3 id="非形式语言"><a href="#非形式语言" class="headerlink" title="非形式语言"></a>非形式语言</h3><ul>
+<li>中文，英文…</li>
+</ul>
+<h3 id="形式语言（乔姆斯基谱系）"><a href="#形式语言（乔姆斯基谱系）" class="headerlink" title="形式语言（乔姆斯基谱系）"></a>形式语言（乔姆斯基谱系）</h3><ul>
+<li><p>0型 无限制文法</p>
+<p>?::=?</p>
+</li>
+<li><p>1型 上下文相关文法</p>
+<p>?<A>?::=?<B>?</p>
+</li>
+<li><p>2型 上下文无关文法</p>
+<p><A>::=?</p>
+</li>
+<li><p>3型 正则文法</p>
+<p><A>::=<A>?</p>
+</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th align="center">文法</th>
+<th align="center">语言</th>
+<th align="center">自动机</th>
+<th align="center">产生式规则</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">0-型</td>
+<td align="center">递归可枚举语言</td>
+<td align="center">图灵机</td>
+<td align="center">α -&gt; β（无限制）</td>
+</tr>
+<tr>
+<td align="center">1-型</td>
+<td align="center">上下文相关语言</td>
+<td align="center">线性有界非确定图灵机</td>
+<td align="center">α<em>A</em>β -&gt; αγβ</td>
+</tr>
+<tr>
+<td align="center">2-型</td>
+<td align="center">上下文无关语言</td>
+<td align="center">非确定下推自动机</td>
+<td align="center"><em>A</em> -&gt; γ</td>
+</tr>
+<tr>
+<td align="center">3-型</td>
+<td align="center">正则语言</td>
+<td align="center">有限状态自动机</td>
+<td align="center"><em>A</em> -&gt; <em>aB</em> <em>A</em> -&gt; <em>a</em></td>
+</tr>
+</tbody></table>
+<h2 id="文法"><a href="#文法" class="headerlink" title="文法"></a>文法</h2><h3 id="文法的概念"><a href="#文法的概念" class="headerlink" title="文法的概念"></a>文法的概念</h3><p>在形式语言理论中，<strong>文法</strong>（为了避免歧义，常称作“形式文法”）是形式语言中字符串的一套产生式规则。这些规则描述了如何用语言的字母表生成符合语法的有效的字符串。文法不描述字符串的含义，也不描述在任何上下文中可以用它们做什么——只描述它们的形式。</p>
+<h3 id="BNF范式"><a href="#BNF范式" class="headerlink" title="BNF范式"></a>BNF范式</h3><p>BNF(Backus-Naur Form)是描述<strong>编程语言的文法</strong>。巴科斯范式是一种用于表示上下文无关文法的语言，上下文无关文法描述了一类形式语言。</p>
+<p>BNF规定是推导规则(产生式)的集合，写为：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">符号 ::&#x3D; &lt;使用符号的表达式&gt;</span><br></pre></td></tr></table></figure>
+
+<p>这里的 <code>&lt;符号&gt;</code> 是非终结符，而表达式由一个符号序列，或用指示选择的竖杠 <code>&#39;|&#39;</code> 分隔的多个符号序列构成，每个符号序列整体都是左端的符号的一种可能的替代。从未在左端出现的符号叫做终结符。</p>
+<h2 id="终结符和非终结符"><a href="#终结符和非终结符" class="headerlink" title="终结符和非终结符"></a>终结符和非终结符</h2><p><strong>终结符</strong>：终结符是一个形式语言的基本符号。就是说，它们能在一个形式语法的推导规则的输入或输出字符串存在，而且他们不能被分解为更小的单位。确切的说，一个语法的规则不能改变终结符。一个形式语法所推导的形式语言必须完全由终结符组成。</p>
+<p><strong>非终结符</strong>：非终结符是可以被取代的符号。一个形式文法中必须有一个起始符号，这个起始符号属于非终结符的集合。在上下文无关文法中，每个推导规则的左边只能有一个非终结符而不能有两个以上的非终结符或终结符。（并非所有的语言都可以被上下文无关文法产生）</p>
+<h2 id="BNF范式的语法"><a href="#BNF范式的语法" class="headerlink" title="BNF范式的语法"></a>BNF范式的语法</h2><p>在BNF中，双引号中的字(“word”)代表着这些字符本身。而double_quote用来代表双引号。</p>
+<p>在双引号外的字（有可能有下划线）代表着语法部分。</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&lt; &gt;     : 内包含的为必选项。</span><br><span class="line">[ ]     : 内包含的为可选项。</span><br><span class="line">&#123; &#125;     : 内包含的为可重复0至无数次的项。</span><br><span class="line">|       : 表示在其左右两边任选一项，相当于&quot;OR&quot;的意思。</span><br><span class="line">::&#x3D;     : 是“被定义为”的意思</span><br><span class="line">&quot;...&quot;   : 术语符号</span><br><span class="line">[...]   : 选项，最多出现一次</span><br><span class="line">&#123;...&#125;   : 重复项，任意次数，包括 0 次</span><br><span class="line">(...)   : 分组</span><br><span class="line">|       : 并列选项，只能选一个</span><br></pre></td></tr></table></figure>
+
+<p>例如，Java语言总的<code>for</code>语句的BNF范式定义如下：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">FOR_STATEMENT ::&#x3D;</span><br><span class="line">    &quot;for&quot; &quot;(&quot; ( variable_declaration |</span><br><span class="line">    ( expression &quot;;&quot; ) | &quot;;&quot; )</span><br><span class="line">    [ expression ] &quot;;&quot;</span><br><span class="line">    [ expression ]</span><br><span class="line">    &quot;)&quot; statement</span><br></pre></td></tr></table></figure>
+
+<h2 id="ABBF"><a href="#ABBF" class="headerlink" title="ABBF"></a>ABBF</h2><p>RFC2234 定义了扩展的巴科斯范式(ABNF)。近年来在Internet的定义中 ABNF 被广泛使用。扩充巴科斯-诺尔范式(ABNF)基于了巴科斯-诺尔范式(BNF)，但由它自己的语法和推导规则构成。这种元语言的发起原则是描述作为通信协议(双向规范)的语言的形式系统。</p>
+<p>ABNF 规定是一组推导规则，写为：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">规则 &#x3D; 定义 ; 注释 CR LF</span><br></pre></td></tr></table></figure>
+
+<p>这里的规则是大小写敏感的非终止符，定义由定义这个规则的符号序列，一个文档注释组成，并结束于回车换行。</p>
+<p>规则名字是大小写不敏感的: <code>&lt;rulename&gt;</code>, <code>&lt;Rulename&gt;</code>, <code>&lt;RULENAME&gt;</code> 和 <code>&lt;rUlENamE&gt;</code> 都提及同一个规则。规则名字由开始于一个字母的字母、数字和连字符组成。不要求用尖括号(“<code>&lt;</code>”, “<code>&gt;</code>”) (如 BNF 那样)包围规则名字。但是它们可以用来界定规则名字，比如在冗文中识别出规则名字的时候。ABNF 使用 7-位 ASCII 编码，在 8-位域中把高位置零。</p>
+<p>终结符由一个或多个数值字符指定。数值字符可以指定为跟随着基数(b = 二进制, d = 十进制, x = 十六进制)的一个百分号“%”，随后是这个数值，或数值的串联(用“.” 来指示)。例如回车可以指定为十进制的 %d13 或十六进制的 %x0D。回车换行可以指定为 %d13.10。</p>
+<p>文字正文通过使用包围在引号(“)中字符串来指定。这些字符串是大小写不敏感的，使用的字符集是 US-ASCII。所以字符串“abc”将匹配“abc”, “Abc”, “aBc”, “abC”, “ABc”, “AbC”, “aBC” 和 “ABC”。对于大小写敏感匹配，必须定义明确的字符: 要匹配 “aBc” 定义将是 %d97 %d66 %d99。</p>
+<h4 id="用括号括起来的名称来表示语法结构名"><a href="#用括号括起来的名称来表示语法结构名" class="headerlink" title="用括号括起来的名称来表示语法结构名"></a>用括号括起来的名称来表示语法结构名</h4><h4 id="语法结构分成基础结构和需要用其他语法结构定义的复合结构"><a href="#语法结构分成基础结构和需要用其他语法结构定义的复合结构" class="headerlink" title="语法结构分成基础结构和需要用其他语法结构定义的复合结构"></a>语法结构分成基础结构和需要用其他语法结构定义的复合结构</h4><ul>
+<li>基础结构称终结符</li>
+<li>复合结构称非终结符</li>
+</ul>
+<h4 id="引号和中间的字符表示终结符"><a href="#引号和中间的字符表示终结符" class="headerlink" title="引号和中间的字符表示终结符"></a>引号和中间的字符表示终结符</h4><h4 id="可以有括号"><a href="#可以有括号" class="headerlink" title="可以有括号"></a>可以有括号</h4><h4 id="表示重复多次"><a href="#表示重复多次" class="headerlink" title="*表示重复多次"></a>*表示重复多次</h4><h4 id="表示或"><a href="#表示或" class="headerlink" title="|表示或"></a>|表示或</h4><h4 id="表示至少一次"><a href="#表示至少一次" class="headerlink" title="+表示至少一次"></a>+表示至少一次</h4><h4 id="四则运算："><a href="#四则运算：" class="headerlink" title="四则运算："></a>四则运算：</h4><ul>
+<li>1+2*3</li>
+</ul>
+<h4 id="终结符"><a href="#终结符" class="headerlink" title="终结符:"></a>终结符:</h4><ul>
+<li>Number</li>
+<li>+-*/</li>
+</ul>
+<h4 id="非终结符："><a href="#非终结符：" class="headerlink" title="非终结符："></a>非终结符：</h4><ul>
+<li>MultiplicativeExpression</li>
+<li>AddtiveExpression</li>
+</ul>
+<h2 id="现代语言的特例"><a href="#现代语言的特例" class="headerlink" title="现代语言的特例"></a>现代语言的特例</h2><ul>
+<li>C++中，*可以表示乘号或者指针，具体是哪个，取决于星号前面 的标识符是否被声明为类型</li>
+<li>VB中，&lt;可能是小于号，也可能是XML直接量的开始，取决于当前位置是否可以接受XML直接量</li>
+<li>Python中，行首的tab和空格会根据上一行的行首空白以一定规则被处理成虚拟终结符indent或者dedent</li>
+<li>Javascript中，/可能是除号，也可能是正则表达式开头，处理方式类似于VB，字符串模板中也需要特殊处理，还有自动插入分号规则</li>
+</ul>
+<h2 id="图灵完备性"><a href="#图灵完备性" class="headerlink" title="图灵完备性"></a>图灵完备性</h2><h3 id="图灵机"><a href="#图灵机" class="headerlink" title="图灵机"></a>图灵机</h3><p>又称确定型图灵机，其更抽象的意义为一种<a href="https://zh.wikipedia.org/wiki/%E8%AE%A1%E7%AE%97%E6%A8%A1%E5%9E%8B">计算模型</a>，可以看作等价于任何有限逻辑数学过程的终极强大逻辑机器。</p>
+<h3 id="图灵完备性-1"><a href="#图灵完备性-1" class="headerlink" title="图灵完备性"></a>图灵完备性</h3><p>在<a href="https://zh.wikipedia.org/wiki/%E5%8F%AF%E8%AE%A1%E7%AE%97%E6%80%A7%E7%90%86%E8%AE%BA">可计算性理论</a>，如果一系列操作数据的规则（如<a href="https://zh.wikipedia.org/wiki/%E6%8C%87%E4%BB%A4%E9%9B%86">指令集</a>、<a href="https://zh.wikipedia.org/wiki/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80">编程语言</a>、<a href="https://zh.wikipedia.org/wiki/%E7%B4%B0%E8%83%9E%E8%87%AA%E5%8B%95%E6%A9%9F">细胞自动机</a>）可以用来模拟任何<a href="https://zh.wikipedia.org/wiki/%E5%9B%BE%E7%81%B5%E6%9C%BA">图灵机</a>，那么它是<strong>图灵完备</strong>的。这意味着这个系统也可以识别其他数据处理规则集，图灵完备性被用作表达这种数据处理规则集的一种属性。</p>
+<p><strong>命令式—图灵机</strong></p>
+<ul>
+<li>goto</li>
+<li>if 和while</li>
+</ul>
+<p><strong>声明式—lambda</strong></p>
+<ul>
+<li>递归</li>
+</ul>
+<h2 id="动态与静态"><a href="#动态与静态" class="headerlink" title="动态与静态"></a>动态与静态</h2><h3 id="动态"><a href="#动态" class="headerlink" title="动态"></a>动态</h3><ul>
+<li>在用户的设备/在线服务器上</li>
+<li>产品实际运行时</li>
+<li>Runtime</li>
+</ul>
+<h3 id="静态"><a href="#静态" class="headerlink" title="静态"></a>静态</h3><ul>
+<li>在程序员的设备上</li>
+<li>产品开始时</li>
+<li>Compiletime</li>
+</ul>
+<h2 id="类型系统"><a href="#类型系统" class="headerlink" title="类型系统"></a>类型系统</h2><h3 id="动态类型系统与静态类型系统"><a href="#动态类型系统与静态类型系统" class="headerlink" title="动态类型系统与静态类型系统"></a>动态类型系统与静态类型系统</h3><h3 id="强类型与弱类型"><a href="#强类型与弱类型" class="headerlink" title="强类型与弱类型"></a>强类型与弱类型</h3><ul>
+<li>String + Number</li>
+<li>String == Boolean</li>
+</ul>
+<h3 id="复合类型"><a href="#复合类型" class="headerlink" title="复合类型"></a>复合类型</h3><ul>
+<li>结构体</li>
+<li>函数签名</li>
+</ul>
+<h3 id="子类型"><a href="#子类型" class="headerlink" title="子类型"></a>子类型</h3><ul>
+<li>逆变/协变</li>
+</ul>
+<h2 id="一般命令式编程语言"><a href="#一般命令式编程语言" class="headerlink" title="一般命令式编程语言"></a>一般命令式编程语言</h2><h3 id="Atom"><a href="#Atom" class="headerlink" title="Atom"></a>Atom</h3><ul>
+<li>Identifier</li>
+<li>Literal</li>
+</ul>
+<h3 id="Expression"><a href="#Expression" class="headerlink" title="Expression"></a>Expression</h3><ul>
+<li>Atom</li>
+<li>Operator</li>
+<li>Punctuator</li>
+</ul>
+<h3 id="Statement"><a href="#Statement" class="headerlink" title="Statement"></a>Statement</h3><ul>
+<li>Expression</li>
+<li>Keyword</li>
+<li>Punctuator</li>
+</ul>
+<h3 id="Structure"><a href="#Structure" class="headerlink" title="Structure"></a>Structure</h3><ul>
+<li>Function</li>
+<li>Class</li>
+<li>Process</li>
+<li>NameSpace</li>
+<li>…</li>
+</ul>
+<h3 id="Program"><a href="#Program" class="headerlink" title="Program"></a>Program</h3><ul>
+<li>Program</li>
+<li>Module</li>
+<li>Package</li>
+<li>Library</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">docker run -p 3306:3306 --name mysql \</span><br><span class="line">-v &#x2F;mydata&#x2F;mysql&#x2F;log:&#x2F;var&#x2F;log&#x2F;mysql \</span><br><span class="line">-v &#x2F;mydata&#x2F;mysql&#x2F;data:&#x2F;var&#x2F;lib&#x2F;mysql \</span><br><span class="line">-v &#x2F;mydata&#x2F;mysql&#x2F;conf:&#x2F;etc&#x2F;mysql \</span><br><span class="line">-e MYSQL_ROOT_PASSWORD&#x3D;root  \</span><br><span class="line">-d mysql:5.7</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+]]></content>
+      <categories>
+        <category>前端</category>
+      </categories>
+      <tags>
+        <tag>工程化</tag>
+        <tag>前端</tag>
+        <tag>JavaScript</tag>
+        <tag>语言设计</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>编译原理概述</title>
+    <url>/archives/a070bf7.html</url>
+    <content><![CDATA[<h2 id="什么是编译程序？"><a href="#什么是编译程序？" class="headerlink" title="什么是编译程序？"></a>什么是编译程序？</h2><p>从功能上看，一个编译程序就是一个语言翻译程序。把一种语言（即源程序）书写的程序翻译成另一种语言（目标程序）的等价程序。</p>
+<p><img src="/images/image-20211007180707329.png" alt="image-20211007180707329"></p>
+<p>但是除了编译程序外，还需要一些其他的程序才能生成可在计算机上执行的目标程序。</p>
+<p><img src="/images/image-20211007180836858.png" alt="image-20211007180836858"></p>
+<h2 id="编译过程和编译程序的结构"><a href="#编译过程和编译程序的结构" class="headerlink" title="编译过程和编译程序的结构"></a>编译过程和编译程序的结构</h2><p>编译程序完成从源程序到目标程序的翻译工作，划分成阶段进行，每个阶段将源程序的一种表示形式转换成另一种表示形式。典型的划分方法是将编译过程划分为词法分析、语法分析、语义分析、中间代码生成、代码优化和目标代码生成6个阶段。</p>
+<p><img src="/images/image-20211007181312682.png"></p>
+<h3 id="编译程序过程概述"><a href="#编译程序过程概述" class="headerlink" title="编译程序过程概述"></a>编译程序过程概述</h3><h4 id="词法分析-lexical-analysis"><a href="#词法分析-lexical-analysis" class="headerlink" title="词法分析(lexical analysis)"></a>词法分析(lexical analysis)</h4><p>词法分析的任务是从左到右一个字符一个字符地读入源程序，对构成源程序的字符流进行扫描和分解，从而识别出一个个单词（有时候也称为单词符号或符号）,确定单词类型，将识别出的单词转换成统一的机内表示—词法单元（token）形式。</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">token: &lt;种别码，属性值&gt;</span><br></pre></td></tr></table></figure>
+
+<table>
+<thead>
+<tr>
+<th>单词类型</th>
+<th>种别</th>
+<th>种别码</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>关键词</td>
+<td>Program、if、else…</td>
+<td>一词一码</td>
+</tr>
+<tr>
+<td>标识符</td>
+<td>变量名、数组名、记录名、过程名…</td>
+<td>多词一码</td>
+</tr>
+<tr>
+<td>常量</td>
+<td>整型、浮点型、字符型、布尔型…</td>
+<td>一型一码</td>
+</tr>
+<tr>
+<td>运算符</td>
+<td>算术（+ - * / ++）、关系（&gt;,&lt;,==,!=,&gt;=,&lt;=）逻辑（&amp;|~）</td>
+<td>一词一码或一型一码</td>
+</tr>
+<tr>
+<td>界限符</td>
+<td>;()={}…</td>
+<td>一词一码</td>
+</tr>
+</tbody></table>
+<p>例如：</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">position = initial + rate * <span class="number">60</span></span><br></pre></td></tr></table></figure>
+
+<p>这个赋值语句中的字符可以组合成如下字素（lexeme），并映射成为如下词法单元。这些词法单元将被传递给语法分析阶段。</p>
+<ol>
+<li>positon是一个词素，被映射成词法单元&lt;id,1&gt;，其中id是表示标识符(identifier)的抽象符号，而1指向符号表中position对应的条目。一个标识符对应的符号表条目存放该标识符有关的信息，比如他的名字和类型。</li>
+<li>赋值符号=是一个词素，被映射成词法单元&lt;=&gt;。因为这个词法单元不需要属性值，所以我们省略第二个分量，也可以使用assign这样的抽象符号作为词法单元的名字。</li>
+<li>initial是一个词素，被映射成&lt;id,2&gt;，其中2指向initial对应的符号表条目。</li>
+<li>+是一个词素，被映射成词法单元&lt;+&gt;。</li>
+<li>rate是一个词素，被映射成词法单元&lt;id,3&gt;，其中3指向rate对应的符号表条目。</li>
+<li>*是一个词素，被映射成词法单元&lt;*&gt;。</li>
+<li>60是一个词素，被映射成词法单元&lt;60&gt;(技术上讲是建立一个&lt;number,4&gt;的词法单元)。</li>
+</ol>
+<p>所以上面的复制语句被表示成如下的词法单元序列：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&lt;id,1&gt; &lt;&#x3D;&gt; &lt;id,2&gt; &lt;+&gt; &lt;id,3&gt; &lt;*&gt; &lt;number,4&gt;</span><br></pre></td></tr></table></figure>
+
+<p>![image-20211009185656328](/Users/yuki/Library/Application Support/typora-user-images/image-20211009185656328.png)</p>
+<h4 id="语法分析"><a href="#语法分析" class="headerlink" title="语法分析"></a>语法分析</h4><p>语法分析的任务是在词法分析的基础上将单词序列分解成各类语法短语（也称为语法单位），可以表示成语法树。</p>
+<p>如单词序列：</p>
+<figure class="highlight pascal"><table><tr><td class="code"><pre><span class="line">id1 := id2 + id3 * <span class="number">10</span></span><br></pre></td></tr></table></figure>
+
+<p><img src="/images/image-20211007182058600.png" alt="image-20211007182058600"></p>
+<p>词法分析所依据的是语言的语法规则，即描述程序结构的规则。程序的结构通常是由递归规则表示的，例如，可以用下面的规则来表示表达式：</p>
+<ol>
+<li>任何标识符是表达式。</li>
+<li>任何常数（整常数、实常数）是表达式。</li>
+<li>若表达式1和2都是表达式，那么：<code>表达式1+表达式2</code> 、<code>表达式1*表达式2</code>都是表达式。</li>
+</ol>
+<h4 id="语义分析"><a href="#语义分析" class="headerlink" title="语义分析"></a>语义分析</h4><p>语义分析是审查源程序有无语义错误，为代码生成阶段收集类型信息。语义分析的一个工作是进行类型审查，审查每个算符是否具有规范允许的运算对象，当不符合语言规范时，编译程序应报告错误。</p>
+<h4 id="中间代码生成"><a href="#中间代码生成" class="headerlink" title="中间代码生成"></a>中间代码生成</h4><p>进行了语法分析和语义分析之后，有的编译程序将源程序变成一种内部表示形式，即中间语言或中间代码。中间代码是一种结构简单、含意明确的记号系统。</p>
+<h4 id="代码优化"><a href="#代码优化" class="headerlink" title="代码优化"></a>代码优化</h4><p>该阶段的任务是将中间代码进行变换或进行改造，目的是使生成的目标代码更为高效，即省时间和省空间。</p>
+<h4 id="目标代码生成"><a href="#目标代码生成" class="headerlink" title="目标代码生成"></a>目标代码生成</h4><p>把中间代码变换成特定机器上的绝对指令代码或可重定位的指令代码或编译指令代码。</p>
+<h3 id="编译程序的结构"><a href="#编译程序的结构" class="headerlink" title="编译程序的结构"></a>编译程序的结构</h3><p>6个阶段的任务对应6个模块完成：词法分析程序、语法分析程序、语义分析程序、中间代码生成程序、代码优化程序和目标代码生成程序。另外完整的编译程序还必需包括表格管理程序和出错处理程序。</p>
+<p><img src="/images/image-20211007212938427.png"></p>
+<h3 id="编译阶段的组合"><a href="#编译阶段的组合" class="headerlink" title="编译阶段的组合"></a>编译阶段的组合</h3><p>编译的过程可分为前端（analysis：分析部分）和后端（synthesis：综合部分），前端的工作主要依赖于源语言而与目标机无关。前端通常包括词法分析、语法分析、语义分析和中间代码生成，某些优化工作也可放在前端做，还包括与前端相关的出错处理工作和符号表管理工作。后端指的是那些依赖于目标机而一般不依赖于源程序，只与中间代码有关的那些阶段工作，即目标代码生成，以及相关出错处理和符号表操作。</p>
+<h2 id="解释程序和一些软件工具"><a href="#解释程序和一些软件工具" class="headerlink" title="解释程序和一些软件工具"></a>解释程序和一些软件工具</h2><h3 id="解释程序"><a href="#解释程序" class="headerlink" title="解释程序"></a>解释程序</h3><p><strong>解释型语言</strong>（英语：Interpreted language）是一种编程语言类型。这种类型的编程语言，会将代码一句一句直接运行，不需要像编译语言（Compiled language）一样，经过编译器]先行编译为机器代码，之后再运行。JavaScript也是解释语言。</p>
+<p><img src="/images/image-20211007223843742.png" alt="image-20211007223843742"></p>
+<p>编译程序与解释程序的不同工作模式：</p>
+<p><img src="/images/image-20211007223929684.png" alt="image-20211007223929684"></p>
+<p>解析程序的输入包括源程序和源程序的初始数据（输入数据），它不生成目标代码，直接输出结果。</p>
+<p>编译程序和解释程序的存储组织也有很大不同。经由编译程序处理时，在源程序被编译的阶段，存储区要为源程序（中间形式）和目标代码开辟空间，要存放编译用的各种表格，如符号表。在目标代码运行阶段，存储区主要是目标代码和数据，编译所用的任何信息都不需要了。</p>
+<p>解释程序一般是把源程序一个语句一个语句地进行语法分析，转换为一种内部表示形式，存放在源程序区。解释程序允许在执行用户程序时修改用户程序，这要求在解释程序工作的整个过程中，源程序、符号表等内容始终存放在存储区中，并且存放格式要设计得易于使用和修改。</p>
+<p><img src="/images/image-20211007224751572.png" alt="image-20211007224751572"></p>
+<p>程序的解释是非常慢的，在有些语言（如Java）的处理环境既有编译程序，也有解释程序。</p>
+<p><img src="/images/image-20211007225544832.png" alt="image-20211007225544832"></p>
+<h3 id="处理源程序的软件工具"><a href="#处理源程序的软件工具" class="headerlink" title="处理源程序的软件工具"></a>处理源程序的软件工具</h3><p>为了提高软件开发的效率和质量，需要有一套软件开发过程所遵循的规范和标准，应使用先进的软件开发方法，并有相迎的软件工具的支持。</p>
+<h4 id="软件的结构化编辑器"><a href="#软件的结构化编辑器" class="headerlink" title="软件的结构化编辑器"></a>软件的结构化编辑器</h4><p>结构化编辑器不仅具有通常的正文编辑器的正文编辑和修改功能，而且还能像编译程序那样对源程序正文进行分析，能够执行一些对正确编制程序有帮助的附加任务。</p>
+<h4 id="语言程序的调试工具"><a href="#语言程序的调试工具" class="headerlink" title="语言程序的调试工具"></a>语言程序的调试工具</h4><p>调试工具的作用是让编程人员了解程序的执行结果和编程人员的意图是否一致，程序的执行石沟实现预期的算法和功能。</p>
+<h4 id="格式化工具"><a href="#格式化工具" class="headerlink" title="格式化工具"></a>格式化工具</h4><p>程序格式化工具分析源程序并以使程序结构变得清晰可读的形式打印出来。</p>
+<h4 id="语言程序测试工具"><a href="#语言程序测试工具" class="headerlink" title="语言程序测试工具"></a>语言程序测试工具</h4><p>语言程序的测试工具有两种：静态分析器和动态测试器。</p>
+<p><strong>静态分析器</strong>：是在不运行程序的情况下对源程序进行静态分析，以发现程序中潜在的错误或异常。它对源程序进行语法分析并制定相应表格，检查变量定值与引用的关系，如某变量未被赋值就被引用，或定值后未被引用，或多余的源代码等一些编译程序的语法分析发现不了的错误。</p>
+<p><strong>动态测试工具</strong>：也是首先对源程序进行分析，在分析基础上将用于记录和显示程序执行轨迹的语句或函数插入到源程序的适当位置，并用测试用例记录和显示程序运行时的实际路径，将运行结果与预期的结果进行比较分析，帮助编程人员查找问题。</p>
+<h4 id="程序理解工具"><a href="#程序理解工具" class="headerlink" title="程序理解工具"></a>程序理解工具</h4><p>程序理解工具对程序进行分析，确定模块间的调用关系，记录程序数据静态属性和结构属性，并画出控制流程图，帮助用户理解程序。</p>
+<h4 id="高级语言之间的转换工具"><a href="#高级语言之间的转换工具" class="headerlink" title="高级语言之间的转换工具"></a>高级语言之间的转换工具</h4><p>转换工具是把一种高级语言转换成另一种高级语言，乃至汇编 语言转换成高级语言的工具。转换工作要对被转换的语言进行词法和语法分析，只不过生成的目标语言是另一种高级语言而已。</p>
+]]></content>
+      <categories>
+        <category>编译原理</category>
+      </categories>
+      <tags>
+        <tag>计算机基础</tag>
+        <tag>编译原理</tag>
+        <tag>编译程序</tag>
+        <tag>解析程序</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>职业发展规划</title>
+    <url>/archives/9906e5a2.html</url>
+    <content><![CDATA[<!-- <img src="/Users/yuki/Documents/Projects/blog/yuki0320.github.io/source/images/image-20211005181421300.png" alt="image-20211005181421300" style="zoom: 25%;" /> -->
+<p><img src="/images/image-20211005181421300.png"></p>
+<h2 id="成就"><a href="#成就" class="headerlink" title="成就"></a>成就</h2><h3 id="业务型成就"><a href="#业务型成就" class="headerlink" title="业务型成就"></a>业务型成就</h3><h4 id="业务目标"><a href="#业务目标" class="headerlink" title="业务目标"></a>业务目标</h4><ul>
+<li>理解公司业务的核心目标</li>
+<li>目标转化成指标</li>
+</ul>
+<h4 id="技术方案"><a href="#技术方案" class="headerlink" title="技术方案"></a>技术方案</h4><ul>
+<li>业务指标到技术指标的转化</li>
+<li>形成纸面方案、完成小规模试验</li>
+</ul>
+<h4 id="实施方案"><a href="#实施方案" class="headerlink" title="实施方案"></a>实施方案</h4><ul>
+<li>确定实施目标、参与人</li>
+<li>管理实施进度</li>
+</ul>
+<h4 id="结果评估"><a href="#结果评估" class="headerlink" title="结果评估"></a>结果评估</h4><ul>
+<li>数据采集、数据报表</li>
+<li>向上级汇报</li>
+</ul>
+<h3 id="技术难题"><a href="#技术难题" class="headerlink" title="技术难题"></a>技术难题</h3><p><strong>目标</strong>：公认的技术难点</p>
+<p><strong>方案与实施</strong>：依靠扎实的编程能力、架构能力形成解决方案</p>
+<p><strong>结果</strong>：问题解决</p>
+<h3 id="工程型成就"><a href="#工程型成就" class="headerlink" title="工程型成就"></a>工程型成就</h3><p><strong>目标</strong>：质量、效率</p>
+<p><strong>方案与实施</strong>：1.规章制度，2.库，3.工具，4.系统</p>
+<p><strong>结果</strong>：线上监控</p>
+]]></content>
+      <categories>
+        <category>职业</category>
+      </categories>
+      <tags>
+        <tag>职业规划</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>前端面试考点</title>
+    <url>/archives/9f7c9eb7.html</url>
+    <content><![CDATA[<p>转载于: <a href="https://github.com/qiu-deqing/FE-interview">https://github.com/qiu-deqing/FE-interview</a></p>
+<span id="more"></span>
+<!-- START doctoc generated TOC please keep comment here to allow auto update -->
+<!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
+
+<ul>
+<li><a href="#fe-interview">FE-interview</a><ul>
+<li><a href="#$html%EF%BC%8C-http%EF%BC%8Cweb%E7%BB%BC%E5%90%88%E9%97%AE%E9%A2%98">$HTML， HTTP，web 综合问题</a><ul>
+<li><a href="#%E5%B8%B8%E8%A7%81%E6%8E%92%E5%BA%8F%E7%AE%97%E6%B3%95%E7%9A%84%E6%97%B6%E9%97%B4%E5%A4%8D%E6%9D%82%E5%BA%A6%E7%A9%BA%E9%97%B4%E5%A4%8D%E6%9D%82%E5%BA%A6">常见排序算法的时间复杂度,空间复杂度</a></li>
+<li><a href="#%E5%89%8D%E7%AB%AF%E9%9C%80%E8%A6%81%E6%B3%A8%E6%84%8F%E5%93%AA%E4%BA%9Bseo">前端需要注意哪些 SEO</a></li>
+<li><a href="#web%E5%BC%80%E5%8F%91%E4%B8%AD%E4%BC%9A%E8%AF%9D%E8%B7%9F%E8%B8%AA%E7%9A%84%E6%96%B9%E6%B3%95%E6%9C%89%E5%93%AA%E4%BA%9B">web 开发中会话跟踪的方法有哪些</a></li>
+<li><a href="#img%E7%9A%84title%E5%92%8Calt%E6%9C%89%E4%BB%80%E4%B9%88%E5%8C%BA%E5%88%AB"><code>&lt;img&gt;</code>的<code>title</code>和<code>alt</code>有什么区别</a></li>
+<li><a href="#doctype%E6%98%AF%E4%BB%80%E4%B9%88%E4%B8%BE%E4%BE%8B%E5%B8%B8%E8%A7%81doctype%E5%8F%8A%E7%89%B9%E7%82%B9">doctype 是什么,举例常见 doctype 及特点</a></li>
+<li><a href="#html%E5%85%A8%E5%B1%80%E5%B1%9E%E6%80%A7global-attribute%E6%9C%89%E5%93%AA%E4%BA%9B">HTML 全局属性(global attribute)有哪些</a></li>
+<li><a href="#%E4%BB%80%E4%B9%88%E6%98%AFweb%E8%AF%AD%E4%B9%89%E5%8C%96%E6%9C%89%E4%BB%80%E4%B9%88%E5%A5%BD%E5%A4%84">什么是 web 语义化,有什么好处</a></li>
+<li><a href="#http-method">HTTP method</a></li>
+<li><a href="#%E4%BB%8E%E6%B5%8F%E8%A7%88%E5%99%A8%E5%9C%B0%E5%9D%80%E6%A0%8F%E8%BE%93%E5%85%A5url%E5%88%B0%E6%98%BE%E7%A4%BA%E9%A1%B5%E9%9D%A2%E7%9A%84%E6%AD%A5%E9%AA%A4%E4%BB%A5http%E4%B8%BA%E4%BE%8B">从浏览器地址栏输入 url 到显示页面的步骤(以 HTTP 为例)</a></li>
+<li><a href="#http-request%E6%8A%A5%E6%96%87%E7%BB%93%E6%9E%84%E6%98%AF%E6%80%8E%E6%A0%B7%E7%9A%84">HTTP request 报文结构是怎样的</a></li>
+<li><a href="#http-response%E6%8A%A5%E6%96%87%E7%BB%93%E6%9E%84%E6%98%AF%E6%80%8E%E6%A0%B7%E7%9A%84">HTTP response 报文结构是怎样的</a></li>
+<li><a href="#%E5%A6%82%E4%BD%95%E8%BF%9B%E8%A1%8C%E7%BD%91%E7%AB%99%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96">如何进行网站性能优化</a></li>
+<li><a href="#%E4%BB%80%E4%B9%88%E6%98%AF%E6%B8%90%E8%BF%9B%E5%A2%9E%E5%BC%BA">什么是渐进增强</a></li>
+<li><a href="#http%E7%8A%B6%E6%80%81%E7%A0%81%E5%8F%8A%E5%85%B6%E5%90%AB%E4%B9%89">HTTP 状态码及其含义</a></li>
+</ul>
+</li>
+<li><a href="#$css%E9%83%A8%E5%88%86">$CSS 部分</a><ul>
+<li><a href="#css%E9%80%89%E6%8B%A9%E5%99%A8%E6%9C%89%E5%93%AA%E4%BA%9B">CSS 选择器有哪些</a></li>
+<li><a href="#css-sprite%E6%98%AF%E4%BB%80%E4%B9%88%E6%9C%89%E4%BB%80%E4%B9%88%E4%BC%98%E7%BC%BA%E7%82%B9">css sprite 是什么,有什么优缺点</a></li>
+<li><a href="#display-none%E4%B8%8Evisibility-hidden%E7%9A%84%E5%8C%BA%E5%88%AB"><code>display: none;</code>与<code>visibility: hidden;</code>的区别</a></li>
+<li><a href="#css-hack%E5%8E%9F%E7%90%86%E5%8F%8A%E5%B8%B8%E7%94%A8hack">css hack 原理及常用 hack</a></li>
+<li><a href="#specified-valuecomputed-valueused-value%E8%AE%A1%E7%AE%97%E6%96%B9%E6%B3%95">specified value,computed value,used value 计算方法</a></li>
+<li><a href="#link%E4%B8%8E@import%E7%9A%84%E5%8C%BA%E5%88%AB"><code>link</code>与<code>@import</code>的区别</a></li>
+<li><a href="#display-block%E5%92%8Cdisplay-inline%E7%9A%84%E5%8C%BA%E5%88%AB"><code>display: block;</code>和<code>display: inline;</code>的区别</a></li>
+<li><a href="#pnggifjpg%E7%9A%84%E5%8C%BA%E5%88%AB%E5%8F%8A%E5%A6%82%E4%BD%95%E9%80%89">PNG,GIF,JPG 的区别及如何选</a></li>
+<li><a href="#css%E6%9C%89%E5%93%AA%E4%BA%9B%E7%BB%A7%E6%89%BF%E5%B1%9E%E6%80%A7">CSS 有哪些继承属性</a></li>
+<li><a href="#ie6%E6%B5%8F%E8%A7%88%E5%99%A8%E6%9C%89%E5%93%AA%E4%BA%9B%E5%B8%B8%E8%A7%81%E7%9A%84bug%E7%BC%BA%E9%99%B7%E6%88%96%E8%80%85%E4%B8%8E%E6%A0%87%E5%87%86%E4%B8%8D%E4%B8%80%E8%87%B4%E7%9A%84%E5%9C%B0%E6%96%B9%E5%A6%82%E4%BD%95%E8%A7%A3%E5%86%B3">IE6 浏览器有哪些常见的 bug,缺陷或者与标准不一致的地方,如何解决</a></li>
+<li><a href="#%E5%AE%B9%E5%99%A8%E5%8C%85%E5%90%AB%E8%8B%A5%E5%B9%B2%E6%B5%AE%E5%8A%A8%E5%85%83%E7%B4%A0%E6%97%B6%E5%A6%82%E4%BD%95%E6%B8%85%E7%90%86%E5%8C%85%E5%90%AB%E6%B5%AE%E5%8A%A8">容器包含若干浮动元素时如何清理(包含)浮动</a></li>
+<li><a href="#%E4%BB%80%E4%B9%88%E6%98%AFfouc%E5%A6%82%E4%BD%95%E9%81%BF%E5%85%8D">什么是 FOUC?如何避免</a></li>
+<li><a href="#%E5%A6%82%E4%BD%95%E5%88%9B%E5%BB%BA%E5%9D%97%E7%BA%A7%E6%A0%BC%E5%BC%8F%E5%8C%96%E4%B8%8A%E4%B8%8B%E6%96%87block-formatting-contextbfc%E6%9C%89%E4%BB%80%E4%B9%88%E7%94%A8">如何创建块级格式化上下文(block formatting context),BFC 有什么用</a></li>
+<li><a href="#displayfloatposition%E7%9A%84%E5%85%B3%E7%B3%BB">display,float,position 的关系</a></li>
+<li><a href="#%E5%A4%96%E8%BE%B9%E8%B7%9D%E6%8A%98%E5%8F%A0collapsing-margins">外边距折叠(collapsing margins)</a></li>
+<li><a href="#%E5%A6%82%E4%BD%95%E7%A1%AE%E5%AE%9A%E4%B8%80%E4%B8%AA%E5%85%83%E7%B4%A0%E7%9A%84%E5%8C%85%E5%90%AB%E5%9D%97containing-block">如何确定一个元素的包含块(containing block)</a></li>
+<li><a href="#stacking-context%E5%B8%83%E5%B1%80%E8%A7%84%E5%88%99">stacking context,布局规则</a></li>
+<li><a href="#%E5%A6%82%E4%BD%95%E6%B0%B4%E5%B9%B3%E5%B1%85%E4%B8%AD%E4%B8%80%E4%B8%AA%E5%85%83%E7%B4%A0">如何水平居中一个元素</a></li>
+<li><a href="#%E5%A6%82%E4%BD%95%E7%AB%96%E7%9B%B4%E5%B1%85%E4%B8%AD%E4%B8%80%E4%B8%AA%E5%85%83%E7%B4%A0">如何竖直居中一个元素</a></li>
+</ul>
+</li>
+<li><a href="#$javascript%E6%A6%82%E5%BF%B5%E9%83%A8%E5%88%86">$javascript 概念部分</a><ul>
+<li><a href="#dom%E5%85%83%E7%B4%A0e%E7%9A%84egetattributepropname%E5%92%8Cepropname%E6%9C%89%E4%BB%80%E4%B9%88%E5%8C%BA%E5%88%AB%E5%92%8C%E8%81%94%E7%B3%BB">DOM 元素 e 的 e.getAttribute(propName)和 e.propName 有什么区别和联系</a></li>
+<li><a href="#offsetwidthoffsetheightclientwidthclientheight%E4%B8%8Escrollwidthscrollheight%E7%9A%84%E5%8C%BA%E5%88%AB">offsetWidth/offsetHeight,clientWidth/clientHeight 与 scrollWidth/scrollHeight 的区别</a></li>
+<li><a href="#xmlhttprequest%E9%80%9A%E7%94%A8%E5%B1%9E%E6%80%A7%E5%92%8C%E6%96%B9%E6%B3%95">XMLHttpRequest 通用属性和方法</a></li>
+<li><a href="#focusblur%E4%B8%8Efocusinfocusout%E7%9A%84%E5%8C%BA%E5%88%AB%E4%B8%8E%E8%81%94%E7%B3%BB">focus/blur 与 focusin/focusout 的区别与联系</a></li>
+<li><a href="#mouseovermouseout%E4%B8%8Emouseentermouseleave%E7%9A%84%E5%8C%BA%E5%88%AB%E4%B8%8E%E8%81%94%E7%B3%BB">mouseover/mouseout 与 mouseenter/mouseleave 的区别与联系</a></li>
+<li><a href="#sessionstoragelocalstoragecookie%E5%8C%BA%E5%88%AB">sessionStorage,localStorage,cookie 区别</a></li>
+<li><a href="#javascript%E8%B7%A8%E5%9F%9F%E9%80%9A%E4%BF%A1">javascript 跨域通信</a></li>
+<li><a href="#javascript%E6%9C%89%E5%93%AA%E5%87%A0%E7%A7%8D%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B">javascript 有哪几种数据类型</a></li>
+<li><a href="#%E4%BB%80%E4%B9%88%E9%97%AD%E5%8C%85%E9%97%AD%E5%8C%85%E6%9C%89%E4%BB%80%E4%B9%88%E7%94%A8">什么闭包,闭包有什么用</a></li>
+<li><a href="#javascript%E6%9C%89%E5%93%AA%E5%87%A0%E7%A7%8D%E6%96%B9%E6%B3%95%E5%AE%9A%E4%B9%89%E5%87%BD%E6%95%B0">javascript 有哪几种方法定义函数</a></li>
+<li><a href="#%E5%BA%94%E7%94%A8%E7%A8%8B%E5%BA%8F%E5%AD%98%E5%82%A8%E5%92%8C%E7%A6%BB%E7%BA%BFweb%E5%BA%94%E7%94%A8">应用程序存储和离线 web 应用</a></li>
+<li><a href="#%E5%AE%A2%E6%88%B7%E7%AB%AF%E5%AD%98%E5%82%A8localstorage%E5%92%8Csessionstorage">客户端存储 localStorage 和 sessionStorage</a></li>
+<li><a href="#cookie%E5%8F%8A%E5%85%B6%E6%93%8D%E4%BD%9C">cookie 及其操作</a></li>
+<li><a href="#javascript%E6%9C%89%E5%93%AA%E4%BA%9B%E6%96%B9%E6%B3%95%E5%AE%9A%E4%B9%89%E5%AF%B9%E8%B1%A1">javascript 有哪些方法定义对象</a></li>
+<li><a href="#===%E8%BF%90%E7%AE%97%E7%AC%A6%E5%88%A4%E6%96%AD%E7%9B%B8%E7%AD%89%E7%9A%84%E6%B5%81%E7%A8%8B%E6%98%AF%E6%80%8E%E6%A0%B7%E7%9A%84">===运算符判断相等的流程是怎样的</a></li>
+<li><a href="#==%E8%BF%90%E7%AE%97%E7%AC%A6%E5%88%A4%E6%96%AD%E7%9B%B8%E7%AD%89%E7%9A%84%E6%B5%81%E7%A8%8B%E6%98%AF%E6%80%8E%E6%A0%B7%E7%9A%84">==运算符判断相等的流程是怎样的</a></li>
+<li><a href="#%E5%AF%B9%E8%B1%A1%E5%88%B0%E5%AD%97%E7%AC%A6%E4%B8%B2%E7%9A%84%E8%BD%AC%E6%8D%A2%E6%AD%A5%E9%AA%A4">对象到字符串的转换步骤</a></li>
+<li><a href="#%E5%AF%B9%E8%B1%A1%E5%88%B0%E6%95%B0%E5%AD%97%E7%9A%84%E8%BD%AC%E6%8D%A2%E6%AD%A5%E9%AA%A4">对象到数字的转换步骤</a></li>
+<li><a href="#==%E7%9A%84%E6%AF%94%E8%BE%83%E8%A7%84%E5%88%99">&lt;,&gt;,&lt;=,&gt;=的比较规则</a></li>
+<li><a href="#%E8%BF%90%E7%AE%97%E7%AC%A6%E5%B7%A5%E4%BD%9C%E6%B5%81%E7%A8%8B">+运算符工作流程</a></li>
+<li><a href="#%E5%87%BD%E6%95%B0%E5%86%85%E9%83%A8arguments%E5%8F%98%E9%87%8F%E6%9C%89%E5%93%AA%E4%BA%9B%E7%89%B9%E6%80%A7%E6%9C%89%E5%93%AA%E4%BA%9B%E5%B1%9E%E6%80%A7%E5%A6%82%E4%BD%95%E5%B0%86%E5%AE%83%E8%BD%AC%E6%8D%A2%E4%B8%BA%E6%95%B0%E7%BB%84">函数内部 arguments 变量有哪些特性,有哪些属性,如何将它转换为数组</a></li>
+<li><a href="#dom%E4%BA%8B%E4%BB%B6%E6%A8%A1%E5%9E%8B%E6%98%AF%E5%A6%82%E4%BD%95%E7%9A%84%E7%BC%96%E5%86%99%E4%B8%80%E4%B8%AAeventutil%E5%B7%A5%E5%85%B7%E7%B1%BB%E5%AE%9E%E7%8E%B0%E4%BA%8B%E4%BB%B6%E7%AE%A1%E7%90%86%E5%85%BC%E5%AE%B9">DOM 事件模型是如何的,编写一个 EventUtil 工具类实现事件管理兼容</a></li>
+<li><a href="#%E8%AF%84%E4%BB%B7%E4%B8%80%E4%B8%8B%E4%B8%89%E7%A7%8D%E6%96%B9%E6%B3%95%E5%AE%9E%E7%8E%B0%E7%BB%A7%E6%89%BF%E7%9A%84%E4%BC%98%E7%BC%BA%E7%82%B9%E5%B9%B6%E6%94%B9%E8%BF%9B">评价一下三种方法实现继承的优缺点,并改进</a></li>
+</ul>
+</li>
+<li><a href="#$javascript%E7%BC%96%E7%A8%8B%E9%83%A8%E5%88%86">$javascript 编程部分</a><ul>
+<li><a href="#%E8%AF%B7%E7%94%A8%E5%8E%9F%E7%94%9Fjs%E5%AE%9E%E7%8E%B0%E4%B8%80%E4%B8%AA%E5%87%BD%E6%95%B0%E7%BB%99%E9%A1%B5%E9%9D%A2%E5%88%B6%E5%AE%9A%E7%9A%84%E4%BB%BB%E6%84%8F%E4%B8%80%E4%B8%AA%E5%85%83%E7%B4%A0%E6%B7%BB%E5%8A%A0%E4%B8%80%E4%B8%AA%E9%80%8F%E6%98%8E%E9%81%AE%E7%BD%A9%E9%80%8F%E6%98%8E%E5%BA%A6%E5%8F%AF%E5%8F%98%E9%BB%98%E8%AE%A402%E4%BD%BF%E8%BF%99%E4%B8%AA%E5%8C%BA%E5%9F%9F%E7%82%B9%E5%87%BB%E6%97%A0%E6%95%88%E8%A6%81%E6%B1%82%E5%85%BC%E5%AE%B9ie8%E5%8F%8A%E5%90%84%E4%B8%BB%E6%B5%81%E6%B5%8F%E8%A7%88%E5%99%A8%E9%81%AE%E7%BD%A9%E5%B1%82%E6%95%88%E6%9E%9C%E5%A6%82%E4%B8%8B%E5%9B%BE%E6%89%80%E7%A4%BA">请用原生 js 实现一个函数,给页面制定的任意一个元素添加一个透明遮罩(透明度可变,默认 0.2),使这个区域点击无效,要求兼容 IE8+及各主流浏览器,遮罩层效果如下图所示:</a></li>
+<li><a href="#%E8%AF%B7%E7%94%A8%E4%BB%A3%E7%A0%81%E5%86%99%E5%87%BA%E4%BB%8A%E5%A4%A9%E6%98%AF%E6%98%9F%E6%9C%9Fx%E5%85%B6%E4%B8%ADx%E8%A1%A8%E7%A4%BA%E5%BD%93%E5%A4%A9%E6%98%AF%E6%98%9F%E6%9C%9F%E5%87%A0%E5%A6%82%E6%9E%9C%E5%BD%93%E5%A4%A9%E6%98%AF%E6%98%9F%E6%9C%9F%E4%B8%80%E8%BE%93%E5%87%BA%E5%BA%94%E8%AF%A5%E6%98%AF%E4%BB%8A%E5%A4%A9%E6%98%AF%E6%98%9F%E6%9C%9F%E4%B8%80">请用代码写出(今天是星期 x)其中 x 表示当天是星期几,如果当天是星期一,输出应该是”今天是星期一”</a></li>
+<li><a href="#%E4%B8%8B%E9%9D%A2%E8%BF%99%E6%AE%B5%E4%BB%A3%E7%A0%81%E6%83%B3%E8%A6%81%E5%BE%AA%E7%8E%AF%E5%BB%B6%E6%97%B6%E8%BE%93%E5%87%BA%E7%BB%93%E6%9E%9C0-1-2-3-4%E8%AF%B7%E9%97%AE%E8%BE%93%E5%87%BA%E7%BB%93%E6%9E%9C%E6%98%AF%E5%90%A6%E6%AD%A3%E7%A1%AE%E5%A6%82%E6%9E%9C%E4%B8%8D%E6%AD%A3%E7%A1%AE%E8%AF%B7%E8%AF%B4%E6%98%8E%E4%B8%BA%E4%BB%80%E4%B9%88%E5%B9%B6%E4%BF%AE%E6%94%B9%E5%BE%AA%E7%8E%AF%E5%86%85%E7%9A%84%E4%BB%A3%E7%A0%81%E4%BD%BF%E5%85%B6%E8%BE%93%E5%87%BA%E6%AD%A3%E7%A1%AE%E7%BB%93%E6%9E%9C">下面这段代码想要循环延时输出结果 0 1 2 3 4,请问输出结果是否正确,如果不正确,请说明为什么,并修改循环内的代码使其输出正确结果</a></li>
+<li><a href="#%E7%8E%B0%E6%9C%89%E4%B8%80%E4%B8%AApage%E7%B1%BB%E5%85%B6%E5%8E%9F%E5%9E%8B%E5%AF%B9%E8%B1%A1%E4%B8%8A%E6%9C%89%E8%AE%B8%E5%A4%9A%E4%BB%A5post%E5%BC%80%E5%A4%B4%E7%9A%84%E6%96%B9%E6%B3%95%E5%A6%82postmsg%E5%8F%A6%E6%9C%89%E4%B8%80%E6%8B%A6%E6%88%AA%E5%87%BD%E6%95%B0chekc%E5%8F%AA%E8%BF%94%E5%9B%9Eture%E6%88%96false%E8%AF%B7%E8%AE%BE%E8%AE%A1%E4%B8%80%E4%B8%AA%E5%87%BD%E6%95%B0%E8%AF%A5%E5%87%BD%E6%95%B0%E5%BA%94%E6%89%B9%E9%87%8F%E6%94%B9%E9%80%A0%E5%8E%9Fpage%E7%9A%84postxxx%E6%96%B9%E6%B3%95%E5%9C%A8%E4%BF%9D%E7%95%99%E5%85%B6%E5%8E%9F%E6%9C%89%E5%8A%9F%E8%83%BD%E7%9A%84%E5%90%8C%E6%97%B6%E4%B8%BA%E6%AF%8F%E4%B8%AApostxxx%E6%96%B9%E6%B3%95%E5%A2%9E%E5%8A%A0%E6%8B%A6%E6%88%AA%E9%AA%8C%E8%AF%81%E5%8A%9F%E8%83%BD%E5%BD%93chekc%E8%BF%94%E5%9B%9Etrue%E6%97%B6%E7%BB%A7%E7%BB%AD%E6%89%A7%E8%A1%8C%E5%8E%9Fpostxxx%E6%96%B9%E6%B3%95%E8%BF%94%E5%9B%9Efalse%E6%97%B6%E4%B8%8D%E5%86%8D%E6%89%A7%E8%A1%8C%E5%8E%9Fpostxxx%E6%96%B9%E6%B3%95">现有一个 Page 类,其原型对象上有许多以 post 开头的方法(如 postMsg);另有一拦截函数 chekc,只返回 ture 或 false.请设计一个函数,该函数应批量改造原 Page 的 postXXX 方法,在保留其原有功能的同时,为每个 postXXX 方法增加拦截验证功能,当 chekc 返回 true 时继续执行原 postXXX 方法,返回 false 时不再执行原 postXXX 方法</a></li>
+<li><a href="#%E5%AE%8C%E6%88%90%E4%B8%8B%E9%9D%A2%E7%9A%84tool-tip">完成下面的 tool-tip</a></li>
+<li><a href="#%E7%BC%96%E5%86%99javascript%E6%B7%B1%E5%BA%A6%E5%85%8B%E9%9A%86%E5%87%BD%E6%95%B0deepclone">编写 javascript 深度克隆函数 deepClone</a></li>
+<li><a href="#%E8%A1%A5%E5%85%85%E4%BB%A3%E7%A0%81%E9%BC%A0%E6%A0%87%E5%8D%95%E5%87%BBbutton1%E5%90%8E%E5%B0%86button1%E7%A7%BB%E5%8A%A8%E5%88%B0button2%E7%9A%84%E5%90%8E%E9%9D%A2">补充代码,鼠标单击 Button1 后将 Button1 移动到 Button2 的后面</a></li>
+<li><a href="#%E7%BD%91%E9%A1%B5%E4%B8%AD%E5%AE%9E%E7%8E%B0%E4%B8%80%E4%B8%AA%E8%AE%A1%E7%AE%97%E5%BD%93%E5%B9%B4%E8%BF%98%E5%89%A9%E5%A4%9A%E5%B0%91%E6%97%B6%E9%97%B4%E7%9A%84%E5%80%92%E6%95%B0%E8%AE%A1%E6%97%B6%E7%A8%8B%E5%BA%8F%E8%A6%81%E6%B1%82%E7%BD%91%E9%A1%B5%E4%B8%8A%E5%AE%9E%E6%97%B6%E5%8A%A8%E6%80%81%E6%98%BE%E7%A4%BA%C3%97%C3%97%E5%B9%B4%E8%BF%98%E5%89%A9%C3%97%C3%97%E5%A4%A9%C3%97%C3%97%E6%97%B6%C3%97%C3%97%E5%88%86%C3%97%C3%97%E7%A7%92">网页中实现一个计算当年还剩多少时间的倒数计时程序,要求网页上实时动态显示”×× 年还剩 ×× 天 ×× 时 ×× 分 ×× 秒”</a></li>
+<li><a href="#%E5%AE%8C%E6%88%90%E4%B8%80%E4%B8%AA%E5%87%BD%E6%95%B0%E6%8E%A5%E5%8F%97%E6%95%B0%E7%BB%84%E4%BD%9C%E4%B8%BA%E5%8F%82%E6%95%B0%E6%95%B0%E7%BB%84%E5%85%83%E7%B4%A0%E4%B8%BA%E6%95%B4%E6%95%B0%E6%88%96%E8%80%85%E6%95%B0%E7%BB%84%E6%95%B0%E7%BB%84%E5%85%83%E7%B4%A0%E5%8C%85%E5%90%AB%E6%95%B4%E6%95%B0%E6%88%96%E6%95%B0%E7%BB%84%E5%87%BD%E6%95%B0%E8%BF%94%E5%9B%9E%E6%89%81%E5%B9%B3%E5%8C%96%E5%90%8E%E7%9A%84%E6%95%B0%E7%BB%84">完成一个函数,接受数组作为参数,数组元素为整数或者数组,数组元素包含整数或数组,函数返回扁平化后的数组</a></li>
+<li><a href="#%E5%A6%82%E4%BD%95%E5%88%A4%E6%96%AD%E4%B8%80%E4%B8%AA%E5%AF%B9%E8%B1%A1%E6%98%AF%E5%90%A6%E4%B8%BA%E6%95%B0%E7%BB%84">如何判断一个对象是否为数组</a></li>
+<li><a href="#%E8%AF%B7%E8%AF%84%E4%BB%B7%E4%BB%A5%E4%B8%8B%E4%BA%8B%E4%BB%B6%E7%9B%91%E5%90%AC%E5%99%A8%E4%BB%A3%E7%A0%81%E5%B9%B6%E7%BB%99%E5%87%BA%E6%94%B9%E8%BF%9B%E6%84%8F%E8%A7%81">请评价以下事件监听器代码并给出改进意见</a></li>
+<li><a href="#%E5%A6%82%E4%BD%95%E5%88%A4%E6%96%AD%E4%B8%80%E4%B8%AA%E5%AF%B9%E8%B1%A1%E6%98%AF%E5%90%A6%E4%B8%BA%E5%87%BD%E6%95%B0">如何判断一个对象是否为函数</a></li>
+<li><a href="#%E7%BC%96%E5%86%99%E4%B8%80%E4%B8%AA%E5%87%BD%E6%95%B0%E6%8E%A5%E5%8F%97url%E4%B8%ADquery-string%E4%B8%BA%E5%8F%82%E6%95%B0%E8%BF%94%E5%9B%9E%E8%A7%A3%E6%9E%90%E5%90%8E%E7%9A%84objectquery-string%E4%BD%BF%E7%94%A8applicationx-www-form-urlencoded%E7%BC%96%E7%A0%81">编写一个函数接受 url 中 query string 为参数,返回解析后的 Object,query string 使用 application/x-www-form-urlencoded 编码</a></li>
+<li><a href="#%E8%A7%A3%E6%9E%90%E4%B8%80%E4%B8%AA%E5%AE%8C%E6%95%B4%E7%9A%84url%E8%BF%94%E5%9B%9Eobject%E5%8C%85%E5%90%AB%E5%9F%9F%E4%B8%8Ewindowlocation%E7%9B%B8%E5%90%8C">解析一个完整的 url,返回 Object 包含域与 window.location 相同</a></li>
+<li><a href="#%E5%AE%8C%E6%88%90%E5%87%BD%E6%95%B0getviewportsize%E8%BF%94%E5%9B%9E%E6%8C%87%E5%AE%9A%E7%AA%97%E5%8F%A3%E7%9A%84%E8%A7%86%E5%8F%A3%E5%B0%BA%E5%AF%B8">完成函数 getViewportSize 返回指定窗口的视口尺寸</a></li>
+<li><a href="#%E5%AE%8C%E6%88%90%E5%87%BD%E6%95%B0getscrolloffset%E8%BF%94%E5%9B%9E%E7%AA%97%E5%8F%A3%E6%BB%9A%E5%8A%A8%E6%9D%A1%E5%81%8F%E7%A7%BB%E9%87%8F">完成函数 getScrollOffset 返回窗口滚动条偏移量</a></li>
+<li><a href="#%E7%8E%B0%E6%9C%89%E4%B8%80%E4%B8%AA%E5%AD%97%E7%AC%A6%E4%B8%B2richtext%E6%98%AF%E4%B8%80%E6%AE%B5%E5%AF%8C%E6%96%87%E6%9C%AC%E9%9C%80%E8%A6%81%E6%98%BE%E7%A4%BA%E5%9C%A8%E9%A1%B5%E9%9D%A2%E4%B8%8A%E6%9C%89%E4%B8%AA%E8%A6%81%E6%B1%82%E9%9C%80%E8%A6%81%E7%BB%99%E5%85%B6%E4%B8%AD%E5%8F%AA%E5%8C%85%E5%90%AB%E4%B8%80%E4%B8%AAimg%E5%85%83%E7%B4%A0%E7%9A%84p%E6%A0%87%E7%AD%BE%E5%A2%9E%E5%8A%A0%E4%B8%80%E4%B8%AA%E5%8F%ABpic%E7%9A%84class%E8%AF%B7%E7%BC%96%E5%86%99%E4%BB%A3%E7%A0%81%E5%AE%9E%E7%8E%B0%E5%8F%AF%E4%BB%A5%E4%BD%BF%E7%94%A8jquery%E6%88%96kissy">现有一个字符串 richText,是一段富文本,需要显示在页面上.有个要求,需要给其中只包含一个 img 元素的 p 标签增加一个叫 pic 的 class.请编写代码实现.可以使用 jQuery 或 KISSY.</a></li>
+<li><a href="#%E8%AF%B7%E5%AE%9E%E7%8E%B0%E4%B8%80%E4%B8%AAevent%E7%B1%BB%E7%BB%A7%E6%89%BF%E8%87%AA%E6%AD%A4%E7%B1%BB%E7%9A%84%E5%AF%B9%E8%B1%A1%E9%83%BD%E4%BC%9A%E6%8B%A5%E6%9C%89%E4%B8%A4%E4%B8%AA%E6%96%B9%E6%B3%95onoffonce%E5%92%8Ctrigger">请实现一个 Event 类,继承自此类的对象都会拥有两个方法 on,off,once 和 trigger</a></li>
+<li><a href="#%E7%BC%96%E5%86%99%E4%B8%80%E4%B8%AA%E5%87%BD%E6%95%B0%E5%B0%86%E5%88%97%E8%A1%A8%E5%AD%90%E5%85%83%E7%B4%A0%E9%A1%BA%E5%BA%8F%E5%8F%8D%E8%BD%AC">编写一个函数将列表子元素顺序反转</a></li>
+<li><a href="#%E4%BB%A5%E4%B8%8B%E5%87%BD%E6%95%B0%E7%9A%84%E4%BD%9C%E7%94%A8%E6%98%AF%E7%A9%BA%E7%99%BD%E5%8C%BA%E5%9F%9F%E5%BA%94%E8%AF%A5%E5%A1%AB%E5%86%99%E4%BB%80%E4%B9%88">以下函数的作用是?空白区域应该填写什么</a></li>
+<li><a href="#%E7%BC%96%E5%86%99%E4%B8%80%E4%B8%AA%E5%87%BD%E6%95%B0%E5%AE%9E%E7%8E%B0form%E7%9A%84%E5%BA%8F%E5%88%97%E5%8C%96%E5%8D%B3%E5%B0%86%E4%B8%80%E4%B8%AA%E8%A1%A8%E5%8D%95%E4%B8%AD%E7%9A%84%E9%94%AE%E5%80%BC%E5%BA%8F%E5%88%97%E5%8C%96%E4%B8%BA%E5%8F%AF%E6%8F%90%E4%BA%A4%E7%9A%84%E5%AD%97%E7%AC%A6%E4%B8%B2">编写一个函数实现 form 的序列化(即将一个表单中的键值序列化为可提交的字符串)</a></li>
+<li><a href="#%E4%BD%BF%E7%94%A8%E5%8E%9F%E7%94%9Fjavascript%E7%BB%99%E4%B8%8B%E9%9D%A2%E5%88%97%E8%A1%A8%E4%B8%AD%E7%9A%84li%E8%8A%82%E7%82%B9%E7%BB%91%E5%AE%9A%E7%82%B9%E5%87%BB%E4%BA%8B%E4%BB%B6%E7%82%B9%E5%87%BB%E6%97%B6%E5%88%9B%E5%BB%BA%E4%B8%80%E4%B8%AAobject%E5%AF%B9%E8%B1%A1%E5%85%BC%E5%AE%B9ie%E5%92%8C%E6%A0%87%E5%87%86%E6%B5%8F%E8%A7%88%E5%99%A8">使用原生 javascript 给下面列表中的 li 节点绑定点击事件,点击时创建一个 Object 对象,兼容 IE 和标准浏览器</a></li>
+<li><a href="#%E6%9C%89%E4%B8%80%E4%B8%AA%E5%A4%A7%E6%95%B0%E7%BB%84var-a-=-1-2-3-a%E7%9A%84%E9%95%BF%E5%BA%A6%E6%98%AF100%E5%86%85%E5%AE%B9%E5%A1%AB%E5%85%85%E9%9A%8F%E6%9C%BA%E6%95%B4%E6%95%B0%E7%9A%84%E5%AD%97%E7%AC%A6%E4%B8%B2%E8%AF%B7%E5%85%88%E6%9E%84%E9%80%A0%E6%AD%A4%E6%95%B0%E7%BB%84a%E7%84%B6%E5%90%8E%E8%AE%BE%E8%AE%A1%E4%B8%80%E4%B8%AA%E7%AE%97%E6%B3%95%E5%B0%86%E5%85%B6%E5%86%85%E5%AE%B9%E5%8E%BB%E9%87%8D">有一个大数组,var a = [‘1’, ‘2’, ‘3’, …];a 的长度是 100,内容填充随机整数的字符串.请先构造此数组 a,然后设计一个算法将其内容去重</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<!-- END doctoc generated TOC please keep comment here to allow auto update -->
+
+<h1 id="FE-interview"><a href="#FE-interview" class="headerlink" title="FE-interview"></a>FE-interview</h1><p>个人收集的前端知识点、面试题和答案，参考答案仅代表个人观点，方便复习，目录如下，通过文档内搜索目录可快速定位章节</p>
+<h2 id="HTML，-HTTP，web-综合问题"><a href="#HTML，-HTTP，web-综合问题" class="headerlink" title="$HTML， HTTP，web 综合问题"></a>$HTML， HTTP，web 综合问题</h2><h3 id="常见排序算法的时间复杂度-空间复杂度"><a href="#常见排序算法的时间复杂度-空间复杂度" class="headerlink" title="常见排序算法的时间复杂度,空间复杂度"></a>常见排序算法的时间复杂度,空间复杂度</h3><p><img src="https://yuki-1252851979.cos.ap-nanjing.myqcloud.com/blog/FE-interview/img/sort-compare.png" alt="排序算法比较"></p>
+<h3 id="前端需要注意哪些-SEO"><a href="#前端需要注意哪些-SEO" class="headerlink" title="前端需要注意哪些 SEO"></a>前端需要注意哪些 SEO</h3><ol>
+<li>合理的 title、description、keywords：搜索对着三项的权重逐个减小，title 值强调重点即可，重要关键词出现不要超过 2 次，而且要靠前，不同页面 title 要有所不同；description 把页面内容高度概括，长度合适，不可过分堆砌关键词，不同页面 description 有所不同；keywords 列举出重要关键词即可</li>
+<li>语义化的 HTML 代码，符合 W3C 规范：语义化代码让搜索引擎容易理解网页</li>
+<li>重要内容 HTML 代码放在最前：搜索引擎抓取 HTML 顺序是从上到下，有的搜索引擎对抓取长度有限制，保证重要内容一定会被抓取</li>
+<li>重要内容不要用 js 输出：爬虫不会执行 js 获取内容</li>
+<li>少用 iframe：搜索引擎不会抓取 iframe 中的内容</li>
+<li>非装饰性图片必须加 alt</li>
+<li>提高网站速度：网站速度是搜索引擎排序的一个重要指标</li>
+</ol>
+<h3 id="web-开发中会话跟踪的方法有哪些"><a href="#web-开发中会话跟踪的方法有哪些" class="headerlink" title="web 开发中会话跟踪的方法有哪些"></a>web 开发中会话跟踪的方法有哪些</h3><ol>
+<li>cookie</li>
+<li>session</li>
+<li>url 重写</li>
+<li>隐藏 input</li>
+<li>ip 地址</li>
+</ol>
+<h3 id="lt-img-gt-的title和alt有什么区别"><a href="#lt-img-gt-的title和alt有什么区别" class="headerlink" title="&lt;img&gt;的title和alt有什么区别"></a><code>&lt;img&gt;</code>的<code>title</code>和<code>alt</code>有什么区别</h3><ol>
+<li><code>title</code>是<a href="http://www.w3.org/TR/html-markup/global-attributes.html#common.attrs.core">global attributes</a>之一，用于为元素提供附加的 advisory information。通常当鼠标滑动到元素上的时候显示。</li>
+<li><code>alt</code>是<code>&lt;img&gt;</code>的特有属性，是图片内容的等价描述，用于图片无法加载时显示、读屏器阅读图片。可提图片高可访问性，除了纯装饰图片外都必须设置有意义的值，搜索引擎会重点分析。</li>
+</ol>
+<h3 id="doctype-是什么-举例常见-doctype-及特点"><a href="#doctype-是什么-举例常见-doctype-及特点" class="headerlink" title="doctype 是什么,举例常见 doctype 及特点"></a>doctype 是什么,举例常见 doctype 及特点</h3><ol>
+<li><code>&lt;!doctype&gt;</code>声明必须处于 HTML 文档的头部，在<code>&lt;html&gt;</code>标签之前，HTML5 中不区分大小写</li>
+<li><code>&lt;!doctype&gt;</code>声明不是一个 HTML 标签，是一个用于告诉浏览器当前 HTMl 版本的指令</li>
+<li>现代浏览器的 html 布局引擎通过检查 doctype 决定使用兼容模式还是标准模式对文档进行渲染，一些浏览器有一个接近标准模型。</li>
+<li>在 HTML4.01 中<code>&lt;!doctype&gt;</code>声明指向一个 DTD，由于 HTML4.01 基于 SGML，所以 DTD 指定了标记规则以保证浏览器正确渲染内容</li>
+<li>HTML5 不基于 SGML，所以不用指定 DTD</li>
+</ol>
+<p>常见 dotype：</p>
+<ol>
+<li><strong>HTML4.01 strict</strong>：不允许使用表现性、废弃元素（如 font）以及 frameset。声明：<code>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.01//EN&quot; &quot;http://www.w3.org/TR/html4/strict.dtd&quot;&gt;</code></li>
+<li><strong>HTML4.01 Transitional</strong>:允许使用表现性、废弃元素（如 font），不允许使用 frameset。声明：<code>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.01 Transitional//EN&quot; &quot;http://www.w3.org/TR/html4/loose.dtd&quot;&gt;</code></li>
+<li><strong>HTML4.01 Frameset</strong>:允许表现性元素，废气元素以及 frameset。声明：<code>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.01 Frameset//EN&quot; &quot;http://www.w3.org/TR/html4/frameset.dtd&quot;&gt;</code></li>
+<li><strong>XHTML1.0 Strict</strong>:不使用允许表现性、废弃元素以及 frameset。文档必须是结构良好的 XML 文档。声明：<code>&lt;!DOCTYPE html PUBLIC &quot;-//W3C//DTD XHTML 1.0 Strict//EN&quot; &quot;http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd&quot;&gt;</code></li>
+<li><strong>XHTML1.0 Transitional</strong>:允许使用表现性、废弃元素，不允许 frameset，文档必须是结构良好的 XMl 文档。声明： <code>&lt;!DOCTYPE html PUBLIC &quot;-//W3C//DTD XHTML 1.0 Transitional//EN&quot; &quot;http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd&quot;&gt;</code></li>
+<li><strong>XHTML 1.0 Frameset</strong>:允许使用表现性、废弃元素以及 frameset，文档必须是结构良好的 XML 文档。声明：<code>&lt;!DOCTYPE html PUBLIC &quot;-//W3C//DTD XHTML 1.0 Frameset//EN&quot; &quot;http://www.w3.org/TR/xhtml1/DTD/xhtml1-frameset.dtd&quot;&gt;</code></li>
+<li><strong>HTML 5</strong>: <code>&lt;!doctype html&gt;</code></li>
+</ol>
+<h3 id="HTML-全局属性-global-attribute-有哪些"><a href="#HTML-全局属性-global-attribute-有哪些" class="headerlink" title="HTML 全局属性(global attribute)有哪些"></a>HTML 全局属性(global attribute)有哪些</h3><p>参考资料：<a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes">MDN: html global attribute</a>或者<a href="http://www.w3.org/TR/html-markup/global-attributes.html#common.attrs.core">W3C HTML global-attributes</a></p>
+<ul>
+<li><code>accesskey</code>:设置快捷键，提供快速访问元素如<a href="#" accesskey="a">aaa</a>在 windows 下的 firefox 中按<code>alt + shift + a</code>可激活元素</li>
+<li><code>class</code>:为元素设置类标识，多个类名用空格分开，CSS 和 javascript 可通过 class 属性获取元素</li>
+<li><code>contenteditable</code>: 指定元素内容是否可编辑</li>
+<li><code>contextmenu</code>: 自定义鼠标右键弹出菜单内容</li>
+<li><code>data-*</code>: 为元素增加自定义属性</li>
+<li><code>dir</code>: 设置元素文本方向</li>
+<li><code>draggable</code>: 设置元素是否可拖拽</li>
+<li><code>dropzone</code>: 设置元素拖放类型： copy, move, link</li>
+<li><code>hidden</code>: 表示一个元素是否与文档。样式上会导致元素不显示，但是不能用这个属性实现样式效果</li>
+<li><code>id</code>: 元素 id，文档内唯一</li>
+<li><code>lang</code>: 元素内容的的语言</li>
+<li><code>spellcheck</code>: 是否启动拼写和语法检查</li>
+<li><code>style</code>: 行内 css 样式</li>
+<li><code>tabindex</code>: 设置元素可以获得焦点，通过 tab 可以导航</li>
+<li><code>title</code>: 元素相关的建议信息</li>
+<li><code>translate</code>: 元素和子孙节点内容是否需要本地化</li>
+</ul>
+<h3 id="什么是-web-语义化-有什么好处"><a href="#什么是-web-语义化-有什么好处" class="headerlink" title="什么是 web 语义化,有什么好处"></a>什么是 web 语义化,有什么好处</h3><p>web 语义化是指通过 HTML 标记表示页面包含的信息，包含了 HTML 标签的语义化和 css 命名的语义化。<br>HTML 标签的语义化是指：通过使用包含语义的标签（如 h1-h6）恰当地表示文档结构<br>css 命名的语义化是指：为 html 标签添加有意义的 class，id 补充未表达的语义，如<a href="http://en.wikipedia.org/wiki/Microformats">Microformat</a>通过添加符合规则的 class 描述信息<br>为什么需要语义化：</p>
+<ul>
+<li>去掉样式后页面呈现清晰的结构</li>
+<li>盲人使用读屏器更好地阅读</li>
+<li>搜索引擎更好地理解页面，有利于收录</li>
+<li>便团队项目的可持续运作及维护</li>
+</ul>
+<h3 id="HTTP-method"><a href="#HTTP-method" class="headerlink" title="HTTP method"></a>HTTP method</h3><ol>
+<li>一台服务器要与 HTTP1.1 兼容，只要为资源实现<strong>GET</strong>和<strong>HEAD</strong>方法即可</li>
+<li><strong>GET</strong>是最常用的方法，通常用于<strong>请求服务器发送某个资源</strong>。</li>
+<li><strong>HEAD</strong>与 GET 类似，但<strong>服务器在响应中值返回首部，不返回实体的主体部分</strong></li>
+<li><strong>PUT</strong>让服务器<strong>用请求的主体部分来创建一个由所请求的 URL 命名的新文档，或者，如果那个 URL 已经存在的话，就用干这个主体替代它</strong></li>
+<li><strong>POST</strong>起初是用来向服务器输入数据的。实际上，通常会用它来支持 HTML 的表单。表单中填好的数据通常会被送给服务器，然后由服务器将其发送到要去的地方。</li>
+<li><strong>TRACE</strong>会在目的服务器端发起一个环回诊断，最后一站的服务器会弹回一个 TRACE 响应并在响应主体中携带它收到的原始请求报文。TRACE 方法主要用于诊断，用于验证请求是否如愿穿过了请求/响应链。</li>
+<li><strong>OPTIONS</strong>方法请求 web 服务器告知其支持的各种功能。可以查询服务器支持哪些方法或者对某些特殊资源支持哪些方法。</li>
+<li><strong>DELETE</strong>请求服务器删除请求 URL 指定的资源</li>
+</ol>
+<h3 id="从浏览器地址栏输入-url-到显示页面的步骤-以-HTTP-为例"><a href="#从浏览器地址栏输入-url-到显示页面的步骤-以-HTTP-为例" class="headerlink" title="从浏览器地址栏输入 url 到显示页面的步骤(以 HTTP 为例)"></a>从浏览器地址栏输入 url 到显示页面的步骤(以 HTTP 为例)</h3><ol>
+<li>在浏览器地址栏输入 URL</li>
+<li>浏览器查看<strong>缓存</strong>，如果请求资源在缓存中并且新鲜，跳转到转码步骤<ol>
+<li>如果资源未缓存，发起新请求</li>
+<li>如果已缓存，检验是否足够新鲜，足够新鲜直接提供给客户端，否则与服务器进行验证。</li>
+<li>检验新鲜通常有两个 HTTP 头进行控制<code>Expires</code>和<code>Cache-Control</code>：<ul>
+<li>HTTP1.0 提供 Expires，值为一个绝对时间表示缓存新鲜日期</li>
+<li>HTTP1.1 增加了 Cache-Control: max-age=,值为以秒为单位的最大新鲜时间</li>
+</ul>
+</li>
+</ol>
+</li>
+<li>浏览器<strong>解析 URL</strong>获取协议，主机，端口，path</li>
+<li>浏览器<strong>组装一个 HTTP（GET）请求报文</strong></li>
+<li>浏览器<strong>获取主机 ip 地址</strong>，过程如下：<ol>
+<li>浏览器缓存</li>
+<li>本机缓存</li>
+<li>hosts 文件</li>
+<li>路由器缓存</li>
+<li>ISP DNS 缓存</li>
+<li>DNS 递归查询（可能存在负载均衡导致每次 IP 不一样）</li>
+</ol>
+</li>
+<li><strong>打开一个 socket 与目标 IP 地址，端口建立 TCP 链接</strong>，三次握手如下：<ol>
+<li>客户端发送一个 TCP 的<strong>SYN=1，Seq=X</strong>的包到服务器端口</li>
+<li>服务器发回<strong>SYN=1， ACK=X+1， Seq=Y</strong>的响应包</li>
+<li>客户端发送<strong>ACK=Y+1， Seq=Z</strong></li>
+</ol>
+</li>
+<li>TCP 链接建立后<strong>发送 HTTP 请求</strong></li>
+<li>服务器接受请求并解析，将请求转发到服务程序，如虚拟主机使用 HTTP Host 头部判断请求的服务程序</li>
+<li>服务器检查<strong>HTTP 请求头是否包含缓存验证信息</strong>如果验证缓存新鲜，返回<strong>304</strong>等对应状态码</li>
+<li>处理程序读取完整请求并准备 HTTP 响应，可能需要查询数据库等操作</li>
+<li>服务器将<strong>响应报文通过 TCP 连接发送回浏览器</strong></li>
+<li>浏览器接收 HTTP 响应，然后根据情况选择<strong>关闭 TCP 连接或者保留重用，关闭 TCP 连接的四次握手如下</strong>：<ol>
+<li>主动方发送<strong>Fin=1， Ack=Z， Seq= X</strong>报文</li>
+<li>被动方发送<strong>ACK=X+1， Seq=Z</strong>报文</li>
+<li>被动方发送<strong>Fin=1， ACK=X， Seq=Y</strong>报文</li>
+<li>主动方发送<strong>ACK=Y， Seq=X</strong>报文</li>
+</ol>
+</li>
+<li>浏览器检查响应状态吗：是否为 1XX，3XX， 4XX， 5XX，这些情况处理与 2XX 不同</li>
+<li>如果资源可缓存，<strong>进行缓存</strong></li>
+<li>对响应进行<strong>解码</strong>（例如 gzip 压缩）</li>
+<li>根据资源类型决定如何处理（假设资源为 HTML 文档）</li>
+<li><strong>解析 HTML 文档，构件 DOM 树，下载资源，构造 CSSOM 树，执行 js 脚本</strong>，这些操作没有严格的先后顺序，以下分别解释</li>
+<li><strong>构建 DOM 树</strong>：<ol>
+<li><strong>Tokenizing</strong>：根据 HTML 规范将字符流解析为标记</li>
+<li><strong>Lexing</strong>：词法分析将标记转换为对象并定义属性和规则</li>
+<li><strong>DOM construction</strong>：根据 HTML 标记关系将对象组成 DOM 树</li>
+</ol>
+</li>
+<li>解析过程中遇到图片、样式表、js 文件，<strong>启动下载</strong></li>
+<li>构建<strong>CSSOM 树</strong>：<ol>
+<li><strong>Tokenizing</strong>：字符流转换为标记流</li>
+<li><strong>Node</strong>：根据标记创建节点</li>
+<li><strong>CSSOM</strong>：节点创建 CSSOM 树</li>
+</ol>
+</li>
+<li><strong><a href="https://developers.google.com/web/fundamentals/performance/critical-rendering-path/render-tree-construction">根据 DOM 树和 CSSOM 树构建渲染树</a></strong>:<ol>
+<li>从 DOM 树的根节点遍历所有<strong>可见节点</strong>，不可见节点包括：1）<code>script</code>,<code>meta</code>这样本身不可见的标签。2)被 css 隐藏的节点，如<code>display: none</code></li>
+<li>对每一个可见节点，找到恰当的 CSSOM 规则并应用</li>
+<li>发布可视节点的内容和计算样式</li>
+</ol>
+</li>
+<li><strong>js 解析如下</strong>：<ol>
+<li>浏览器创建 Document 对象并解析 HTML，将解析到的元素和文本节点添加到文档中，此时<strong>document.readystate 为 loading</strong></li>
+<li>HTML 解析器遇到<strong>没有 async 和 defer 的 script 时</strong>，将他们添加到文档中，然后执行行内或外部脚本。这些脚本会同步执行，并且在脚本下载和执行时解析器会暂停。这样就可以用 document.write()把文本插入到输入流中。<strong>同步脚本经常简单定义函数和注册事件处理程序，他们可以遍历和操作 script 和他们之前的文档内容</strong></li>
+<li>当解析器遇到设置了<strong>async</strong>属性的 script 时，开始下载脚本并继续解析文档。脚本会在它<strong>下载完成后尽快执行</strong>，但是<strong>解析器不会停下来等它下载</strong>。异步脚本**禁止使用 document.write()**，它们可以访问自己 script 和之前的文档元素</li>
+<li>当文档完成解析，document.readState 变成 interactive</li>
+<li>所有<strong>defer</strong>脚本会<strong>按照在文档出现的顺序执行</strong>，延迟脚本<strong>能访问完整文档树</strong>，禁止使用 document.write()</li>
+<li>浏览器<strong>在 Document 对象上触发 DOMContentLoaded 事件</strong></li>
+<li>此时文档完全解析完成，浏览器可能还在等待如图片等内容加载，等这些<strong>内容完成载入并且所有异步脚本完成载入和执行</strong>，document.readState 变为 complete,window 触发 load 事件</li>
+</ol>
+</li>
+<li><strong>显示页面</strong>（HTML 解析过程中会逐步显示页面）</li>
+</ol>
+<p><img src="https://yuki-1252851979.cos.ap-nanjing.myqcloud.com/blog/FE-interview/img/visit.svg" alt="HTTP访问过程"></p>
+<h3 id="HTTP-request-报文结构是怎样的"><a href="#HTTP-request-报文结构是怎样的" class="headerlink" title="HTTP request 报文结构是怎样的"></a>HTTP request 报文结构是怎样的</h3><p><a href="http://www.w3.org/Protocols/rfc2616/rfc2616-sec5.html">rfc2616</a>中进行了定义：</p>
+<ol>
+<li>首行是<strong>Request-Line</strong>包括：<strong>请求方法</strong>，<strong>请求 URI</strong>，<strong>协议版本</strong>，<strong>CRLF</strong></li>
+<li>首行之后是若干行<strong>请求头</strong>，包括<strong>general-header</strong>，<strong>request-header</strong>或者<strong>entity-header</strong>，每个一行以 CRLF 结束</li>
+<li>请求头和消息实体之间有一个<strong>CRLF 分隔</strong></li>
+<li>根据实际请求需要可能包含一个<strong>消息实体</strong><br>一个请求报文例子如下：</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">GET &#x2F;Protocols&#x2F;rfc2616&#x2F;rfc2616-sec5.html HTTP&#x2F;1.1</span><br><span class="line">Host: www.w3.org</span><br><span class="line">Connection: keep-alive</span><br><span class="line">Cache-Control: max-age&#x3D;0</span><br><span class="line">Accept: text&#x2F;html,application&#x2F;xhtml+xml,application&#x2F;xml;q&#x3D;0.9,image&#x2F;webp,*&#x2F;*;q&#x3D;0.8</span><br><span class="line">User-Agent: Mozilla&#x2F;5.0 (Windows NT 6.1; WOW64) AppleWebKit&#x2F;537.36 (KHTML, like Gecko) Chrome&#x2F;35.0.1916.153 Safari&#x2F;537.36</span><br><span class="line">Referer: https:&#x2F;&#x2F;www.google.com.hk&#x2F;</span><br><span class="line">Accept-Encoding: gzip,deflate,sdch</span><br><span class="line">Accept-Language: zh-CN,zh;q&#x3D;0.8,en;q&#x3D;0.6</span><br><span class="line">Cookie: authorstyle&#x3D;yes</span><br><span class="line">If-None-Match: &quot;2cc8-3e3073913b100&quot;</span><br><span class="line">If-Modified-Since: Wed, 01 Sep 2004 13:24:52 GMT</span><br><span class="line"></span><br><span class="line">name&#x3D;qiu&amp;age&#x3D;25</span><br></pre></td></tr></table></figure>
+
+<h3 id="HTTP-response-报文结构是怎样的"><a href="#HTTP-response-报文结构是怎样的" class="headerlink" title="HTTP response 报文结构是怎样的"></a>HTTP response 报文结构是怎样的</h3><p><a href="http://www.w3.org/Protocols/rfc2616/rfc2616-sec6.html">rfc2616</a>中进行了定义：</p>
+<ol>
+<li>首行是状态行包括：<strong>HTTP 版本，状态码，状态描述</strong>，后面跟一个 CRLF</li>
+<li>首行之后是<strong>若干行响应头</strong>，包括：<strong>通用头部，响应头部，实体头部</strong></li>
+<li>响应头部和响应实体之间用<strong>一个 CRLF 空行</strong>分隔</li>
+<li>最后是一个可能的<strong>消息实体</strong><br>响应报文例子如下：</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">HTTP&#x2F;1.1 200 OK</span><br><span class="line">Date: Tue, 08 Jul 2014 05:28:43 GMT</span><br><span class="line">Server: Apache&#x2F;2</span><br><span class="line">Last-Modified: Wed, 01 Sep 2004 13:24:52 GMT</span><br><span class="line">ETag: &quot;40d7-3e3073913b100&quot;</span><br><span class="line">Accept-Ranges: bytes</span><br><span class="line">Content-Length: 16599</span><br><span class="line">Cache-Control: max-age&#x3D;21600</span><br><span class="line">Expires: Tue, 08 Jul 2014 11:28:43 GMT</span><br><span class="line">P3P: policyref&#x3D;&quot;http:&#x2F;&#x2F;www.w3.org&#x2F;2001&#x2F;05&#x2F;P3P&#x2F;p3p.xml&quot;</span><br><span class="line">Content-Type: text&#x2F;html; charset&#x3D;iso-8859-1</span><br><span class="line"></span><br><span class="line">&#123;&quot;name&quot;: &quot;qiu&quot;, &quot;age&quot;: 25&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="如何进行网站性能优化"><a href="#如何进行网站性能优化" class="headerlink" title="如何进行网站性能优化"></a>如何进行网站性能优化</h3><p><a href="https://developer.yahoo.com/performance/rules.html">雅虎 Best Practices for Speeding Up Your Web Site</a>：</p>
+<ul>
+<li><p>content 方面</p>
+<ol>
+<li>减少 HTTP 请求：合并文件、CSS 精灵、inline Image</li>
+<li>减少 DNS 查询：DNS 查询完成之前浏览器不能从这个主机下载任何任何文件。方法：DNS 缓存、将资源分布到恰当数量的主机名，平衡并行下载和 DNS 查询</li>
+<li>避免重定向：多余的中间访问</li>
+<li>使 Ajax 可缓存</li>
+<li>非必须组件延迟加载</li>
+<li>未来所需组件预加载</li>
+<li>减少 DOM 元素数量</li>
+<li>将资源放到不同的域下：浏览器同时从一个域下载资源的数目有限，增加域可以提高并行下载量</li>
+<li>减少 iframe 数量</li>
+<li>不要 404</li>
+</ol>
+</li>
+<li><p>Server 方面</p>
+<ol>
+<li>使用 CDN</li>
+<li>添加 Expires 或者 Cache-Control 响应头</li>
+<li>对组件使用 Gzip 压缩</li>
+<li>配置 ETag</li>
+<li>Flush Buffer Early</li>
+<li>Ajax 使用 GET 进行请求</li>
+<li>避免空 src 的 img 标签</li>
+</ol>
+</li>
+<li><p>Cookie 方面</p>
+<ol>
+<li>减小 cookie 大小</li>
+<li>引入资源的域名不要包含 cookie</li>
+</ol>
+</li>
+<li><p>css 方面</p>
+<ol>
+<li>将样式表放到页面顶部</li>
+<li>不使用 CSS 表达式</li>
+<li>使用<link>不使用@import</li>
+<li>不使用 IE 的 Filter</li>
+</ol>
+</li>
+<li><p>Javascript 方面</p>
+<ol>
+<li>将脚本放到页面底部</li>
+<li>将 javascript 和 css 从外部引入</li>
+<li>压缩 javascript 和 css</li>
+<li>删除不需要的脚本</li>
+<li>减少 DOM 访问</li>
+<li>合理设计事件监听器</li>
+</ol>
+</li>
+<li><p>图片方面</p>
+<ol>
+<li>优化图片：根据实际颜色需要选择色深、压缩</li>
+<li>优化 css 精灵</li>
+<li>不要在 HTML 中拉伸图片</li>
+<li>保证 favicon.ico 小并且可缓存</li>
+</ol>
+</li>
+<li><p>移动方面</p>
+<ol>
+<li>保证组件小于 25k</li>
+<li>Pack Components into a Multipart Document</li>
+</ol>
+</li>
+</ul>
+<h3 id="什么是渐进增强"><a href="#什么是渐进增强" class="headerlink" title="什么是渐进增强"></a>什么是渐进增强</h3><p>渐进增强是指在 web 设计时强调可访问性、语义化 HTML 标签、外部样式表和脚本。保证所有人都能访问页面的基本内容和功能同时为高级浏览器和高带宽用户提供更好的用户体验。核心原则如下:</p>
+<ul>
+<li>所有浏览器都必须能访问基本内容</li>
+<li>所有浏览器都必须能使用基本功能</li>
+<li>所有内容都包含在语义化标签中</li>
+<li>通过外部 CSS 提供增强的布局</li>
+<li>通过非侵入式、外部 javascript 提供增强功能</li>
+<li>end-user web browser preferences are respected</li>
+</ul>
+<h3 id="HTTP-状态码及其含义"><a href="#HTTP-状态码及其含义" class="headerlink" title="HTTP 状态码及其含义"></a>HTTP 状态码及其含义</h3><p>参考<a href="http://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html">RFC 2616</a></p>
+<ul>
+<li>1XX：信息状态码<ul>
+<li><strong>100 Continue</strong>：客户端应当继续发送请求。这个临时相应是用来通知客户端它的部分请求已经被服务器接收，且仍未被拒绝。客户端应当继续发送请求的剩余部分，或者如果请求已经完成，忽略这个响应。服务器必须在请求完成后向客户端发送一个最终响应</li>
+<li><strong>101 Switching Protocols</strong>：服务器已经理解 le 客户端的请求，并将通过 Upgrade 消息头通知客户端采用不同的协议来完成这个请求。在发送完这个响应最后的空行后，服务器将会切换到 Upgrade 消息头中定义的那些协议。</li>
+</ul>
+</li>
+<li>2XX：成功状态码<ul>
+<li><strong>200 OK</strong>：请求成功，请求所希望的响应头或数据体将随此响应返回</li>
+<li><strong>201 Created</strong>：</li>
+<li><strong>202 Accepted</strong>：</li>
+<li><strong>203 Non-Authoritative Information</strong>：</li>
+<li><strong>204 No Content</strong>：</li>
+<li><strong>205 Reset Content</strong>：</li>
+<li><strong>206 Partial Content</strong>：</li>
+</ul>
+</li>
+<li>3XX：重定向<ul>
+<li><strong>300 Multiple Choices</strong>：</li>
+<li><strong>301 Moved Permanently</strong>：</li>
+<li><strong>302 Found</strong>：</li>
+<li><strong>303 See Other</strong>：</li>
+<li><strong>304 Not Modified</strong>：</li>
+<li><strong>305 Use Proxy</strong>：</li>
+<li><strong>306 （unused）</strong>：</li>
+<li><strong>307 Temporary Redirect</strong>：</li>
+</ul>
+</li>
+<li>4XX：客户端错误<ul>
+<li><strong>400 Bad Request</strong>:</li>
+<li><strong>401 Unauthorized</strong>:</li>
+<li><strong>402 Payment Required</strong>:</li>
+<li><strong>403 Forbidden</strong>:</li>
+<li><strong>404 Not Found</strong>:</li>
+<li><strong>405 Method Not Allowed</strong>:</li>
+<li><strong>406 Not Acceptable</strong>:</li>
+<li><strong>407 Proxy Authentication Required</strong>:</li>
+<li><strong>408 Request Timeout</strong>:</li>
+<li><strong>409 Conflict</strong>:</li>
+<li><strong>410 Gone</strong>:</li>
+<li><strong>411 Length Required</strong>:</li>
+<li><strong>412 Precondition Failed</strong>:</li>
+<li><strong>413 Request Entity Too Large</strong>:</li>
+<li><strong>414 Request-URI Too Long</strong>:</li>
+<li><strong>415 Unsupported Media Type</strong>:</li>
+<li><strong>416 Requested Range Not Satisfiable</strong>:</li>
+<li><strong>417 Expectation Failed</strong>:</li>
+</ul>
+</li>
+<li>5XX: 服务器错误<ul>
+<li><strong>500 Internal Server Error</strong>:</li>
+<li><strong>501 Not Implemented</strong>:</li>
+<li><strong>502 Bad Gateway</strong>:</li>
+<li><strong>503 Service Unavailable</strong>:</li>
+<li><strong>504 Gateway Timeout</strong>:</li>
+<li><strong>505 HTTP Version Not Supported</strong>:</li>
+</ul>
+</li>
+</ul>
+<h2 id="CSS-部分"><a href="#CSS-部分" class="headerlink" title="$CSS 部分"></a>$CSS 部分</h2><h3 id="CSS-选择器有哪些"><a href="#CSS-选择器有哪些" class="headerlink" title="CSS 选择器有哪些"></a>CSS 选择器有哪些</h3><ol>
+<li><strong>*通用选择器</strong>：选择所有元素，<strong>不参与计算优先级</strong>，兼容性 IE6+</li>
+<li><strong>#X id 选择器</strong>：选择 id 值为 X 的元素，兼容性：IE6+</li>
+<li><strong>.X 类选择器</strong>： 选择 class 包含 X 的元素，兼容性：IE6+</li>
+<li><strong>X Y 后代选择器</strong>： 选择满足 X 选择器的后代节点中满足 Y 选择器的元素，兼容性：IE6+</li>
+<li><strong>X 元素选择器</strong>： 选择标所有签为 X 的元素，兼容性：IE6+</li>
+<li><strong>:link，:visited，:focus，:hover，:active 链接状态</strong>： 选择特定状态的链接元素，顺序 LoVe HAte，兼容性: IE4+</li>
+<li><strong>X + Y 直接兄弟选择器</strong>：在<strong>X 之后第一个兄弟节点</strong>中选择满足 Y 选择器的元素，兼容性： IE7+</li>
+<li><strong>X &gt; Y 子选择器</strong>： 选择 X 的子元素中满足 Y 选择器的元素，兼容性： IE7+</li>
+<li><strong>X ~ Y 兄弟</strong>： 选择<strong>X 之后所有兄弟节点</strong>中满足 Y 选择器的元素，兼容性： IE7+</li>
+<li>**[attr]**：选择所有设置了 attr 属性的元素，兼容性 IE7+</li>
+<li>**[attr=value]**：选择属性值刚好为 value 的元素</li>
+<li>**[attr~=value]**：选择属性值为空白符分隔，其中一个的值刚好是 value 的元素</li>
+<li>**[attr|=value]**：选择属性值刚好为 value 或者 value-开头的元素</li>
+<li>**[attr^=value]**：选择属性值以 value 开头的元素</li>
+<li>**[attr$=value]**：选择属性值以 value 结尾的元素</li>
+<li>*<em>[attr</em>=value]**：选择属性值中包含 value 的元素</li>
+<li>**[:checked]**：选择单选框，复选框，下拉框中选中状态下的元素，兼容性：IE9+</li>
+<li><strong>X:after, X::after</strong>：after 伪元素，选择元素虚拟子元素（元素的最后一个子元素），CSS3 中::表示伪元素。兼容性:after 为 IE8+，::after 为 IE9+</li>
+<li><strong>:hover</strong>：鼠标移入状态的元素，兼容性 a 标签 IE4+， 所有元素 IE7+</li>
+<li><strong>:not(selector)**：选择不符合 selector 的元素。</strong>不参与计算优先级**，兼容性：IE9+</li>
+<li><strong>::first-letter</strong>：伪元素，选择块元素第一行的第一个字母，兼容性 IE5.5+</li>
+<li><strong>::first-line</strong>：伪元素，选择块元素的第一行，兼容性 IE5.5+</li>
+<li>**:nth-child(an + b)**：伪类，选择前面有 an + b - 1 个兄弟节点的元素，其中 n<br>&gt;= 0， 兼容性 IE9+</li>
+<li>**:nth-last-child(an + b)**：伪类，选择后面有 an + b - 1 个兄弟节点的元素<br>其中 n &gt;= 0，兼容性 IE9+</li>
+<li><strong>X:nth-of-type(an+b)**：伪类，X 为选择器，</strong>解析得到元素标签<strong>，选择</strong>前面<strong>有 an + b - 1 个</strong>相同标签**兄弟节点的元素。兼容性 IE9+</li>
+<li><strong>X:nth-last-of-type(an+b)**：伪类，X 为选择器，解析得到元素标签，选择</strong>后面<strong>有 an+b-1 个相同</strong>标签**兄弟节点的元素。兼容性 IE9+</li>
+<li><strong>X:first-child</strong>：伪类，选择满足 X 选择器的元素，且这个元素是其父节点的第一个子元素。兼容性 IE7+</li>
+<li><strong>X:last-child</strong>：伪类，选择满足 X 选择器的元素，且这个元素是其父节点的最后一个子元素。兼容性 IE9+</li>
+<li><strong>X:only-child</strong>：伪类，选择满足 X 选择器的元素，且这个元素是其父元素的唯一子元素。兼容性 IE9+</li>
+<li><strong>X:only-of-type</strong>：伪类，选择 X 选择的元素，<strong>解析得到元素标签</strong>，如果该元素没有相同类型的兄弟节点时选中它。兼容性 IE9+</li>
+<li><strong>X:first-of-type</strong>：伪类，选择 X 选择的元素，<strong>解析得到元素标签</strong>，如果该元素<br>是此此类型元素的第一个兄弟。选中它。兼容性 IE9+</li>
+</ol>
+<h3 id="css-sprite-是什么-有什么优缺点"><a href="#css-sprite-是什么-有什么优缺点" class="headerlink" title="css sprite 是什么,有什么优缺点"></a>css sprite 是什么,有什么优缺点</h3><p>概念：将多个小图片拼接到一个图片中。通过 background-position 和元素尺寸调节需要显示的背景图案。</p>
+<p>优点：</p>
+<ol>
+<li>减少 HTTP 请求数，极大地提高页面加载速度</li>
+<li>增加图片信息重复度，提高压缩比，减少图片大小</li>
+<li>更换风格方便，只需在一张或几张图片上修改颜色或样式即可实现</li>
+</ol>
+<p>缺点：</p>
+<ol>
+<li>图片合并麻烦</li>
+<li>维护麻烦，修改一个图片可能需要重新布局整个图片，样式</li>
+</ol>
+<h3 id="display-none-与visibility-hidden-的区别"><a href="#display-none-与visibility-hidden-的区别" class="headerlink" title="display: none;与visibility: hidden;的区别"></a><code>display: none;</code>与<code>visibility: hidden;</code>的区别</h3><p>联系：它们都能让元素不可见</p>
+<p>区别：</p>
+<ol>
+<li>display:none;会让元素完全从渲染树中消失，渲染的时候不占据任何空间；visibility: hidden;不会让元素从渲染树消失，渲染时元素继续占据空间，只是内容不可见。</li>
+<li>display: none;是非继承属性，子孙节点消失由于元素从渲染树消失造成，通过修改子孙节点属性无法显示；visibility: hidden;是继承属性，子孙节点由于继承了 hidden 而消失，通过设置 visibility: visible，可以让子孙节点显示。</li>
+<li>修改常规流中元素的 display 通常会造成文档重排。修改 visibility 属性只会造成本元素的重绘。</li>
+<li>读屏器不会读取 display: none;元素内容；会读取 visibility: hidden;元素内容。</li>
+</ol>
+<h3 id="css-hack-原理及常用-hack"><a href="#css-hack-原理及常用-hack" class="headerlink" title="css hack 原理及常用 hack"></a>css hack 原理及常用 hack</h3><p>原理：利用<strong>不同浏览器对 CSS 的支持和解析结果不一样</strong>编写针对特定浏览器样式。常见的 hack 有 1）属性 hack。2）选择器 hack。3）IE 条件注释</p>
+<ul>
+<li>IE 条件注释：适用于[IE5, IE9]常见格式如下</li>
+</ul>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line">&lt;!--[<span class="keyword">if</span> IE <span class="number">6</span>]&gt;</span><br><span class="line">Special instructions <span class="keyword">for</span> IE <span class="number">6</span> here</span><br><span class="line">&lt;![endif]--&gt;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>选择器 hack：不同浏览器对选择器的支持不一样</li>
+</ul>
+<figure class="highlight css"><table><tr><td class="code"><pre><span class="line"><span class="comment">/***** Selector Hacks ******/</span></span><br><span class="line"></span><br><span class="line"><span class="comment">/* IE6 and below */</span></span><br><span class="line">* <span class="selector-tag">html</span> <span class="selector-id">#uno</span> &#123;</span><br><span class="line">  <span class="attribute">color</span>: red;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/* IE7 */</span></span><br><span class="line">*<span class="selector-pseudo">:first-child</span> + <span class="selector-tag">html</span> <span class="selector-id">#dos</span> &#123;</span><br><span class="line">  <span class="attribute">color</span>: red;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/* IE7, FF, Saf, Opera  */</span></span><br><span class="line"><span class="selector-tag">html</span> &gt; <span class="selector-tag">body</span> <span class="selector-id">#tres</span> &#123;</span><br><span class="line">  <span class="attribute">color</span>: red;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/* IE8, FF, Saf, Opera (Everything but IE 6,7) */</span></span><br><span class="line"><span class="selector-tag">html</span>&gt;<span class="comment">/**/</span><span class="selector-tag">body</span> <span class="selector-id">#cuatro</span> &#123;</span><br><span class="line">  <span class="attribute">color</span>: red;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/* Opera 9.27 and below, safari 2 */</span></span><br><span class="line"><span class="selector-tag">html</span><span class="selector-pseudo">:first-child</span> <span class="selector-id">#cinco</span> &#123;</span><br><span class="line">  <span class="attribute">color</span>: red;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/* Safari 2-3 */</span></span><br><span class="line"><span class="selector-tag">html</span><span class="selector-attr">[xmlns*=<span class="string">&#x27;&#x27;</span>]</span> <span class="selector-tag">body</span><span class="selector-pseudo">:last-child</span> <span class="selector-id">#seis</span> &#123;</span><br><span class="line">  <span class="attribute">color</span>: red;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/* safari 3+, chrome 1+, opera9+, ff 3.5+ */</span></span><br><span class="line"><span class="selector-tag">body</span><span class="selector-pseudo">:nth-of-type(1)</span> <span class="selector-id">#siete</span> &#123;</span><br><span class="line">  <span class="attribute">color</span>: red;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/* safari 3+, chrome 1+, opera9+, ff 3.5+ */</span></span><br><span class="line"><span class="selector-tag">body</span><span class="selector-pseudo">:first-of-type</span> <span class="selector-id">#ocho</span> &#123;</span><br><span class="line">  <span class="attribute">color</span>: red;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/* saf3+, chrome1+ */</span></span><br><span class="line"><span class="keyword">@media</span> screen <span class="keyword">and</span> (<span class="attribute">-webkit-min-device-pixel-ratio:</span> <span class="number">0</span>) &#123;</span><br><span class="line">  <span class="selector-id">#diez</span> &#123;</span><br><span class="line">    <span class="attribute">color</span>: red;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/* iPhone / mobile webkit */</span></span><br><span class="line"><span class="keyword">@media</span> screen <span class="keyword">and</span> (<span class="attribute">max-device-width:</span> <span class="number">480px</span>) &#123;</span><br><span class="line">  <span class="selector-id">#veintiseis</span> &#123;</span><br><span class="line">    <span class="attribute">color</span>: red;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/* Safari 2 - 3.1 */</span></span><br><span class="line"><span class="selector-tag">html</span><span class="selector-attr">[xmlns*=<span class="string">&#x27;&#x27;</span>]</span><span class="selector-pseudo">:root</span> <span class="selector-id">#trece</span> &#123;</span><br><span class="line">  <span class="attribute">color</span>: red;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/* Safari 2 - 3.1, Opera 9.25 */</span></span><br><span class="line">*|html[xmlns*=&#x27;&#x27;] #catorce &#123;</span><br><span class="line">  <span class="selector-tag">color</span>: <span class="selector-tag">red</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/* Everything but IE6-8 */</span></span><br><span class="line"><span class="selector-pseudo">:root</span> * &gt; <span class="selector-id">#quince</span> &#123;</span><br><span class="line">  <span class="attribute">color</span>: red;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/* IE7 */</span></span><br><span class="line">* + <span class="selector-tag">html</span> <span class="selector-id">#dieciocho</span> &#123;</span><br><span class="line">  <span class="attribute">color</span>: red;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/* Firefox only. 1+ */</span></span><br><span class="line"><span class="selector-id">#veinticuatro</span>,</span><br><span class="line"><span class="selector-tag">x</span><span class="selector-pseudo">:-moz-any-link</span> &#123;</span><br><span class="line">  <span class="attribute">color</span>: red;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/* Firefox 3.0+ */</span></span><br><span class="line"><span class="selector-id">#veinticinco</span>,</span><br><span class="line"><span class="selector-tag">x</span><span class="selector-pseudo">:-moz-any-link</span>,</span><br><span class="line"><span class="selector-tag">x</span><span class="selector-pseudo">:default</span> &#123;</span><br><span class="line">  <span class="attribute">color</span>: red;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>属性 hack：不同浏览器解析 bug 或方法</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&#x2F;* IE6 *&#x2F;</span><br><span class="line">#once &#123; _color: blue &#125;</span><br><span class="line"></span><br><span class="line">&#x2F;* IE6, IE7 *&#x2F;</span><br><span class="line">#doce &#123; *color: blue; &#x2F;* or #color: blue *&#x2F; &#125;</span><br><span class="line"></span><br><span class="line">&#x2F;* Everything but IE6 *&#x2F;</span><br><span class="line">#diecisiete &#123; color&#x2F;**&#x2F;: blue &#125;</span><br><span class="line"></span><br><span class="line">&#x2F;* IE6, IE7, IE8 *&#x2F;</span><br><span class="line">#diecinueve &#123; color: blue\9; &#125;</span><br><span class="line"></span><br><span class="line">&#x2F;* IE7, IE8 *&#x2F;</span><br><span class="line">#veinte &#123; color&#x2F;*\**&#x2F;: blue\9; &#125;</span><br><span class="line"></span><br><span class="line">&#x2F;* IE6, IE7 -- acts as an !important *&#x2F;</span><br><span class="line">#veintesiete &#123; color: blue !ie; &#125; &#x2F;* string after ! can be anything *&#x2F;</span><br></pre></td></tr></table></figure>
+
+<h3 id="specified-value-computed-value-used-value-计算方法"><a href="#specified-value-computed-value-used-value-计算方法" class="headerlink" title="specified value,computed value,used value 计算方法"></a>specified value,computed value,used value 计算方法</h3><ul>
+<li><p>specified value: 计算方法如下：</p>
+<ol>
+<li>如果样式表设置了一个值，使用这个值</li>
+<li>如果没有设值，且这个属性是继承属性，从父元素继承</li>
+<li>如果没有设值，并且不是继承属性，则使用 css 规范指定的初始值</li>
+</ol>
+</li>
+<li><p>computed value: 以 specified value 根据规范定义的行为进行计算，通常将相对值计算为绝对值，例如 em 根据 font-size 进行计算。一些使用百分数并且需要布局来决定最终值的属性，如 width，margin。百分数就直接作为 computed value。line-height 的无单位值也直接作为 computed value。这些值将在计算 used value 时得到绝对值。<strong>computed value 的主要作用是用于继承</strong></p>
+</li>
+<li><p>used value：属性计算后的最终值，对于大多数属性可以通过 window.getComputedStyle 获得，尺寸值单位为像素。以下属性依赖于布局，</p>
+<ul>
+<li>background-position</li>
+<li>bottom, left, right, top</li>
+<li>height, width</li>
+<li>margin-bottom, margin-left, margin-right, margin-top</li>
+<li>min-height, min-width</li>
+<li>padding-bottom, padding-left, padding-right, padding-top</li>
+<li>text-indent</li>
+</ul>
+</li>
+</ul>
+<h3 id="link与-import的区别"><a href="#link与-import的区别" class="headerlink" title="link与@import的区别"></a><code>link</code>与<code>@import</code>的区别</h3><ol>
+<li><code>link</code>是 HTML 方式， <code>@import</code>是 CSS 方式</li>
+<li><code>link</code>最大限度支持并行下载，<code>@import</code>过多嵌套导致串行下载，出现<a href="http://www.bluerobot.com/web/css/fouc.asp/">FOUC</a></li>
+<li><code>link</code>可以通过<code>rel=&quot;alternate stylesheet&quot;</code>指定候选样式</li>
+<li>浏览器对<code>link</code>支持早于<code>@import</code>，可以使用<code>@import</code>对老浏览器隐藏样式</li>
+<li><code>@import</code>必须在样式规则之前，可以在 css 文件中引用其他文件</li>
+<li>总体来说：**<a href="http://www.stevesouders.com/blog/2009/04/09/dont-use-import/">link 优于@import</a>**</li>
+</ol>
+<h3 id="display-block-和display-inline-的区别"><a href="#display-block-和display-inline-的区别" class="headerlink" title="display: block;和display: inline;的区别"></a><code>display: block;</code>和<code>display: inline;</code>的区别</h3><p><code>block</code>元素特点：</p>
+<p>1.处于常规流中时，如果<code>width</code>没有设置，会自动填充满父容器 2.可以应用<code>margin/padding</code> 3.在没有设置高度的情况下会扩展高度以包含常规流中的子元素 4.处于常规流中时布局时在前后元素位置之间（独占一个水平空间） 5.忽略<code>vertical-align</code></p>
+<p><code>inline</code>元素特点</p>
+<p>1.水平方向上根据<code>direction</code>依次布局 2.不会在元素前后进行换行 3.受<code>white-space</code>控制 4.<code>margin/padding</code>在竖直方向上无效，水平方向上有效 5.<code>width/height</code>属性对非替换行内元素无效，宽度由元素内容决定 6.非替换行内元素的行框高由<code>line-height</code>确定，替换行内元素的行框高由<code>height</code>,<code>margin</code>,<code>padding</code>,<code>border</code>决定 6.浮动或绝对定位时会转换为<code>block</code> 7.<code>vertical-align</code>属性生效</p>
+<h3 id="PNG-GIF-JPG-的区别及如何选"><a href="#PNG-GIF-JPG-的区别及如何选" class="headerlink" title="PNG,GIF,JPG 的区别及如何选"></a>PNG,GIF,JPG 的区别及如何选</h3><p>参考资料： <a href="http://www.yuiblog.com/blog/2008/11/04/imageopt-2/">选择正确的图片格式</a><br><strong>GIF</strong>:</p>
+<ol>
+<li>8 位像素，256 色</li>
+<li>无损压缩</li>
+<li>支持简单动画</li>
+<li>支持 boolean 透明</li>
+<li>适合简单动画</li>
+</ol>
+<p><strong>JPEG</strong>：</p>
+<ol>
+<li>颜色限于 256</li>
+<li>有损压缩</li>
+<li>可控制压缩质量</li>
+<li>不支持透明</li>
+<li>适合照片</li>
+</ol>
+<p><strong>PNG</strong>：</p>
+<ol>
+<li>有 PNG8 和 truecolor PNG</li>
+<li>PNG8 类似 GIF 颜色上限为 256，文件小，支持 alpha 透明度，无动画</li>
+<li>适合图标、背景、按钮</li>
+</ol>
+<h3 id="CSS-有哪些继承属性"><a href="#CSS-有哪些继承属性" class="headerlink" title="CSS 有哪些继承属性"></a>CSS 有哪些继承属性</h3><ul>
+<li>关于文字排版的属性如：<ul>
+<li><a href="https://developer.mozilla.org/en-US/docs/Web/CSS/font">font</a></li>
+<li><a href="https://developer.mozilla.org/en-US/docs/Web/CSS/word-break">word-break</a></li>
+<li><a href="https://developer.mozilla.org/en-US/docs/Web/CSS/letter-spacing">letter-spacing</a></li>
+<li><a href="https://developer.mozilla.org/en-US/docs/Web/CSS/text-align">text-align</a></li>
+<li><a href="https://developer.mozilla.org/en-US/docs/Web/CSS/text-rendering">text-rendering</a></li>
+<li><a href="https://developer.mozilla.org/en-US/docs/Web/CSS/word-spacing">word-spacing</a></li>
+<li><a href="https://developer.mozilla.org/en-US/docs/Web/CSS/white-space">white-space</a></li>
+<li><a href="https://developer.mozilla.org/en-US/docs/Web/CSS/text-indent">text-indent</a></li>
+<li><a href="https://developer.mozilla.org/en-US/docs/Web/CSS/text-transform">text-transform</a></li>
+<li><a href="https://developer.mozilla.org/en-US/docs/Web/CSS/text-shadow">text-shadow</a></li>
+</ul>
+</li>
+<li><a href="https://developer.mozilla.org/en-US/docs/Web/CSS/line-height">line-height</a></li>
+<li><a href="https://developer.mozilla.org/en-US/docs/Web/CSS/color">color</a></li>
+<li><a href="https://developer.mozilla.org/en-US/docs/Web/CSS/visibility">visibility</a></li>
+<li><a href="https://developer.mozilla.org/en-US/docs/Web/CSS/cursor">cursor</a></li>
+</ul>
+<h3 id="IE6-浏览器有哪些常见的-bug-缺陷或者与标准不一致的地方-如何解决"><a href="#IE6-浏览器有哪些常见的-bug-缺陷或者与标准不一致的地方-如何解决" class="headerlink" title="IE6 浏览器有哪些常见的 bug,缺陷或者与标准不一致的地方,如何解决"></a>IE6 浏览器有哪些常见的 bug,缺陷或者与标准不一致的地方,如何解决</h3><ul>
+<li>IE6 不支持 min-height，解决办法使用 css hack：</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">.target &#123;</span><br><span class="line">    min-height: 100px;</span><br><span class="line">    height: auto !important;</span><br><span class="line">    height: 100px;   &#x2F;&#x2F; IE6下内容高度超过会自动扩展高度</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><p><code>ol</code>内<code>li</code>的序号全为 1，不递增。解决方法：为 li 设置样式<code>display: list-item;</code></p>
+</li>
+<li><p>未定位父元素<code>overflow: auto;</code>，包含<code>position: relative;</code>子元素，子元素高于父元素时会溢出。解决办法：1）子元素去掉<code>position: relative;</code>; 2）不能为子元素去掉定位时，父元素<code>position: relative;</code></p>
+</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&lt;style type&#x3D;&quot;text&#x2F;css&quot;&gt;</span><br><span class="line">.outer &#123;</span><br><span class="line">    width: 215px;</span><br><span class="line">    height: 100px;</span><br><span class="line">    border: 1px solid red;</span><br><span class="line">    overflow: auto;</span><br><span class="line">    position: relative;  &#x2F;* 修复bug *&#x2F;</span><br><span class="line">&#125;</span><br><span class="line">.inner &#123;</span><br><span class="line">    width: 100px;</span><br><span class="line">    height: 200px;</span><br><span class="line">    background-color: purple;</span><br><span class="line">    position: relative;</span><br><span class="line">&#125;</span><br><span class="line">&lt;&#x2F;style&gt;</span><br><span class="line"></span><br><span class="line">&lt;div class&#x3D;&quot;outer&quot;&gt;</span><br><span class="line">    &lt;div class&#x3D;&quot;inner&quot;&gt;&lt;&#x2F;div&gt;</span><br><span class="line">&lt;&#x2F;div&gt;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>IE6 只支持<code>a</code>标签的<code>:hover</code>伪类，解决方法：使用 js 为元素监听 mouseenter，mouseleave 事件，添加类实现效果：</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&lt;style type&#x3D;&quot;text&#x2F;css&quot;&gt;</span><br><span class="line">.p:hover,</span><br><span class="line">.hover &#123;</span><br><span class="line">    background: purple;</span><br><span class="line">&#125;</span><br><span class="line">&lt;&#x2F;style&gt;</span><br><span class="line"></span><br><span class="line">&lt;p class&#x3D;&quot;p&quot; id&#x3D;&quot;target&quot;&gt;aaaa bbbbb&lt;span&gt;DDDDDDDDDDDd&lt;&#x2F;span&gt; aaaa lkjlkjdf j&lt;&#x2F;p&gt;</span><br><span class="line"></span><br><span class="line">&lt;script type&#x3D;&quot;text&#x2F;javascript&quot;&gt;</span><br><span class="line">function addClass(elem, cls) &#123;</span><br><span class="line">    if (elem.className) &#123;</span><br><span class="line">        elem.className +&#x3D; &#39; &#39; + cls;</span><br><span class="line">    &#125; else &#123;</span><br><span class="line">        elem.className &#x3D; cls;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">function removeClass(elem, cls) &#123;</span><br><span class="line">    var className &#x3D; &#39; &#39; + elem.className + &#39; &#39;;</span><br><span class="line">    var reg &#x3D; new RegExp(&#39; +&#39; + cls + &#39; +&#39;, &#39;g&#39;);</span><br><span class="line">    elem.className &#x3D; className.replace(reg, &#39; &#39;).replace(&#x2F;^ +| +$&#x2F;, &#39;&#39;);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">var target &#x3D; document.getElementById(&#39;target&#39;);</span><br><span class="line">if (target.attachEvent) &#123;</span><br><span class="line">    target.attachEvent(&#39;onmouseenter&#39;, function () &#123;</span><br><span class="line">        addClass(target, &#39;hover&#39;);</span><br><span class="line">    &#125;);</span><br><span class="line">    target.attachEvent(&#39;onmouseleave&#39;, function () &#123;</span><br><span class="line">        removeClass(target, &#39;hover&#39;);</span><br><span class="line">    &#125;)</span><br><span class="line">&#125;</span><br><span class="line">&lt;&#x2F;script&gt;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>IE5-8 不支持<code>opacity</code>，解决办法：</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">.opacity &#123;</span><br><span class="line">    opacity: 0.4</span><br><span class="line">    filter: alpha(opacity&#x3D;60); &#x2F;* for IE5-7 *&#x2F;</span><br><span class="line">    -ms-filter: &quot;progid:DXImageTransform.Microsoft.Alpha(Opacity&#x3D;60)&quot;; &#x2F;* for IE 8*&#x2F;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>IE6 在设置<code>height</code>小于<code>font-size</code>时高度值为<code>font-size</code>，解决办法：<code>font-size: 0;</code></li>
+<li>IE6 不支持 PNG 透明背景，解决办法: <strong>IE6 下使用 gif 图片</strong></li>
+<li>IE6-7 不支持<code>display: inline-block</code>解决办法：设置 inline 并触发 hasLayout</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">display: inline-block;</span><br><span class="line">*display: inline;</span><br><span class="line">*zoom: 1;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>IE6 下浮动元素在浮动方向上与父元素边界接触元素的外边距会加倍。解决办法：<br>1）使用 padding 控制间距。<br>2）浮动元素<code>display: inline;</code>这样解决问题且无任何副作用：css 标准规定浮动元素 display:inline 会自动调整为 block</li>
+<li>通过为块级元素设置宽度和左右 margin 为 auto 时，IE6 不能实现水平居中，解决方法：为父元素设置<code>text-align: center;</code></li>
+</ul>
+<h3 id="容器包含若干浮动元素时如何清理-包含-浮动"><a href="#容器包含若干浮动元素时如何清理-包含-浮动" class="headerlink" title="容器包含若干浮动元素时如何清理(包含)浮动"></a>容器包含若干浮动元素时如何清理(包含)浮动</h3><ol>
+<li>容器元素闭合标签前添加额外元素并设置<code>clear: both</code></li>
+<li>父元素触发块级格式化上下文(见块级可视化上下文部分)</li>
+<li>设置容器元素伪元素进行清理<a href="http://nicolasgallagher.com/micro-clearfix-hack/">推荐的清理浮动方法</a></li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&#x2F;**</span><br><span class="line">* 在标准浏览器下使用</span><br><span class="line">* 1 content内容为空格用于修复opera下文档中出现</span><br><span class="line">*   contenteditable属性时在清理浮动元素上下的空白</span><br><span class="line">* 2 使用display使用table而不是block：可以防止容器和</span><br><span class="line">*   子元素top-margin折叠,这样能使清理效果与BFC，IE6&#x2F;7</span><br><span class="line">*   zoom: 1;一致</span><br><span class="line">**&#x2F;</span><br><span class="line"></span><br><span class="line">.clearfix:before,</span><br><span class="line">.clearfix:after &#123;</span><br><span class="line">    content: &quot; &quot;; &#x2F;* 1 *&#x2F;</span><br><span class="line">    display: table; &#x2F;* 2 *&#x2F;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">.clearfix:after &#123;</span><br><span class="line">    clear: both;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">&#x2F;**</span><br><span class="line">* IE 6&#x2F;7下使用</span><br><span class="line">* 通过触发hasLayout实现包含浮动</span><br><span class="line">**&#x2F;</span><br><span class="line">.clearfix &#123;</span><br><span class="line">    *zoom: 1;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="什么是-FOUC-如何避免"><a href="#什么是-FOUC-如何避免" class="headerlink" title="什么是 FOUC?如何避免"></a>什么是 FOUC?如何避免</h3><p>Flash Of Unstyled Content：用户定义样式表加载之前浏览器使用默认样式显示文档，用户样式加载渲染之后再从新显示文档，造成页面闪烁。<strong>解决方法</strong>：把样式表放到文档的<code>head</code></p>
+<h3 id="如何创建块级格式化上下文-block-formatting-context-BFC-有什么用"><a href="#如何创建块级格式化上下文-block-formatting-context-BFC-有什么用" class="headerlink" title="如何创建块级格式化上下文(block formatting context),BFC 有什么用"></a>如何创建块级格式化上下文(block formatting context),BFC 有什么用</h3><p>创建规则：</p>
+<ol>
+<li>根元素</li>
+<li>浮动元素（<code>float</code>不是<code>none</code>）</li>
+<li>绝对定位元素（<code>position</code>取值为<code>absolute</code>或<code>fixed</code>）</li>
+<li><code>display</code>取值为<code>inline-block</code>,<code>table-cell</code>, <code>table-caption</code>,<code>flex</code>, <code>inline-flex</code>之一的元素</li>
+<li><code>overflow</code>不是<code>visible</code>的元素</li>
+</ol>
+<p>作用：</p>
+<ol>
+<li>可以包含浮动元素</li>
+<li>不被浮动元素覆盖</li>
+<li>阻止父子元素的 margin 折叠</li>
+</ol>
+<h3 id="display-float-position-的关系"><a href="#display-float-position-的关系" class="headerlink" title="display,float,position 的关系"></a>display,float,position 的关系</h3><ol>
+<li>如果<code>display</code>为 none，那么 position 和 float 都不起作用，这种情况下元素不产生框</li>
+<li>否则，如果 position 值为 absolute 或者 fixed，框就是绝对定位的，float 的计算值为 none，display 根据下面的表格进行调整。</li>
+<li>否则，如果 float 不是 none，框是浮动的，display 根据下表进行调整</li>
+<li>否则，如果元素是根元素，display 根据下表进行调整</li>
+<li>其他情况下 display 的值为指定值<br>总结起来：<strong>绝对定位、浮动、根元素都需要调整<code>display</code></strong><br><img src="https://yuki-1252851979.cos.ap-nanjing.myqcloud.com/blog/FE-interview/img/display-adjust.png" alt="display转换规则"></li>
+</ol>
+<h3 id="外边距折叠-collapsing-margins"><a href="#外边距折叠-collapsing-margins" class="headerlink" title="外边距折叠(collapsing margins)"></a>外边距折叠(collapsing margins)</h3><p>毗邻的两个或多个<code>margin</code>会合并成一个 margin，叫做外边距折叠。规则如下：</p>
+<ol>
+<li>两个或多个毗邻的普通流中的块元素垂直方向上的 margin 会折叠</li>
+<li>浮动元素/inline-block 元素/绝对定位元素的 margin 不会和垂直方向上的其他元素的 margin 折叠</li>
+<li>创建了块级格式化上下文的元素，不会和它的子元素发生 margin 折叠</li>
+<li>元素自身的 margin-bottom 和 margin-top 相邻时也会折叠</li>
+</ol>
+<h3 id="如何确定一个元素的包含块-containing-block"><a href="#如何确定一个元素的包含块-containing-block" class="headerlink" title="如何确定一个元素的包含块(containing block)"></a>如何确定一个元素的包含块(containing block)</h3><ol>
+<li><p>根元素的包含块叫做初始包含块，在连续媒体中他的尺寸与 viewport 相同并且 anchored at the canvas origin；对于 paged media，它的尺寸等于 page area。初始包含块的 direction 属性与根元素相同。</p>
+</li>
+<li><p><code>position</code>为<code>relative</code>或者<code>static</code>的元素，它的包含块由最近的块级（<code>display</code>为<code>block</code>,<code>list-item</code>, <code>table</code>）祖先元素的<strong>内容框</strong>组成</p>
+</li>
+<li><p>如果元素<code>position</code>为<code>fixed</code>。对于连续媒体，它的包含块为 viewport；对于 paged media，包含块为 page area</p>
+</li>
+<li><p>如果元素<code>position</code>为<code>absolute</code>，它的包含块由祖先元素中最近一个<code>position</code>为<code>relative</code>,<code>absolute</code>或者<code>fixed</code>的元素产生，规则如下：</p>
+<ul>
+<li>如果祖先元素为行内元素，the containing block is the bounding box around the <strong>padding boxes</strong> of the first and the last inline boxes generated for that element.</li>
+<li>其他情况下包含块由祖先节点的<strong>padding edge</strong>组成</li>
+</ul>
+<p>如果找不到定位的祖先元素，包含块为<strong>初始包含块</strong></p>
+</li>
+</ol>
+<h3 id="stacking-context-布局规则"><a href="#stacking-context-布局规则" class="headerlink" title="stacking context,布局规则"></a>stacking context,布局规则</h3><p>z 轴上的默认层叠顺序如下（从下到上）：</p>
+<ol>
+<li>根元素的边界和背景</li>
+<li>常规流中的元素按照 html 中顺序</li>
+<li>浮动块</li>
+<li>positioned 元素按照 html 中出现顺序</li>
+</ol>
+<p>如何创建 stacking context：</p>
+<ol>
+<li>根元素</li>
+<li>z-index 不为 auto 的定位元素</li>
+<li>a flex item with a z-index value other than ‘auto’</li>
+<li>opacity 小于 1 的元素</li>
+<li>在移动端 webkit 和 chrome22+，z-index 为 auto，position: fixed 也将创建新的 stacking context</li>
+</ol>
+<h3 id="如何水平居中一个元素"><a href="#如何水平居中一个元素" class="headerlink" title="如何水平居中一个元素"></a>如何水平居中一个元素</h3><ul>
+<li>如果需要居中的元素为<strong>常规流中 inline 元素</strong>，为父元素设置<code>text-align: center;</code>即可实现</li>
+<li>如果需要居中的元素为<strong>常规流中 block 元素</strong>，1）为元素设置宽度，2）设置左右 margin 为 auto。3）IE6 下需在父元素上设置<code>text-align: center;</code>,再给子元素恢复需要的值</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&lt;body&gt;</span><br><span class="line">    &lt;div class&#x3D;&quot;content&quot;&gt;</span><br><span class="line">    aaaaaa aaaaaa a a a a a a a a</span><br><span class="line">    &lt;&#x2F;div&gt;</span><br><span class="line">&lt;&#x2F;body&gt;</span><br><span class="line"></span><br><span class="line">&lt;style&gt;</span><br><span class="line">    body &#123;</span><br><span class="line">        background: #DDD;</span><br><span class="line">        text-align: center; &#x2F;* 3 *&#x2F;</span><br><span class="line">    &#125;</span><br><span class="line">    .content &#123;</span><br><span class="line">        width: 500px;      &#x2F;* 1 *&#x2F;</span><br><span class="line">        text-align: left;  &#x2F;* 3 *&#x2F;</span><br><span class="line">        margin: 0 auto;    &#x2F;* 2 *&#x2F;</span><br><span class="line"></span><br><span class="line">        background: purple;</span><br><span class="line">    &#125;</span><br><span class="line">&lt;&#x2F;style&gt;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>如果需要居中的元素为<strong>浮动元素</strong>，1）为元素设置宽度，2）<code>position: relative;</code>，3）浮动方向偏移量（left 或者 right）设置为 50%，4）浮动方向上的 margin 设置为元素宽度一半乘以-1</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&lt;body&gt;</span><br><span class="line">    &lt;div class&#x3D;&quot;content&quot;&gt;</span><br><span class="line">    aaaaaa aaaaaa a a a a a a a a</span><br><span class="line">    &lt;&#x2F;div&gt;</span><br><span class="line">&lt;&#x2F;body&gt;</span><br><span class="line"></span><br><span class="line">&lt;style&gt;</span><br><span class="line">    body &#123;</span><br><span class="line">        background: #DDD;</span><br><span class="line">    &#125;</span><br><span class="line">    .content &#123;</span><br><span class="line">        width: 500px;         &#x2F;* 1 *&#x2F;</span><br><span class="line">        float: left;</span><br><span class="line"></span><br><span class="line">        position: relative;   &#x2F;* 2 *&#x2F;</span><br><span class="line">        left: 50%;            &#x2F;* 3 *&#x2F;</span><br><span class="line">        margin-left: -250px;  &#x2F;* 4 *&#x2F;</span><br><span class="line"></span><br><span class="line">        background-color: purple;</span><br><span class="line">    &#125;</span><br><span class="line">&lt;&#x2F;style&gt;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>如果需要居中的元素为<strong>绝对定位元素</strong>，1）为元素设置宽度，2）偏移量设置为 50%，3）偏移方向外边距设置为元素宽度一半乘以-1</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&lt;body&gt;</span><br><span class="line">    &lt;div class&#x3D;&quot;content&quot;&gt;</span><br><span class="line">    aaaaaa aaaaaa a a a a a a a a</span><br><span class="line">    &lt;&#x2F;div&gt;</span><br><span class="line">&lt;&#x2F;body&gt;</span><br><span class="line"></span><br><span class="line">&lt;style&gt;</span><br><span class="line">    body &#123;</span><br><span class="line">        background: #DDD;</span><br><span class="line">        position: relative;</span><br><span class="line">    &#125;</span><br><span class="line">    .content &#123;</span><br><span class="line">        width: 800px;</span><br><span class="line"></span><br><span class="line">        position: absolute;</span><br><span class="line">        left: 50%;</span><br><span class="line">        margin-left: -400px;</span><br><span class="line"></span><br><span class="line">        background-color: purple;</span><br><span class="line">    &#125;</span><br><span class="line">&lt;&#x2F;style&gt;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>如果需要居中的元素为<strong>绝对定位元素</strong>，1）为元素设置宽度，2）设置左右偏移量都为 0,3）设置左右外边距都为 auto</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&lt;body&gt;</span><br><span class="line">    &lt;div class&#x3D;&quot;content&quot;&gt;</span><br><span class="line">    aaaaaa aaaaaa a a a a a a a a</span><br><span class="line">    &lt;&#x2F;div&gt;</span><br><span class="line">&lt;&#x2F;body&gt;</span><br><span class="line"></span><br><span class="line">&lt;style&gt;</span><br><span class="line">    body &#123;</span><br><span class="line">        background: #DDD;</span><br><span class="line">        position: relative;</span><br><span class="line">    &#125;</span><br><span class="line">    .content &#123;</span><br><span class="line">        width: 800px;</span><br><span class="line"></span><br><span class="line">        position: absolute;</span><br><span class="line">        margin: 0 auto;</span><br><span class="line">        left: 0;</span><br><span class="line">        right: 0;</span><br><span class="line"></span><br><span class="line">        background-color: purple;</span><br><span class="line">    &#125;</span><br><span class="line">&lt;&#x2F;style&gt;</span><br></pre></td></tr></table></figure>
+
+<h3 id="如何竖直居中一个元素"><a href="#如何竖直居中一个元素" class="headerlink" title="如何竖直居中一个元素"></a>如何竖直居中一个元素</h3><p>参考资料：<a href="http://www.vanseodesign.com/css/vertical-centering/">6 Methods For Vertical Centering With CSS</a>。 <a href="http://blog.csdn.net/freshlover/article/details/11579669">盘点 8 种 CSS 实现垂直居中</a></p>
+<ul>
+<li>需要居中元素为<strong>单行文本</strong>，为包含文本的元素设置大于<code>font-size</code>的<code>line-height</code>：</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&lt;p class&#x3D;&quot;text&quot;&gt;center text&lt;&#x2F;p&gt;</span><br><span class="line"></span><br><span class="line">&lt;style&gt;</span><br><span class="line">.text &#123;</span><br><span class="line">    line-height: 200px;</span><br><span class="line">&#125;</span><br><span class="line">&lt;&#x2F;style&gt;</span><br></pre></td></tr></table></figure>
+
+<h2 id="javascript-概念部分"><a href="#javascript-概念部分" class="headerlink" title="$javascript 概念部分"></a>$javascript 概念部分</h2><h3 id="DOM-元素-e-的-e-getAttribute-propName-和-e-propName-有什么区别和联系"><a href="#DOM-元素-e-的-e-getAttribute-propName-和-e-propName-有什么区别和联系" class="headerlink" title="DOM 元素 e 的 e.getAttribute(propName)和 e.propName 有什么区别和联系"></a>DOM 元素 e 的 e.getAttribute(propName)和 e.propName 有什么区别和联系</h3><ul>
+<li>e.getAttribute()，是标准 DOM 操作文档元素属性的方法，具有通用性可在任意文档上使用，返回元素在源文件中<strong>设置的属性</strong></li>
+<li>e.propName 通常是在 HTML 文档中访问特定元素的<strong>特性</strong>，浏览器解析元素后生成对应对象（如 a 标签生成 HTMLAnchorElement），这些对象的特性会根据特定规则结合属性设置得到，对于没有对应特性的属性，只能使用 getAttribute 进行访问</li>
+<li>e.getAttribute()返回值是源文件中设置的值，类型是字符串或者 null（有的实现返回””）</li>
+<li>e.propName 返回值可能是字符串、布尔值、对象、undefined 等</li>
+<li>大部分 attribute 与 property 是一一对应关系，修改其中一个会影响另一个，如 id，title 等属性</li>
+<li>一些布尔属性<code>&lt;input hidden/&gt;</code>的检测设置需要 hasAttribute 和 removeAttribute 来完成，或者设置对应 property</li>
+<li>像<code>&lt;a href=&quot;../index.html&quot;&gt;link&lt;/a&gt;</code>中 href 属性，转换成 property 的时候需要通过转换得到完整 URL</li>
+<li>一些 attribute 和 property 不是一一对应如：form 控件中<code>&lt;input value=&quot;hello&quot;/&gt;</code>对应的是 defaultValue，修改或设置 value property 修改的是控件当前值，setAttribute 修改 value 属性不会改变 value property</li>
+</ul>
+<h3 id="offsetWidth-offsetHeight-clientWidth-clientHeight-与-scrollWidth-scrollHeight-的区别"><a href="#offsetWidth-offsetHeight-clientWidth-clientHeight-与-scrollWidth-scrollHeight-的区别" class="headerlink" title="offsetWidth/offsetHeight,clientWidth/clientHeight 与 scrollWidth/scrollHeight 的区别"></a>offsetWidth/offsetHeight,clientWidth/clientHeight 与 scrollWidth/scrollHeight 的区别</h3><ul>
+<li>offsetWidth/offsetHeight 返回值包含<strong>content + padding + border</strong>，效果与 e.getBoundingClientRect()相同</li>
+<li>clientWidth/clientHeight 返回值只包含<strong>content + padding</strong>，如果有滚动条，也<strong>不包含滚动条</strong></li>
+<li>scrollWidth/scrollHeight 返回值包含<strong>content + padding + 溢出内容的尺寸</strong></li>
+</ul>
+<p><a href="http://msdn.microsoft.com/en-us/library/ie/hh781509(v=vs.85).aspx">Measuring Element Dimension and Location with CSSOM in Windows Internet Explorer 9</a></p>
+<p><img src="https://yuki-1252851979.cos.ap-nanjing.myqcloud.com/blog/FE-interview/img/element-size.png" alt="元素尺寸"></p>
+<h3 id="XMLHttpRequest-通用属性和方法"><a href="#XMLHttpRequest-通用属性和方法" class="headerlink" title="XMLHttpRequest 通用属性和方法"></a>XMLHttpRequest 通用属性和方法</h3><ol>
+<li><code>readyState</code>:表示请求状态的整数，取值：</li>
+</ol>
+<ul>
+<li>UNSENT（0）：对象已创建</li>
+<li>OPENED（1）：open()成功调用，在这个状态下，可以为 xhr 设置请求头，或者使用 send()发送请求</li>
+<li>HEADERS_RECEIVED(2)：所有重定向已经自动完成访问，并且最终响应的 HTTP 头已经收到</li>
+<li>LOADING(3)：响应体正在接收</li>
+<li>DONE(4)：数据传输完成或者传输产生错误</li>
+</ul>
+<ol start="3">
+<li><code>onreadystatechange</code>：readyState 改变时调用的函数</li>
+<li><code>status</code>：服务器返回的 HTTP 状态码（如，200， 404）</li>
+<li><code>statusText</code>:服务器返回的 HTTP 状态信息（如，OK，No Content）</li>
+<li><code>responseText</code>:作为字符串形式的来自服务器的完整响应</li>
+<li><code>responseXML</code>: Document 对象，表示服务器的响应解析成的 XML 文档</li>
+<li><code>abort()</code>:取消异步 HTTP 请求</li>
+<li><code>getAllResponseHeaders()</code>: 返回一个字符串，包含响应中服务器发送的全部 HTTP 报头。每个报头都是一个用冒号分隔开的名/值对，并且使用一个回车/换行来分隔报头行</li>
+<li><code>getResponseHeader(headerName)</code>:返回 headName 对应的报头值</li>
+<li><code>open(method, url, asynchronous [, user, password])</code>:初始化准备发送到服务器上的请求。method 是 HTTP 方法，不区分大小写；url 是请求发送的相对或绝对 URL；asynchronous 表示请求是否异步；user 和 password 提供身份验证</li>
+<li><code>setRequestHeader(name, value)</code>:设置 HTTP 报头</li>
+<li><code>send(body)</code>:对服务器请求进行初始化。参数 body 包含请求的主体部分，对于 POST 请求为键值对字符串；对于 GET 请求，为 null</li>
+</ol>
+<h3 id="focus-blur-与-focusin-focusout-的区别与联系"><a href="#focus-blur-与-focusin-focusout-的区别与联系" class="headerlink" title="focus/blur 与 focusin/focusout 的区别与联系"></a>focus/blur 与 focusin/focusout 的区别与联系</h3><ol>
+<li>focus/blur 不冒泡，focusin/focusout 冒泡</li>
+<li>focus/blur 兼容性好，focusin/focusout 在除 FireFox 外的浏览器下都保持良好兼容性，如需使用事件托管，可考虑在 FireFox 下使用事件捕获 elem.addEventListener(‘focus’, handler, true)</li>
+<li>可获得焦点的元素：<ol>
+<li>window</li>
+<li>链接被点击或键盘操作</li>
+<li>表单空间被点击或键盘操作</li>
+<li>设置<code>tabindex</code>属性的元素被点击或键盘操作</li>
+</ol>
+</li>
+</ol>
+<h3 id="mouseover-mouseout-与-mouseenter-mouseleave-的区别与联系"><a href="#mouseover-mouseout-与-mouseenter-mouseleave-的区别与联系" class="headerlink" title="mouseover/mouseout 与 mouseenter/mouseleave 的区别与联系"></a>mouseover/mouseout 与 mouseenter/mouseleave 的区别与联系</h3><ol>
+<li>mouseover/mouseout 是标准事件，<strong>所有浏览器都支持</strong>；mouseenter/mouseleave 是 IE5.5 引入的特有事件后来被 DOM3 标准采纳，现代标准浏览器也支持</li>
+<li>mouseover/mouseout 是<strong>冒泡</strong>事件；mouseenter/mouseleave<strong>不冒泡</strong>。需要为<strong>多个元素监听鼠标移入/出事件时，推荐 mouseover/mouseout 托管，提高性能</strong></li>
+<li>标准事件模型中 event.target 表示发生移入/出的元素,<strong>vent.relatedTarget</strong>对应移出/如元素；在老 IE 中 event.srcElement 表示发生移入/出的元素，<strong>event.toElement</strong>表示移出的目标元素，<strong>event.fromElement</strong>表示移入时的来源元素</li>
+</ol>
+<p>例子：鼠标从 div#target 元素移出时进行处理，判断逻辑如下：</p>
+<pre><code>&lt;div id=&quot;target&quot;&gt;&lt;span&gt;test&lt;/span&gt;&lt;/div&gt;
+
+&lt;script type=&quot;text/javascript&quot;&gt;
+var target = document.getElementById(&#39;target&#39;);
+if (target.addEventListener) &#123;
+  target.addEventListener(&#39;mouseout&#39;, mouseoutHandler, false);
+&#125; else if (target.attachEvent) &#123;
+  target.attachEvent(&#39;onmouseout&#39;, mouseoutHandler);
+&#125;
+
+function mouseoutHandler(e) &#123;
+  e = e || window.event;
+  var target = e.target || e.srcElement;
+
+  // 判断移出鼠标的元素是否为目标元素
+  if (target.id !== &#39;target&#39;) &#123;
+    return;
+  &#125;
+
+  // 判断鼠标是移出元素还是移到子元素
+  var relatedTarget = event.relatedTarget || e.toElement;
+  while (relatedTarget !== target
+    &amp;&amp; relatedTarget.nodeName.toUpperCase() !== &#39;BODY&#39;) &#123;
+    relatedTarget = relatedTarget.parentNode;
+  &#125;
+
+  // 如果相等，说明鼠标在元素内部移动
+  if (relatedTarget === target) &#123;
+    return;
+  &#125;
+
+  // 执行需要操作
+  //alert(&#39;鼠标移出&#39;);
+
+&#125;
+&lt;/script&gt;</code></pre>
+<h3 id="sessionStorage-localStorage-cookie-区别"><a href="#sessionStorage-localStorage-cookie-区别" class="headerlink" title="sessionStorage,localStorage,cookie 区别"></a>sessionStorage,localStorage,cookie 区别</h3><ol>
+<li>都会在浏览器端保存，有大小限制，同源限制</li>
+<li>cookie 会在请求时发送到服务器，作为会话标识，服务器可修改 cookie；web storage 不会发送到服务器</li>
+<li>cookie 有 path 概念，子路径可以访问父路径 cookie，父路径不能访问子路径 cookie</li>
+<li>有效期：cookie 在设置的有效期内有效，默认为浏览器关闭；sessionStorage 在窗口关闭前有效，localStorage 长期有效，直到用户删除</li>
+<li>共享：sessionStorage 不能共享，localStorage 在同源文档之间共享，cookie 在同源且符合 path 规则的文档之间共享</li>
+<li>localStorage 的修改会促发其他文档窗口的 update 事件</li>
+<li>cookie 有 secure 属性要求 HTTPS 传输</li>
+<li>浏览器不能保存超过 300 个 cookie，单个服务器不能超过 20 个，每个 cookie 不能超过 4k。web storage 大小支持能达到 5M</li>
+</ol>
+<h3 id="javascript-跨域通信"><a href="#javascript-跨域通信" class="headerlink" title="javascript 跨域通信"></a>javascript 跨域通信</h3><p>同源：两个文档同源需满足</p>
+<ol>
+<li>协议相同</li>
+<li>域名相同</li>
+<li>端口相同</li>
+</ol>
+<p>跨域通信：js 进行 DOM 操作、通信时如果目标与当前窗口不满足同源条件，浏览器为了安全会阻止跨域操作。跨域通信通常有以下方法</p>
+<ul>
+<li>如果是 log 之类的简单<strong>单项通信</strong>，新建<code>&lt;img&gt;</code>,<code>&lt;script&gt;</code>,<code>&lt;link&gt;</code>,<code>&lt;iframe&gt;</code>元素，通过 src，href 属性设置为目标 url。实现跨域请求</li>
+<li>如果请求<strong>json 数据</strong>，使用<code>&lt;script&gt;</code>进行 jsonp 请求</li>
+<li>现代浏览器中<strong>多窗口通信</strong>使用 HTML5 规范的 targetWindow.postMessage(data, origin);其中 data 是需要发送的对象，origin 是目标窗口的 origin。window.addEventListener(‘message’, handler, false);handler 的 event.data 是 postMessage 发送来的数据，event.origin 是发送窗口的 origin，event.source 是发送消息的窗口引用</li>
+<li>内部服务器代理请求跨域 url，然后返回数据</li>
+<li>跨域请求数据，现代浏览器可使用 HTML5 规范的 CORS 功能，只要目标服务器返回 HTTP 头部**<code>Access-Control-Allow-Origin: *</code>**即可像普通 ajax 一样访问跨域资源</li>
+</ul>
+<h3 id="javascript-有哪几种数据类型"><a href="#javascript-有哪几种数据类型" class="headerlink" title="javascript 有哪几种数据类型"></a>javascript 有哪几种数据类型</h3><p>六种基本数据类型</p>
+<ul>
+<li>undefined</li>
+<li>null</li>
+<li>string</li>
+<li>boolean</li>
+<li>number</li>
+<li><a href="https://developer.mozilla.org/en-US/docs/Glossary/Symbol">symbol</a>(ES6)</li>
+</ul>
+<p>一种引用类型</p>
+<ul>
+<li>Object</li>
+</ul>
+<h3 id="什么闭包-闭包有什么用"><a href="#什么闭包-闭包有什么用" class="headerlink" title="什么闭包,闭包有什么用"></a>什么闭包,闭包有什么用</h3><p><strong>闭包是在某个作用域内定义的函数，它可以访问这个作用域内的所有变量</strong>。闭包作用域链通常包括三个部分：</p>
+<ol>
+<li>函数本身作用域。</li>
+<li>闭包定义时的作用域。</li>
+<li>全局作用域。</li>
+</ol>
+<p>闭包常见用途：</p>
+<ol>
+<li>创建特权方法用于访问控制</li>
+<li>事件处理程序及回调</li>
+</ol>
+<h3 id="javascript-有哪几种方法定义函数"><a href="#javascript-有哪几种方法定义函数" class="headerlink" title="javascript 有哪几种方法定义函数"></a>javascript 有哪几种方法定义函数</h3><ol>
+<li><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/function">函数声明表达式</a></li>
+<li><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/function">function 操作符</a></li>
+<li><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Function">Function 构造函数</a></li>
+<li><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/arrow_functions">ES6:arrow function</a></li>
+</ol>
+<p>重要参考资料：<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Functions_and_function_scope">MDN:Functions_and_function_scope</a></p>
+<h3 id="应用程序存储和离线-web-应用"><a href="#应用程序存储和离线-web-应用" class="headerlink" title="应用程序存储和离线 web 应用"></a>应用程序存储和离线 web 应用</h3><p>HTML5 新增应用程序缓存，允许 web 应用将应用程序自身保存到用户浏览器中，用户离线状态也能访问。 1.为 html 元素设置 manifest 属性:<code>&lt;html manifest=&quot;myapp.appcache&quot;&gt;</code>，其中后缀名只是一个约定，真正识别方式是通过<code>text/cache-manifest</code>作为 MIME 类型。所以需要配置服务器保证设置正确<br>2.manifest 文件首行为<code>CACHE MANIFEST</code>，其余就是要缓存的 URL 列表，每个一行，相对路径都相对于 manifest 文件的 url。注释以#开头<br>3.url 分为三种类型：<code>CACHE</code>:为默认类型。<code>NETWORK</code>：表示资源从不缓存。 <code>FALLBACK</code>:每行包含两个 url，第二个 URL 是指需要加载和存储在缓存中的资源， 第一个 URL 是一个前缀。任何匹配该前缀的 URL 都不会缓存，如果从网络中载入这样的 URL 失败的话，就会用第二个 URL 指定的缓存资源来替代。以下是一个文件例子：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">CACHE MANIFEST</span><br><span class="line"></span><br><span class="line">CACHE:</span><br><span class="line">myapp.html</span><br><span class="line">myapp.css</span><br><span class="line">myapp.js</span><br><span class="line"></span><br><span class="line">FALLBACK:</span><br><span class="line">videos&#x2F; offline_help.html</span><br><span class="line"></span><br><span class="line">NETWORK:</span><br><span class="line">cgi&#x2F;</span><br></pre></td></tr></table></figure>
+
+<h3 id="客户端存储-localStorage-和-sessionStorage"><a href="#客户端存储-localStorage-和-sessionStorage" class="headerlink" title="客户端存储 localStorage 和 sessionStorage"></a>客户端存储 localStorage 和 sessionStorage</h3><ul>
+<li>localStorage 有效期为永久，sessionStorage 有效期为顶层窗口关闭前</li>
+<li>同源文档可以读取并修改 localStorage 数据，sessionStorage 只允许同一个窗口下的文档访问，如通过 iframe 引入的同源文档。</li>
+<li>Storage 对象通常被当做普通 javascript 对象使用：<strong>通过设置属性来存取字符串值</strong>，也可以通过<strong>setItem(key, value)设置</strong>，<strong>getItem(key)读取</strong>，<strong>removeItem(key)删除</strong>，<strong>clear()删除所有数据</strong>，<strong>length 表示已存储的数据项数目</strong>，<strong>key(index)返回对应索引的 key</strong></li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">localStorage.setItem(&#39;x&#39;, 1); &#x2F;&#x2F; storge x-&gt;1</span><br><span class="line">localStorage.getItem(&#39;x); &#x2F;&#x2F; return value of x</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F; 枚举所有存储的键值对</span><br><span class="line">for (var i &#x3D; 0, len &#x3D; localStorage.length; i &lt; len; ++i ) &#123;</span><br><span class="line">    var name &#x3D; localStorage.key(i);</span><br><span class="line">    var value &#x3D; localStorage.getItem(name);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">localStorage.removeItem(&#39;x&#39;); &#x2F;&#x2F; remove x</span><br><span class="line">localStorage.clear();  &#x2F;&#x2F; remove all data</span><br></pre></td></tr></table></figure>
+
+<h3 id="cookie-及其操作"><a href="#cookie-及其操作" class="headerlink" title="cookie 及其操作"></a>cookie 及其操作</h3><ul>
+<li>cookie 是 web 浏览器存储的少量数据，最早设计为服务器端使用，作为 HTTP 协议的扩展实现。cookie 数据会自动在浏览器和服务器之间传输。</li>
+<li>通过读写 cookie 检测是否支持</li>
+<li>cookie 属性有<strong>名</strong>，<strong>值</strong>，<strong>max-age</strong>，<strong>path</strong>, <strong>domain</strong>，<strong>secure</strong>；</li>
+<li>cookie 默认有效期为浏览器会话，一旦用户关闭浏览器，数据就丢失，通过设置<strong>max-age=seconds</strong>属性告诉浏览器 cookie 有效期</li>
+<li>cookie 作用域通过<strong>文档源</strong>和<strong>文档路径</strong>来确定，通过<strong>path</strong>和<strong>domain</strong>进行配置，web 页面同目录或子目录文档都可访问</li>
+<li>通过 cookie 保存数据的方法为：为 document.cookie 设置一个符合目标的字符串如下</li>
+<li>读取 document.cookie 获得’; ‘分隔的字符串，key=value,解析得到结果</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">document.cookie &#x3D; &#39;name&#x3D;qiu; max-age&#x3D;9999; path&#x3D;&#x2F;; domain&#x3D;domain; secure&#39;;</span><br><span class="line"></span><br><span class="line">document.cookie &#x3D; &#39;name&#x3D;aaa; path&#x3D;&#x2F;; domain&#x3D;domain; secure&#39;;</span><br><span class="line">&#x2F;&#x2F; 要改变cookie的值，需要使用相同的名字、路径和域，新的值</span><br><span class="line">&#x2F;&#x2F; 来设置cookie，同样的方法可以用来改变有效期</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F; 设置max-age为0可以删除指定cookie</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F;读取cookie，访问document.cookie返回键值对组成的字符串，</span><br><span class="line">&#x2F;&#x2F;不同键值对之间用&#39;; &#39;分隔。通过解析获得需要的值</span><br></pre></td></tr></table></figure>
+
+<p><a href="https://github.com/qiu-deqing/google/blob/master/module/js/cookieUtil.js">cookieUtil.js</a>：自己写的 cookie 操作工具</p>
+<h3 id="javascript-有哪些方法定义对象"><a href="#javascript-有哪些方法定义对象" class="headerlink" title="javascript 有哪些方法定义对象"></a>javascript 有哪些方法定义对象</h3><ol>
+<li>对象字面量： <code>var obj = &#123;&#125;;</code></li>
+<li>构造函数： <code>var obj = new Object();</code></li>
+<li>Object.create(): <code>var obj = Object.create(Object.prototype);</code></li>
+</ol>
+<h3 id="运算符判断相等的流程是怎样的"><a href="#运算符判断相等的流程是怎样的" class="headerlink" title="===运算符判断相等的流程是怎样的"></a>===运算符判断相等的流程是怎样的</h3><ol>
+<li>如果两个值不是相同类型，它们不相等</li>
+<li>如果两个值都是 null 或者都是 undefined，它们相等</li>
+<li>如果两个值都是布尔类型 true 或者都是 false，它们相等</li>
+<li>如果其中有一个是<strong>NaN</strong>，它们不相等</li>
+<li>如果都是数值型并且数值相等，他们相等， -0 等于 0</li>
+<li>如果他们都是字符串并且在相同位置包含相同的 16 位值，他它们相等；如果在长度或者内容上不等，它们不相等；两个字符串显示结果相同但是编码不同==和===都认为他们不相等</li>
+<li>如果他们指向相同对象、数组、函数，它们相等；如果指向不同对象，他们不相等</li>
+</ol>
+<h3 id="运算符判断相等的流程是怎样的-1"><a href="#运算符判断相等的流程是怎样的-1" class="headerlink" title="==运算符判断相等的流程是怎样的"></a>==运算符判断相等的流程是怎样的</h3><ol>
+<li>如果两个值类型相同，按照===比较方法进行比较</li>
+<li>如果类型不同，使用如下规则进行比较</li>
+<li>如果其中一个值是 null，另一个是 undefined，它们相等</li>
+<li>如果一个值是<strong>数字</strong>另一个是<strong>字符串</strong>，将<strong>字符串转换为数字</strong>进行比较</li>
+<li>如果有布尔类型，将<strong>true 转换为 1，false 转换为 0</strong>，然后用==规则继续比较</li>
+<li>如果一个值是对象，另一个是数字或字符串，将对象转换为原始值然后用==规则继续比较</li>
+<li><strong>其他所有情况都认为不相等</strong></li>
+</ol>
+<h3 id="对象到字符串的转换步骤"><a href="#对象到字符串的转换步骤" class="headerlink" title="对象到字符串的转换步骤"></a>对象到字符串的转换步骤</h3><ol>
+<li>如果对象有 toString()方法，javascript 调用它。如果返回一个原始值（primitive value 如：string number boolean）,将这个值转换为字符串作为结果</li>
+<li>如果对象没有 toString()方法或者返回值不是原始值，javascript 寻找对象的 valueOf()方法，如果存在就调用它，返回结果是原始值则转为字符串作为结果</li>
+<li>否则，javascript 不能从 toString()或者 valueOf()获得一个原始值，此时 throws a TypeError</li>
+</ol>
+<h3 id="对象到数字的转换步骤"><a href="#对象到数字的转换步骤" class="headerlink" title="对象到数字的转换步骤"></a>对象到数字的转换步骤</h3><pre><code>1. 如果对象有valueOf()方法并且返回元素值，javascript将返回值转换为数字作为结果
+2. 否则，如果对象有toString()并且返回原始值，javascript将返回结果转换为数字作为结果
+3. 否则，throws a TypeError</code></pre>
+<h3 id="lt-gt-lt-gt-的比较规则"><a href="#lt-gt-lt-gt-的比较规则" class="headerlink" title="&lt;,&gt;,&lt;=,&gt;=的比较规则"></a>&lt;,&gt;,&lt;=,&gt;=的比较规则</h3><p>所有比较运算符都支持任意类型，但是<strong>比较只支持数字和字符串</strong>，所以需要执行必要的转换然后进行比较，转换规则如下:</p>
+<ol>
+<li>如果操作数是对象，转换为原始值：如果 valueOf 方法返回原始值，则使用这个值，否则使用 toString 方法的结果，如果转换失败则报错</li>
+<li>经过必要的对象到原始值的转换后，如果两个操作数都是字符串，按照字母顺序进行比较（他们的 16 位 unicode 值的大小）</li>
+<li>否则，如果有一个操作数不是字符串，<strong>将两个操作数转换为数字</strong>进行比较</li>
+</ol>
+<h3 id="运算符工作流程"><a href="#运算符工作流程" class="headerlink" title="+运算符工作流程"></a>+运算符工作流程</h3><ol>
+<li>如果有操作数是对象，转换为原始值</li>
+<li>此时如果有<strong>一个操作数是字符串</strong>，其他的操作数都转换为字符串并执行连接</li>
+<li>否则：<strong>所有操作数都转换为数字并执行加法</strong></li>
+</ol>
+<h3 id="函数内部-arguments-变量有哪些特性-有哪些属性-如何将它转换为数组"><a href="#函数内部-arguments-变量有哪些特性-有哪些属性-如何将它转换为数组" class="headerlink" title="函数内部 arguments 变量有哪些特性,有哪些属性,如何将它转换为数组"></a>函数内部 arguments 变量有哪些特性,有哪些属性,如何将它转换为数组</h3><ul>
+<li>arguments 所有函数中都包含的一个局部变量，是一个类数组对象，对应函数调用时的实参。如果函数定义同名参数会在调用时覆盖默认对象</li>
+<li>arguments[index]分别对应函数调用时的实参，并且通过 arguments 修改实参时会同时修改实参</li>
+<li>arguments.length 为实参的个数（Function.length 表示形参长度）</li>
+<li>arguments.callee 为当前正在执行的函数本身，使用这个属性进行递归调用时需注意 this 的变化</li>
+<li>arguments.caller 为调用当前函数的函数（已被遗弃）</li>
+<li>转换为数组：<code>var args = Array.prototype.slice.call(arguments, 0);</code></li>
+</ul>
+<h3 id="DOM-事件模型是如何的-编写一个-EventUtil-工具类实现事件管理兼容"><a href="#DOM-事件模型是如何的-编写一个-EventUtil-工具类实现事件管理兼容" class="headerlink" title="DOM 事件模型是如何的,编写一个 EventUtil 工具类实现事件管理兼容"></a>DOM 事件模型是如何的,编写一个 EventUtil 工具类实现事件管理兼容</h3><ul>
+<li>DOM 事件包含捕获（capture）和冒泡（bubble）两个阶段：捕获阶段事件从 window 开始触发事件然后通过祖先节点一次传递到触发事件的 DOM 元素上；冒泡阶段事件从初始元素依次向祖先节点传递直到 window</li>
+<li>标准事件监听 elem.addEventListener(type, handler, capture)/elem.removeEventListener(type, handler, capture)：handler 接收保存事件信息的 event 对象作为参数，event.target 为触发事件的对象，handler 调用上下文 this 为绑定监听器的对象，event.preventDefault()取消事件默认行为，event.stopPropagation()/event.stopImmediatePropagation()取消事件传递</li>
+<li>老版本 IE 事件监听 elem.attachEvent(‘on’+type, handler)/elem.detachEvent(‘on’+type, handler)：handler 不接收 event 作为参数，事件信息保存在 window.event 中，触发事件的对象为 event.srcElement，handler 执行上下文 this 为 window 使用闭包中调用 handler.call(elem, event)可模仿标准模型，然后返回闭包，保证了监听器的移除。event.returnValue 为 false 时取消事件默认行为，event.cancleBubble 为 true 时取消时间传播</li>
+<li>通常利用事件冒泡机制托管事件处理程序提高程序性能。</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&#x2F;**</span><br><span class="line"> * 跨浏览器事件处理工具。只支持冒泡。不支持捕获</span><br><span class="line"> * @author  (qiu_deqing@126.com)</span><br><span class="line"> *&#x2F;</span><br><span class="line"></span><br><span class="line">var EventUtil &#x3D; &#123;</span><br><span class="line">    getEvent: function (event) &#123;</span><br><span class="line">        return event || window.event;</span><br><span class="line">    &#125;,</span><br><span class="line">    getTarget: function (event) &#123;</span><br><span class="line">        return event.target || event.srcElement;</span><br><span class="line">    &#125;,</span><br><span class="line">    &#x2F;&#x2F; 返回注册成功的监听器，IE中需要使用返回值来移除监听器</span><br><span class="line">    on: function (elem, type, handler) &#123;</span><br><span class="line">        if (elem.addEventListener) &#123;</span><br><span class="line">            elem.addEventListener(type, handler, false);</span><br><span class="line">            return handler;</span><br><span class="line">        &#125; else if (elem.attachEvent) &#123;</span><br><span class="line">            var wrapper &#x3D; function () &#123;</span><br><span class="line">              var event &#x3D; window.event;</span><br><span class="line">              event.target &#x3D; event.srcElement;</span><br><span class="line">              handler.call(elem, event);</span><br><span class="line">            &#125;;</span><br><span class="line">            elem.attachEvent(&#39;on&#39; + type, wrapper);</span><br><span class="line">            return wrapper;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;,</span><br><span class="line">    off: function (elem, type, handler) &#123;</span><br><span class="line">        if (elem.removeEventListener) &#123;</span><br><span class="line">            elem.removeEventListener(type, handler, false);</span><br><span class="line">        &#125; else if (elem.detachEvent) &#123;</span><br><span class="line">            elem.detachEvent(&#39;on&#39; + type, handler);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;,</span><br><span class="line">    preventDefault: function (event) &#123;</span><br><span class="line">        if (event.preventDefault) &#123;</span><br><span class="line">            event.preventDefault();</span><br><span class="line">        &#125; else if (&#39;returnValue&#39; in event) &#123;</span><br><span class="line">            event.returnValue &#x3D; false;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;,</span><br><span class="line">    stopPropagation: function (event) &#123;</span><br><span class="line">        if (event.stopPropagation) &#123;</span><br><span class="line">            event.stopPropagation();</span><br><span class="line">        &#125; else if (&#39;cancelBubble&#39; in event) &#123;</span><br><span class="line">            event.cancelBubble &#x3D; true;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;,</span><br><span class="line">    &#x2F;**</span><br><span class="line">     * keypress事件跨浏览器获取输入字符</span><br><span class="line">     * 某些浏览器在一些特殊键上也触发keypress，此时返回null</span><br><span class="line">     **&#x2F;</span><br><span class="line">     getChar: function (event) &#123;</span><br><span class="line">        if (event.which &#x3D;&#x3D; null) &#123;</span><br><span class="line">            return String.fromCharCode(event.keyCode);  &#x2F;&#x2F; IE</span><br><span class="line">        &#125;</span><br><span class="line">        else if (event.which !&#x3D; 0 &amp;&amp; event.charCode !&#x3D; 0) &#123;</span><br><span class="line">            return String.fromCharCode(event.which);    &#x2F;&#x2F; the rest</span><br><span class="line">        &#125;</span><br><span class="line">        else &#123;</span><br><span class="line">            return null;    &#x2F;&#x2F; special key</span><br><span class="line">        &#125;</span><br><span class="line">     &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<h3 id="评价一下三种方法实现继承的优缺点-并改进"><a href="#评价一下三种方法实现继承的优缺点-并改进" class="headerlink" title="评价一下三种方法实现继承的优缺点,并改进"></a>评价一下三种方法实现继承的优缺点,并改进</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">function Shape() &#123;&#125;</span><br><span class="line"></span><br><span class="line">function Rect() &#123;&#125;</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F; 方法1</span><br><span class="line">Rect.prototype &#x3D; new Shape();</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F; 方法2</span><br><span class="line">Rect.prototype &#x3D; Shape.prototype;</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F; 方法3</span><br><span class="line">Rect.prototype &#x3D; Object.create(Shape.prototype);</span><br><span class="line"></span><br><span class="line">Rect.prototype.area &#x3D; function () &#123;</span><br><span class="line">  &#x2F;&#x2F; do something</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<p>方法 1：</p>
+<ol>
+<li>优点：正确设置原型链实现继承</li>
+<li>优点：父类实例属性得到继承，原型链查找效率提高，也能为一些属性提供合理的默认值</li>
+<li>缺点：父类实例属性为引用类型时，不恰当地修改会导致所有子类被修改</li>
+<li>缺点：创建父类实例作为子类原型时，可能无法确定构造函数需要的合理参数，这样提供的参数继承给子类没有实际意义，当子类需要这些参数时应该在构造函数中进行初始化和设置</li>
+<li>总结：继承应该是继承方法而不是属性，为子类设置父类实例属性应该是通过在子类构造函数中调用父类构造函数进行初始化</li>
+</ol>
+<p>方法 2：</p>
+<ol>
+<li>优点：正确设置原型链实现继承</li>
+<li>缺点：父类构造函数原型与子类相同。修改子类原型添加方法会修改父类</li>
+</ol>
+<p>方法 3：</p>
+<ol>
+<li>优点：正确设置原型链且避免方法 1.2 中的缺点</li>
+<li>缺点：ES5 方法需要注意兼容性</li>
+</ol>
+<p>改进：</p>
+<ol>
+<li>所有三种方法应该在子类构造函数中调用父类构造函数实现实例属性初始化</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">function Rect() &#123;</span><br><span class="line">    Shape.call(this);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ol start="2">
+<li>用新创建的对象替代子类默认原型，设置<code>Rect.prototype.constructor = Rect;</code>保证一致性</li>
+<li>第三种方法的 polyfill：</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">function create(obj) &#123;</span><br><span class="line">    if (Object.create) &#123;</span><br><span class="line">        return Object.create(obj);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    function f() &#123;&#125;;</span><br><span class="line">    f.prototype &#x3D; obj;</span><br><span class="line">    return new f();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="javascript-编程部分"><a href="#javascript-编程部分" class="headerlink" title="$javascript 编程部分"></a>$javascript 编程部分</h2><h3 id="请用原生-js-实现一个函数-给页面制定的任意一个元素添加一个透明遮罩-透明度可变-默认-0-2-使这个区域点击无效-要求兼容-IE8-及各主流浏览器-遮罩层效果如下图所示"><a href="#请用原生-js-实现一个函数-给页面制定的任意一个元素添加一个透明遮罩-透明度可变-默认-0-2-使这个区域点击无效-要求兼容-IE8-及各主流浏览器-遮罩层效果如下图所示" class="headerlink" title="请用原生 js 实现一个函数,给页面制定的任意一个元素添加一个透明遮罩(透明度可变,默认 0.2),使这个区域点击无效,要求兼容 IE8+及各主流浏览器,遮罩层效果如下图所示:"></a>请用原生 js 实现一个函数,给页面制定的任意一个元素添加一个透明遮罩(透明度可变,默认 0.2),使这个区域点击无效,要求兼容 IE8+及各主流浏览器,遮罩层效果如下图所示:</h3><p><img src="https://yuki-1252851979.cos.ap-nanjing.myqcloud.com/blog/FE-interview/img/element-mask.jpg" alt="遮罩效果"></p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&lt;style&gt;</span><br><span class="line">#target &#123;</span><br><span class="line">    width: 200px;</span><br><span class="line">    height: 300px;</span><br><span class="line">    margin: 40px;</span><br><span class="line">    background-color: tomato;</span><br><span class="line">&#125;</span><br><span class="line">&lt;&#x2F;style&gt;</span><br><span class="line"></span><br><span class="line">&lt;div id&#x3D;&quot;target&quot;&gt;&lt;&#x2F;div&gt;</span><br><span class="line"></span><br><span class="line">&lt;script&gt;</span><br><span class="line">function addMask(elem, opacity) &#123;</span><br><span class="line">    opacity &#x3D; opacity || 0.2;</span><br><span class="line"></span><br><span class="line">    var rect &#x3D; elem.getBoundingClientRect();</span><br><span class="line">    var style &#x3D; getComputedStyle(elem, null);</span><br><span class="line"></span><br><span class="line">    var mask &#x3D; document.createElement(&#39;div&#39;);</span><br><span class="line">    mask.style.position &#x3D; &#39;absolute&#39;;</span><br><span class="line">    var marginLeft &#x3D; parseFloat(style.marginLeft);</span><br><span class="line">    mask.style.left &#x3D; (elem.offsetLeft - marginLeft) + &#39;px&#39;;</span><br><span class="line">    var marginTop &#x3D; parseFloat(style.marginTop);</span><br><span class="line">    mask.style.top &#x3D; (elem.offsetTop - marginTop) + &#39;px&#39;;</span><br><span class="line">    mask.style.zIndex &#x3D; 9999;</span><br><span class="line">    mask.style.opacity &#x3D; &#39;&#39; + opacity;</span><br><span class="line">    mask.style.backgroundColor &#x3D; &#39;#000&#39;;</span><br><span class="line"></span><br><span class="line">    mask.style.width &#x3D; (parseFloat(style.marginLeft) +</span><br><span class="line">        parseFloat(style.marginRight) + rect.width) + &#39;px&#39;;</span><br><span class="line">    mask.style.height &#x3D; (parseFloat(style.marginTop) +</span><br><span class="line">        parseFloat(style.marginBottom) + rect.height) + &#39;px&#39;;</span><br><span class="line"></span><br><span class="line">    elem.parentNode.appendChild(mask);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">var target &#x3D; document.getElementById(&#39;target&#39;);</span><br><span class="line">addMask(target);</span><br><span class="line"></span><br><span class="line">target.addEventListener(&#39;click&#39;, function () &#123;</span><br><span class="line">    console.log(&#39;click&#39;);</span><br><span class="line">&#125;, false);</span><br><span class="line">&lt;&#x2F;script&gt;</span><br></pre></td></tr></table></figure>
+
+<h3 id="请用代码写出-今天是星期-x-其中-x-表示当天是星期几-如果当天是星期一-输出应该是”今天是星期一”"><a href="#请用代码写出-今天是星期-x-其中-x-表示当天是星期几-如果当天是星期一-输出应该是”今天是星期一”" class="headerlink" title="请用代码写出(今天是星期 x)其中 x 表示当天是星期几,如果当天是星期一,输出应该是”今天是星期一”"></a>请用代码写出(今天是星期 x)其中 x 表示当天是星期几,如果当天是星期一,输出应该是”今天是星期一”</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">var days &#x3D; [&#39;日&#39;,&#39;一&#39;,&#39;二&#39;,&#39;三&#39;,&#39;四&#39;,&#39;五&#39;,&#39;六&#39;];</span><br><span class="line">var date &#x3D; new Date();</span><br><span class="line"></span><br><span class="line">console.log(&#39;今天是星期&#39; + days[date.getDay()]);</span><br></pre></td></tr></table></figure>
+
+<h3 id="下面这段代码想要循环延时输出结果-0-1-2-3-4-请问输出结果是否正确-如果不正确-请说明为什么-并修改循环内的代码使其输出正确结果"><a href="#下面这段代码想要循环延时输出结果-0-1-2-3-4-请问输出结果是否正确-如果不正确-请说明为什么-并修改循环内的代码使其输出正确结果" class="headerlink" title="下面这段代码想要循环延时输出结果 0 1 2 3 4,请问输出结果是否正确,如果不正确,请说明为什么,并修改循环内的代码使其输出正确结果"></a>下面这段代码想要循环延时输出结果 0 1 2 3 4,请问输出结果是否正确,如果不正确,请说明为什么,并修改循环内的代码使其输出正确结果</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">for (var i &#x3D; 0; i &lt; 5; ++i) &#123;</span><br><span class="line">  setTimeout(function () &#123;</span><br><span class="line">    console.log(i + &#39; &#39;);</span><br><span class="line">  &#125;, 100);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>不能输出正确结果，因为循环中 setTimeout 接受的参数函数通过闭包访问变量 i。javascript 运行环境为单线程，setTimeout 注册的函数需要等待线程空闲才能执行，此时 for 循环已经结束，i 值为 5.五个定时输出都是 5<br>修改方法：将 setTimeout 放在函数立即调用表达式中，将 i 值作为参数传递给包裹函数，创建新闭包</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">for (var i &#x3D; 0; i &lt; 5; ++i) &#123;</span><br><span class="line">  (function (i) &#123;</span><br><span class="line">    setTimeout(function () &#123;</span><br><span class="line">      console.log(i + &#39; &#39;);</span><br><span class="line">    &#125;, 100);</span><br><span class="line">  &#125;(i));</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="现有一个-Page-类-其原型对象上有许多以-post-开头的方法-如-postMsg-另有一拦截函数-chekc-只返回-ture-或-false-请设计一个函数-该函数应批量改造原-Page-的-postXXX-方法-在保留其原有功能的同时-为每个-postXXX-方法增加拦截验证功能-当-chekc-返回-true-时继续执行原-postXXX-方法-返回-false-时不再执行原-postXXX-方法"><a href="#现有一个-Page-类-其原型对象上有许多以-post-开头的方法-如-postMsg-另有一拦截函数-chekc-只返回-ture-或-false-请设计一个函数-该函数应批量改造原-Page-的-postXXX-方法-在保留其原有功能的同时-为每个-postXXX-方法增加拦截验证功能-当-chekc-返回-true-时继续执行原-postXXX-方法-返回-false-时不再执行原-postXXX-方法" class="headerlink" title="现有一个 Page 类,其原型对象上有许多以 post 开头的方法(如 postMsg);另有一拦截函数 chekc,只返回 ture 或 false.请设计一个函数,该函数应批量改造原 Page 的 postXXX 方法,在保留其原有功能的同时,为每个 postXXX 方法增加拦截验证功能,当 chekc 返回 true 时继续执行原 postXXX 方法,返回 false 时不再执行原 postXXX 方法"></a>现有一个 Page 类,其原型对象上有许多以 post 开头的方法(如 postMsg);另有一拦截函数 chekc,只返回 ture 或 false.请设计一个函数,该函数应批量改造原 Page 的 postXXX 方法,在保留其原有功能的同时,为每个 postXXX 方法增加拦截验证功能,当 chekc 返回 true 时继续执行原 postXXX 方法,返回 false 时不再执行原 postXXX 方法</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">function Page() &#123;&#125;</span><br><span class="line"></span><br><span class="line">Page.prototype &#x3D; &#123;</span><br><span class="line">  constructor: Page,</span><br><span class="line"></span><br><span class="line">  postA: function (a) &#123;</span><br><span class="line">    console.log(&#39;a:&#39; + a);</span><br><span class="line">  &#125;,</span><br><span class="line">  postB: function (b) &#123;</span><br><span class="line">    console.log(&#39;b:&#39; + b);</span><br><span class="line">  &#125;,</span><br><span class="line">  postC: function (c) &#123;</span><br><span class="line">    console.log(&#39;c:&#39; + c);</span><br><span class="line">  &#125;,</span><br><span class="line">  check: function () &#123;</span><br><span class="line">    return Math.random() &gt; 0.5;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">function checkfy(obj) &#123;</span><br><span class="line">  for (var key in obj) &#123;</span><br><span class="line">    if (key.indexOf(&#39;post&#39;) &#x3D;&#x3D;&#x3D; 0 &amp;&amp; typeof obj[key] &#x3D;&#x3D;&#x3D; &#39;function&#39;) &#123;</span><br><span class="line">      (function (key) &#123;</span><br><span class="line">        var fn &#x3D; obj[key];</span><br><span class="line">        obj[key] &#x3D; function () &#123;</span><br><span class="line">          if (obj.check()) &#123;</span><br><span class="line">            fn.apply(obj, arguments);</span><br><span class="line">          &#125;</span><br><span class="line">        &#125;;</span><br><span class="line">      &#125;(key));</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125; &#x2F;&#x2F; end checkfy()</span><br><span class="line"></span><br><span class="line">checkfy(Page.prototype);</span><br><span class="line"></span><br><span class="line">var obj &#x3D; new Page();</span><br><span class="line"></span><br><span class="line">obj.postA(&#39;checkfy&#39;);</span><br><span class="line">obj.postB(&#39;checkfy&#39;);</span><br><span class="line">obj.postC(&#39;checkfy&#39;);</span><br></pre></td></tr></table></figure>
+
+<h3 id="完成下面的-tool-tip"><a href="#完成下面的-tool-tip" class="headerlink" title="完成下面的 tool-tip"></a>完成下面的 tool-tip</h3><p><img src="https://yuki-1252851979.cos.ap-nanjing.myqcloud.com/blog/FE-interview/img/tip-box.jpg" alt="xxx"></p>
+<h3 id="编写-javascript-深度克隆函数-deepClone"><a href="#编写-javascript-深度克隆函数-deepClone" class="headerlink" title="编写 javascript 深度克隆函数 deepClone"></a>编写 javascript 深度克隆函数 deepClone</h3><pre><code>function deepClone(obj) &#123;
+    var _toString = Object.prototype.toString;
+
+    // null, undefined, non-object, function
+    if (!obj || typeof obj !== &#39;object&#39;) &#123;
+        return obj;
+    &#125;
+
+    // DOM Node
+    if (obj.nodeType &amp;&amp; &#39;cloneNode&#39; in obj) &#123;
+        return obj.cloneNode(true);
+    &#125;
+
+    // Date
+    if (_toString.call(obj) === &#39;[object Date]&#39;) &#123;
+        return new Date(obj.getTime());
+    &#125;
+
+    // RegExp
+    if (_toString.call(obj) === &#39;[object RegExp]&#39;) &#123;
+        var flags = [];
+        if (obj.global) &#123; flags.push(&#39;g&#39;); &#125;
+        if (obj.multiline) &#123; flags.push(&#39;m&#39;); &#125;
+        if (obj.ignoreCase) &#123; flags.push(&#39;i&#39;); &#125;
+
+        return new RegExp(obj.source, flags.join(&#39;&#39;));
+    &#125;
+
+    var result = Array.isArray(obj) ? [] :
+        obj.constructor ? new obj.constructor() : &#123;&#125;;
+
+    for (var key in obj ) &#123;
+        result[key] = deepClone(obj[key]);
+    &#125;
+
+    return result;
+&#125;
+
+function A() &#123;
+    this.a = a;
+&#125;
+
+var a = &#123;
+    name: &#39;qiu&#39;,
+    birth: new Date(),
+    pattern: /qiu/gim,
+    container: document.body,
+    hobbys: [&#39;book&#39;, new Date(), /aaa/gim, 111]
+&#125;;
+
+var c = new A();
+var b = deepClone(c);
+console.log(c.a === b.a);
+console.log(c, b);</code></pre>
+<h3 id="补充代码-鼠标单击-Button1-后将-Button1-移动到-Button2-的后面"><a href="#补充代码-鼠标单击-Button1-后将-Button1-移动到-Button2-的后面" class="headerlink" title="补充代码,鼠标单击 Button1 后将 Button1 移动到 Button2 的后面"></a>补充代码,鼠标单击 Button1 后将 Button1 移动到 Button2 的后面</h3><pre><code>&lt;!doctype html&gt;
+&lt;html&gt;
+&lt;head&gt;
+    &lt;meta charset=&quot;utf-8&quot;&gt;
+    &lt;title&gt;TEst&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
+
+&lt;div&gt;
+   &lt;input type=&quot;button&quot; id =&quot;button1&quot; value=&quot;1&quot; /&gt;
+   &lt;input type=&quot;button&quot; id =&quot;button2&quot; value=&quot;2&quot; /&gt;
+&lt;/div&gt;
+
+&lt;script type=&quot;text/javascript&quot;&gt;
+    var btn1 = document.getElementById(&#39;button1&#39;);
+    var btn2 = document.getElementById(&#39;button2&#39;);
+
+    addListener(btn1, &#39;click&#39;, function (event) &#123;
+        btn1.parentNode.insertBefore(btn2, btn1);
+    &#125;);
+
+    function addListener(elem, type, handler) &#123;
+        if (elem.addEventListener) &#123;
+            elem.addEventListener(type, handler, false);
+            return handler;
+        &#125; else if (elem.attachEvent) &#123;
+            function wrapper() &#123;
+                var event = window.event;
+                event.target = event.srcElement;
+                handler.call(elem, event);
+            &#125;
+            elem.attachEvent(&#39;on&#39; + type, wrapper);
+            return wrapper;
+        &#125;
+    &#125;
+
+&lt;/script&gt;
+&lt;/body&gt;
+&lt;/html&gt;</code></pre>
+<h3 id="网页中实现一个计算当年还剩多少时间的倒数计时程序-要求网页上实时动态显示”××-年还剩-××-天-××-时-××-分-××-秒”"><a href="#网页中实现一个计算当年还剩多少时间的倒数计时程序-要求网页上实时动态显示”××-年还剩-××-天-××-时-××-分-××-秒”" class="headerlink" title="网页中实现一个计算当年还剩多少时间的倒数计时程序,要求网页上实时动态显示”×× 年还剩 ×× 天 ×× 时 ×× 分 ×× 秒”"></a>网页中实现一个计算当年还剩多少时间的倒数计时程序,要求网页上实时动态显示”×× 年还剩 ×× 天 ×× 时 ×× 分 ×× 秒”</h3><pre><code>&lt;!doctype html&gt;
+&lt;html&gt;
+&lt;head&gt;
+    &lt;meta charset=&quot;utf-8&quot;&gt;
+    &lt;title&gt;TEst&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
+
+    &lt;span id=&quot;target&quot;&gt;&lt;/span&gt;
+
+
+&lt;script type=&quot;text/javascript&quot;&gt;
+    // 为了简化。每月默认30天
+    function getTimeString() &#123;
+        var start = new Date();
+        var end = new Date(start.getFullYear() + 1, 0, 1);
+        var elapse = Math.floor((end - start) / 1000);
+
+        var seconds = elapse % 60 ;
+        var minutes = Math.floor(elapse / 60) % 60;
+        var hours = Math.floor(elapse / (60 * 60)) % 24;
+        var days = Math.floor(elapse / (60 * 60 * 24)) % 30;
+        var months = Math.floor(elapse / (60 * 60 * 24 * 30)) % 12;
+        var years = Math.floor(elapse / (60 * 60 * 24 * 30 * 12));
+
+        return start.getFullYear() + &#39;年还剩&#39; + years + &#39;年&#39; + months + &#39;月&#39; + days + &#39;日&#39;
+            + hours + &#39;小时&#39; + minutes + &#39;分&#39; + seconds + &#39;秒&#39;;
+    &#125;
+
+    function domText(elem, text) &#123;
+        if (text == undefined) &#123;
+
+            if (elem.textContent) &#123;
+                return elem.textContent;
+            &#125; else if (elem.innerText) &#123;
+                return elem.innerText;
+            &#125;
+        &#125; else &#123;
+            if (elem.textContent) &#123;
+                elem.textContent = text;
+            &#125; else if (elem.innerText) &#123;
+                elem.innerText = text;
+            &#125; else &#123;
+                elem.innerHTML = text;
+            &#125;
+        &#125;
+    &#125;
+
+    var target = document.getElementById(&#39;target&#39;);
+
+    setInterval(function () &#123;
+        domText(target, getTimeString());
+    &#125;, 1000)
+&lt;/script&gt;
+
+&lt;/body&gt;
+&lt;/html&gt;</code></pre>
+<h3 id="完成一个函数-接受数组作为参数-数组元素为整数或者数组-数组元素包含整数或数组-函数返回扁平化后的数组"><a href="#完成一个函数-接受数组作为参数-数组元素为整数或者数组-数组元素包含整数或数组-函数返回扁平化后的数组" class="headerlink" title="完成一个函数,接受数组作为参数,数组元素为整数或者数组,数组元素包含整数或数组,函数返回扁平化后的数组"></a>完成一个函数,接受数组作为参数,数组元素为整数或者数组,数组元素包含整数或数组,函数返回扁平化后的数组</h3><p>如：[1, [2, [ [3, 4], 5], 6]] =&gt; [1, 2, 3, 4, 5, 6]</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">var data &#x3D;  [1, [2, [ [3, 4], 5], 6]];</span><br><span class="line"></span><br><span class="line">function flat(data, result) &#123;</span><br><span class="line">    var i, d, len;</span><br><span class="line">    for (i &#x3D; 0, len &#x3D; data.length; i &lt; len; ++i) &#123;</span><br><span class="line">        d &#x3D; data[i];</span><br><span class="line">        if (typeof d &#x3D;&#x3D;&#x3D; &#39;number&#39;) &#123;</span><br><span class="line">            result.push(d);</span><br><span class="line">        &#125; else &#123;</span><br><span class="line">            flat(d, result);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">var result &#x3D; [];</span><br><span class="line">flat(data, result);</span><br><span class="line"></span><br><span class="line">console.log(result);</span><br></pre></td></tr></table></figure>
+
+<h3 id="如何判断一个对象是否为数组"><a href="#如何判断一个对象是否为数组" class="headerlink" title="如何判断一个对象是否为数组"></a>如何判断一个对象是否为数组</h3><p>如果浏览器支持 Array.isArray()可以直接判断否则需进行必要判断</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&#x2F;**</span><br><span class="line"> * 判断一个对象是否是数组，参数不是对象或者不是数组，返回false</span><br><span class="line"> *</span><br><span class="line"> * @param &#123;Object&#125; arg 需要测试是否为数组的对象</span><br><span class="line"> * @return &#123;Boolean&#125; 传入参数是数组返回true，否则返回false</span><br><span class="line"> *&#x2F;</span><br><span class="line">function isArray(arg) &#123;</span><br><span class="line">    if (typeof arg &#x3D;&#x3D;&#x3D; &#39;object&#39;) &#123;</span><br><span class="line">        return Object.prototype.toString.call(arg) &#x3D;&#x3D;&#x3D; &#39;[object Array]&#39;;</span><br><span class="line">    &#125;</span><br><span class="line">    return false;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="请评价以下事件监听器代码并给出改进意见"><a href="#请评价以下事件监听器代码并给出改进意见" class="headerlink" title="请评价以下事件监听器代码并给出改进意见"></a>请评价以下事件监听器代码并给出改进意见</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">if (window.addEventListener) &#123;</span><br><span class="line">  var addListener &#x3D; function (el, type, listener, useCapture) &#123;</span><br><span class="line">    el.addEventListener(type, listener, useCapture);</span><br><span class="line">  &#125;;</span><br><span class="line">&#125;</span><br><span class="line">else if (document.all) &#123;</span><br><span class="line">  addListener &#x3D; function (el, type, listener) &#123;</span><br><span class="line">    el.attachEvent(&#39;on&#39; + type, function () &#123;</span><br><span class="line">      listener.apply(el);</span><br><span class="line">    &#125;);</span><br><span class="line">  &#125;;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>作用：浏览器功能检测实现跨浏览器 DOM 事件绑定</p>
+<p>优点：</p>
+<ol>
+<li>测试代码只运行一次，根据浏览器确定绑定方法</li>
+<li>通过<code>listener.apply(el)</code>解决 IE 下监听器 this 与标准不一致的地方</li>
+<li>在浏览器不支持的情况下提供简单的功能，在标准浏览器中提供捕获功能</li>
+</ol>
+<p>缺点：</p>
+<ol>
+<li>document.all 作为 IE 检测不可靠，应该使用 if(el.attachEvent)</li>
+<li>addListener 在不同浏览器下 API 不一样</li>
+<li><code>listener.apply</code>使 this 与标准一致但监听器无法移除</li>
+<li>未解决 IE 下 listener 参数 event。 target 问题</li>
+</ol>
+<p>改进:</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">var addListener;</span><br><span class="line"></span><br><span class="line">if (window.addEventListener) &#123;</span><br><span class="line">  addListener &#x3D; function (el, type, listener, useCapture) &#123;</span><br><span class="line">    el.addEventListener(type, listener, useCapture);</span><br><span class="line">    return listener;</span><br><span class="line">  &#125;;</span><br><span class="line">&#125;</span><br><span class="line">else if (window.attachEvent) &#123;</span><br><span class="line">  addListener &#x3D; function (el, type, listener) &#123;</span><br><span class="line">    &#x2F;&#x2F; 标准化this，event，target</span><br><span class="line">    var wrapper &#x3D; function () &#123;</span><br><span class="line">      var event &#x3D; window.event;</span><br><span class="line">      event.target &#x3D; event.srcElement;</span><br><span class="line">      listener.call(el, event);</span><br><span class="line">    &#125;;</span><br><span class="line"></span><br><span class="line">    el.attachEvent(&#39;on&#39; + type, wrapper);</span><br><span class="line">    return wrapper;</span><br><span class="line">    &#x2F;&#x2F; 返回wrapper。调用者可以保存，以后remove</span><br><span class="line">  &#125;;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="如何判断一个对象是否为函数"><a href="#如何判断一个对象是否为函数" class="headerlink" title="如何判断一个对象是否为函数"></a>如何判断一个对象是否为函数</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&#x2F;**</span><br><span class="line"> * 判断对象是否为函数，如果当前运行环境对可调用对象（如正则表达式）</span><br><span class="line"> * 的typeof返回&#39;function&#39;，采用通用方法，否则采用优化方法</span><br><span class="line"> *</span><br><span class="line"> * @param &#123;Any&#125; arg 需要检测是否为函数的对象</span><br><span class="line"> * @return &#123;boolean&#125; 如果参数是函数，返回true，否则false</span><br><span class="line"> *&#x2F;</span><br><span class="line">function isFunction(arg) &#123;</span><br><span class="line">    if (arg) &#123;</span><br><span class="line">        if (typeof (&#x2F;.&#x2F;) !&#x3D;&#x3D; &#39;function&#39;) &#123;</span><br><span class="line">            return typeof arg &#x3D;&#x3D;&#x3D; &#39;function&#39;;</span><br><span class="line">        &#125; else &#123;</span><br><span class="line">            return Object.prototype.toString.call(arg) &#x3D;&#x3D;&#x3D; &#39;[object Function]&#39;;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125; &#x2F;&#x2F; end if</span><br><span class="line">    return false;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="编写一个函数接受-url-中-query-string-为参数-返回解析后的-Object-query-string-使用-application-x-www-form-urlencoded-编码"><a href="#编写一个函数接受-url-中-query-string-为参数-返回解析后的-Object-query-string-使用-application-x-www-form-urlencoded-编码" class="headerlink" title="编写一个函数接受 url 中 query string 为参数,返回解析后的 Object,query string 使用 application/x-www-form-urlencoded 编码"></a>编写一个函数接受 url 中 query string 为参数,返回解析后的 Object,query string 使用 application/x-www-form-urlencoded 编码</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&#x2F;**</span><br><span class="line"> * 解析query string转换为对象，一个key有多个值时生成数组</span><br><span class="line"> *</span><br><span class="line"> * @param &#123;String&#125; query 需要解析的query字符串，开头可以是?，</span><br><span class="line"> * 按照application&#x2F;x-www-form-urlencoded编码</span><br><span class="line"> * @return &#123;Object&#125; 参数解析后的对象</span><br><span class="line"> *&#x2F;</span><br><span class="line">function parseQuery(query) &#123;</span><br><span class="line">    var result &#x3D; &#123;&#125;;</span><br><span class="line"></span><br><span class="line">    &#x2F;&#x2F; 如果不是字符串返回空对象</span><br><span class="line">    if (typeof query !&#x3D;&#x3D; &#39;string&#39;) &#123;</span><br><span class="line">        return result;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    &#x2F;&#x2F; 去掉字符串开头可能带的?</span><br><span class="line">    if (query.charAt(0) &#x3D;&#x3D;&#x3D; &#39;?&#39;) &#123;</span><br><span class="line">        query &#x3D; query.substring(1);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    var pairs &#x3D; query.split(&#39;&amp;&#39;);</span><br><span class="line">    var pair;</span><br><span class="line">    var key, value;</span><br><span class="line">    var i, len;</span><br><span class="line"></span><br><span class="line">    for (i &#x3D; 0, len &#x3D; pairs.length; i &lt; len; ++i) &#123;</span><br><span class="line">        pair &#x3D; pairs[i].split(&#39;&#x3D;&#39;);</span><br><span class="line">        &#x2F;&#x2F; application&#x2F;x-www-form-urlencoded编码会将&#39; &#39;转换为+</span><br><span class="line">        key &#x3D; decodeURIComponent(pair[0]).replace(&#x2F;\+&#x2F;g, &#39; &#39;);</span><br><span class="line">        value &#x3D; decodeURIComponent(pair[1]).replace(&#x2F;\+&#x2F;g, &#39; &#39;);</span><br><span class="line"></span><br><span class="line">        &#x2F;&#x2F; 如果是新key，直接添加</span><br><span class="line">        if (!(key in result)) &#123;</span><br><span class="line">            result[key] &#x3D; value;</span><br><span class="line">        &#125;</span><br><span class="line">        &#x2F;&#x2F; 如果key已经出现一次以上，直接向数组添加value</span><br><span class="line">        else if (isArray(result[key])) &#123;</span><br><span class="line">            result[key].push(value);</span><br><span class="line">        &#125;</span><br><span class="line">        &#x2F;&#x2F; key第二次出现，将结果改为数组</span><br><span class="line">        else &#123;</span><br><span class="line">            var arr &#x3D; [result[key]];</span><br><span class="line">            arr.push(value);</span><br><span class="line">            result[key] &#x3D; arr;</span><br><span class="line">        &#125; &#x2F;&#x2F; end if-else</span><br><span class="line">    &#125; &#x2F;&#x2F; end for</span><br><span class="line"></span><br><span class="line">    return result;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">function isArray(arg) &#123;</span><br><span class="line">    if (arg &amp;&amp; typeof arg &#x3D;&#x3D;&#x3D; &#39;object&#39;) &#123;</span><br><span class="line">        return Object.prototype.toString.call(arg) &#x3D;&#x3D;&#x3D; &#39;[object Array]&#39;;</span><br><span class="line">    &#125;</span><br><span class="line">    return false;</span><br><span class="line">&#125;</span><br><span class="line">&#x2F;**</span><br><span class="line">console.log(parseQuery(&#39;sourceid&#x3D;chrome-instant&amp;ion&#x3D;1&amp;espv&#x3D;2&amp;ie&#x3D;UTF-8&#39;));</span><br><span class="line"> *&#x2F;</span><br></pre></td></tr></table></figure>
+
+<h3 id="解析一个完整的-url-返回-Object-包含域与-window-location-相同"><a href="#解析一个完整的-url-返回-Object-包含域与-window-location-相同" class="headerlink" title="解析一个完整的 url,返回 Object 包含域与 window.location 相同"></a>解析一个完整的 url,返回 Object 包含域与 window.location 相同</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&#x2F;**</span><br><span class="line"> * 解析一个url并生成window.location对象中包含的域</span><br><span class="line"> * location:</span><br><span class="line"> * &#123;</span><br><span class="line"> *      href: &#39;包含完整的url&#39;,</span><br><span class="line"> *      origin: &#39;包含协议到pathname之前的内容&#39;,</span><br><span class="line"> *      protocol: &#39;url使用的协议，包含末尾的:&#39;,</span><br><span class="line"> *      username: &#39;用户名&#39;, &#x2F;&#x2F; 暂时不支持</span><br><span class="line"> *      password: &#39;密码&#39;,  &#x2F;&#x2F; 暂时不支持</span><br><span class="line"> *      host: &#39;完整主机名，包含:和端口&#39;,</span><br><span class="line"> *      hostname: &#39;主机名，不包含端口&#39;</span><br><span class="line"> *      port: &#39;端口号&#39;,</span><br><span class="line"> *      pathname: &#39;服务器上访问资源的路径&#x2F;开头&#39;,</span><br><span class="line"> *      search: &#39;query string，?开头&#39;,</span><br><span class="line"> *      hash: &#39;#开头的fragment identifier&#39;</span><br><span class="line"> * &#125;</span><br><span class="line"> *</span><br><span class="line"> * @param &#123;string&#125; url 需要解析的url</span><br><span class="line"> * @return &#123;Object&#125; 包含url信息的对象</span><br><span class="line"> *&#x2F;</span><br><span class="line">function parseUrl(url) &#123;</span><br><span class="line">    var result &#x3D; &#123;&#125;;</span><br><span class="line">    var keys &#x3D; [&#39;href&#39;, &#39;origin&#39;, &#39;protocol&#39;, &#39;host&#39;,</span><br><span class="line">                &#39;hostname&#39;, &#39;port&#39;, &#39;pathname&#39;, &#39;search&#39;, &#39;hash&#39;];</span><br><span class="line">    var i, len;</span><br><span class="line">    var regexp &#x3D; &#x2F;(([^:]+:)\&#x2F;\&#x2F;(([^:\&#x2F;\?#]+)(:\d+)?))(\&#x2F;[^?#]*)?(\?[^#]*)?(#.*)?&#x2F;;</span><br><span class="line"></span><br><span class="line">    var match &#x3D; regexp.exec(url);</span><br><span class="line"></span><br><span class="line">    if (match) &#123;</span><br><span class="line">        for (i &#x3D; keys.length - 1; i &gt;&#x3D; 0; --i) &#123;</span><br><span class="line">            result[keys[i]] &#x3D; match[i] ? match[i] : &#39;&#39;;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    return result;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="完成函数-getViewportSize-返回指定窗口的视口尺寸"><a href="#完成函数-getViewportSize-返回指定窗口的视口尺寸" class="headerlink" title="完成函数 getViewportSize 返回指定窗口的视口尺寸"></a>完成函数 getViewportSize 返回指定窗口的视口尺寸</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&#x2F;**</span><br><span class="line">* 查询指定窗口的视口尺寸，如果不指定窗口，查询当前窗口尺寸</span><br><span class="line">**&#x2F;</span><br><span class="line">function getViewportSize(w) &#123;</span><br><span class="line">    w &#x3D; w || window;</span><br><span class="line"></span><br><span class="line">    &#x2F;&#x2F; IE9及标准浏览器中可使用此标准方法</span><br><span class="line">    if (&#39;innerHeight&#39; in w) &#123;</span><br><span class="line">        return &#123;</span><br><span class="line">            width: w.innerWidth,</span><br><span class="line">            height: w.innerHeight</span><br><span class="line">        &#125;;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    var d &#x3D; w.document;</span><br><span class="line">    &#x2F;&#x2F; IE 8及以下浏览器在标准模式下</span><br><span class="line">    if (document.compatMode &#x3D;&#x3D;&#x3D; &#39;CSS1Compat&#39;) &#123;</span><br><span class="line">        return &#123;</span><br><span class="line">            width: d.documentElement.clientWidth,</span><br><span class="line">            height: d.documentElement.clientHeight</span><br><span class="line">        &#125;;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    &#x2F;&#x2F; IE8及以下浏览器在怪癖模式下</span><br><span class="line">    return &#123;</span><br><span class="line">        width: d.body.clientWidth,</span><br><span class="line">        height: d.body.clientHeight</span><br><span class="line">    &#125;;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="完成函数-getScrollOffset-返回窗口滚动条偏移量"><a href="#完成函数-getScrollOffset-返回窗口滚动条偏移量" class="headerlink" title="完成函数 getScrollOffset 返回窗口滚动条偏移量"></a>完成函数 getScrollOffset 返回窗口滚动条偏移量</h3><pre><code>/**
+ * 获取指定window中滚动条的偏移量，如未指定则获取当前window
+ * 滚动条偏移量
+ *
+ * @param &#123;window&#125; w 需要获取滚动条偏移量的窗口
+ * @return &#123;Object&#125; obj.x为水平滚动条偏移量,obj.y为竖直滚动条偏移量
+ */
+function getScrollOffset(w) &#123;
+    w =  w || window;
+    // 如果是标准浏览器
+    if (w.pageXOffset != null) &#123;
+        return &#123;
+            x: w.pageXOffset,
+            y: w.pageYOffset
+        &#125;;
+    &#125;
+
+    // 老版本IE，根据兼容性不同访问不同元素
+    var d = w.document;
+    if (d.compatMode === &#39;CSS1Compat&#39;) &#123;
+        return &#123;
+            x: d.documentElement.scrollLeft,
+            y: d.documentElement.scrollTop
+        &#125;
+    &#125;
+
+    return &#123;
+        x: d.body.scrollLeft,
+        y: d.body.scrollTop
+    &#125;;
+&#125;</code></pre>
+<h3 id="现有一个字符串-richText-是一段富文本-需要显示在页面上-有个要求-需要给其中只包含一个-img-元素的-p-标签增加一个叫-pic-的-class-请编写代码实现-可以使用-jQuery-或-KISSY"><a href="#现有一个字符串-richText-是一段富文本-需要显示在页面上-有个要求-需要给其中只包含一个-img-元素的-p-标签增加一个叫-pic-的-class-请编写代码实现-可以使用-jQuery-或-KISSY" class="headerlink" title="现有一个字符串 richText,是一段富文本,需要显示在页面上.有个要求,需要给其中只包含一个 img 元素的 p 标签增加一个叫 pic 的 class.请编写代码实现.可以使用 jQuery 或 KISSY."></a>现有一个字符串 richText,是一段富文本,需要显示在页面上.有个要求,需要给其中只包含一个 img 元素的 p 标签增加一个叫 pic 的 class.请编写代码实现.可以使用 jQuery 或 KISSY.</h3><pre><code>function richText(text) &#123;
+    var div = document.createElement(&#39;div&#39;);
+    div.innerHTML = text;
+    var p = div.getElementsByTagName(&#39;p&#39;);
+    var i, len;
+
+    for (i = 0, len = p.length; i &lt; len; ++i) &#123;
+        if (p[i].getElementsByTagName(&#39;img&#39;).length === 1) &#123;
+            p[i].classList.add(&#39;pic&#39;);
+        &#125;
+    &#125;
+
+    return div.innerHTML;
+&#125;</code></pre>
+<h3 id="请实现一个-Event-类-继承自此类的对象都会拥有两个方法-on-off-once-和-trigger"><a href="#请实现一个-Event-类-继承自此类的对象都会拥有两个方法-on-off-once-和-trigger" class="headerlink" title="请实现一个 Event 类,继承自此类的对象都会拥有两个方法 on,off,once 和 trigger"></a>请实现一个 Event 类,继承自此类的对象都会拥有两个方法 on,off,once 和 trigger</h3><pre><code>function Event() &#123;
+    if (!(this instanceof Event)) &#123;
+        return new Event();
+    &#125;
+    this._callbacks = &#123;&#125;;
+&#125;
+Event.prototype.on = function (type, handler) &#123;
+    this_callbacks = this._callbacks || &#123;&#125;;
+    this._callbacks[type] = this.callbacks[type] || [];
+    this._callbacks[type].push(handler);
+
+    return this;
+&#125;;
+
+Event.prototype.off = function (type, handler) &#123;
+    var list = this._callbacks[type];
+
+    if (list) &#123;
+        for (var i = list.length; i &gt;= 0; --i) &#123;
+            if (list[i] === handler) &#123;
+                list.splice(i, 1);
+            &#125;
+        &#125;
+    &#125;
+
+    return this;
+&#125;;
+
+Event.prototype.trigger = function (type, data) &#123;
+    var list = this._callbacks[type];
+
+    if (list) &#123;
+        for (var i = 0, len = list.length; i &lt; len; ++i) &#123;
+            list[i].call(this, data);
+        &#125;
+    &#125;
+&#125;;
+
+Event.prototype.once = function (type, handler) &#123;
+    var self = this;
+
+    function wrapper() &#123;
+        handler.apply(self, arguments);
+        self.off(type, wrapper);
+    &#125;
+    this.on(type, wrapper);
+    return this;
+&#125;;</code></pre>
+<h3 id="编写一个函数将列表子元素顺序反转"><a href="#编写一个函数将列表子元素顺序反转" class="headerlink" title="编写一个函数将列表子元素顺序反转"></a>编写一个函数将列表子元素顺序反转</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&lt;ul id&#x3D;&quot;target&quot;&gt;</span><br><span class="line">    &lt;li&gt;1&lt;&#x2F;li&gt;</span><br><span class="line">    &lt;li&gt;2&lt;&#x2F;li&gt;</span><br><span class="line">    &lt;li&gt;3&lt;&#x2F;li&gt;</span><br><span class="line">    &lt;li&gt;4&lt;&#x2F;li&gt;</span><br><span class="line">&lt;&#x2F;ul&gt;</span><br><span class="line"></span><br><span class="line">&lt;script&gt;</span><br><span class="line">    var target &#x3D; document.getElementById(&#39;target&#39;);</span><br><span class="line">    var i;</span><br><span class="line">    var frag &#x3D; document.createDocumentFragment();</span><br><span class="line"></span><br><span class="line">    for (i &#x3D; target.children.length - 1; i &gt;&#x3D; 0; --i) &#123;</span><br><span class="line">        frag.appendChild(target.children[i]);</span><br><span class="line">    &#125;</span><br><span class="line">    target.appendChild(frag);</span><br><span class="line">&lt;&#x2F;script&gt;</span><br></pre></td></tr></table></figure>
+
+<h3 id="以下函数的作用是-空白区域应该填写什么"><a href="#以下函数的作用是-空白区域应该填写什么" class="headerlink" title="以下函数的作用是?空白区域应该填写什么"></a>以下函数的作用是?空白区域应该填写什么</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&#x2F;&#x2F; define</span><br><span class="line">(function (window) &#123;</span><br><span class="line">    function fn(str) &#123;</span><br><span class="line">        this.str &#x3D; str;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    fn.prototype.format &#x3D; function () &#123;</span><br><span class="line">        var arg &#x3D; __1__;</span><br><span class="line">        return this.str.replace(__2__, function (a, b) &#123;</span><br><span class="line">            return arg[b] || &#39;&#39;;</span><br><span class="line">        &#125;);</span><br><span class="line">    &#125;;</span><br><span class="line"></span><br><span class="line">    window.fn &#x3D; fn;</span><br><span class="line">&#125;)(window);</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F; use</span><br><span class="line">(function () &#123;</span><br><span class="line">    var t &#x3D; new fn(&#39;&lt;p&gt;&lt;a href&#x3D;&quot;&#123;0&#125;&quot;&gt;&#123;1&#125;&lt;&#x2F;a&gt;&lt;span&gt;&#123;2&#125;&lt;&#x2F;span&gt;&lt;&#x2F;p&gt;&#39;);</span><br><span class="line">    console.log(t.format(&#39;http:&#x2F;&#x2F;www.alibaba.com&#39;, &#39;Alibaba&#39;, &#39;Welcome&#39;));</span><br><span class="line">&#125;)();</span><br></pre></td></tr></table></figure>
+
+<p>define 部分定义一个简单的模板类，使用{}作为转义标记，中间的数字表示替换目标，format 实参用来替换模板内标记<br>横线处填：</p>
+<ol>
+<li><code>Array.prototype.slice.call(arguments, 0)</code></li>
+<li><code>/\&#123;\s*(\d+)\s*\&#125;/g</code></li>
+</ol>
+<h3 id="编写一个函数实现-form-的序列化-即将一个表单中的键值序列化为可提交的字符串"><a href="#编写一个函数实现-form-的序列化-即将一个表单中的键值序列化为可提交的字符串" class="headerlink" title="编写一个函数实现 form 的序列化(即将一个表单中的键值序列化为可提交的字符串)"></a>编写一个函数实现 form 的序列化(即将一个表单中的键值序列化为可提交的字符串)</h3><pre><code>&lt;form id=&quot;target&quot;&gt;
+    &lt;select name=&quot;age&quot;&gt;
+        &lt;option value=&quot;aaa&quot;&gt;aaa&lt;/option&gt;
+        &lt;option value=&quot;bbb&quot; selected&gt;bbb&lt;/option&gt;
+    &lt;/select&gt;
+    &lt;select name=&quot;friends&quot; multiple&gt;
+        &lt;option value=&quot;qiu&quot; selected&gt;qiu&lt;/option&gt;
+        &lt;option value=&quot;de&quot;&gt;de&lt;/option&gt;
+        &lt;option value=&quot;qing&quot; selected&gt;qing&lt;/option&gt;
+    &lt;/select&gt;
+    &lt;input name=&quot;name&quot; value=&quot;qiudeqing&quot;&gt;
+    &lt;input type=&quot;password&quot; name=&quot;password&quot; value=&quot;11111&quot;&gt;
+    &lt;input type=&quot;hidden&quot; name=&quot;salery&quot; value=&quot;3333&quot;&gt;
+    &lt;textarea name=&quot;description&quot;&gt;description&lt;/textarea&gt;
+    &lt;input type=&quot;checkbox&quot; name=&quot;hobby&quot; checked value=&quot;football&quot;&gt;Football
+    &lt;input type=&quot;checkbox&quot; name=&quot;hobby&quot; value=&quot;basketball&quot;&gt;Basketball
+    &lt;input type=&quot;radio&quot; name=&quot;sex&quot; checked value=&quot;Female&quot;&gt;Female
+    &lt;input type=&quot;radio&quot; name=&quot;sex&quot; value=&quot;Male&quot;&gt;Male
+&lt;/form&gt;
+
+
+&lt;script&gt;
+
+/**
+ * 将一个表单元素序列化为可提交的字符串
+ *
+ * @param &#123;FormElement&#125; form 需要序列化的表单元素
+ * @return &#123;string&#125; 表单序列化后的字符串
+ */
+function serializeForm(form) &#123;
+  if (!form || form.nodeName.toUpperCase() !== &#39;FORM&#39;) &#123;
+    return;
+  &#125;
+
+  var result = [];
+
+  var i, len;
+  var field, fieldName, fieldType;
+
+  for (i = 0, len = form.length; i &lt; len; ++i) &#123;
+    field = form.elements[i];
+    fieldName = field.name;
+    fieldType = field.type;
+
+    if (field.disabled || !fieldName) &#123;
+      continue;
+    &#125; // enf if
+
+    switch (fieldType) &#123;
+      case &#39;text&#39;:
+      case &#39;password&#39;:
+      case &#39;hidden&#39;:
+      case &#39;textarea&#39;:
+        result.push(encodeURIComponent(fieldName) + &#39;=&#39; +
+            encodeURIComponent(field.value));
+        break;
+
+      case &#39;radio&#39;:
+      case &#39;checkbox&#39;:
+        if (field.checked) &#123;
+          result.push(encodeURIComponent(fieldName) + &#39;=&#39; +
+            encodeURIComponent(field.value));
+        &#125;
+        break;
+
+      case &#39;select-one&#39;:
+      case &#39;select-multiple&#39;:
+        for (var j = 0, jLen = field.options.length; j &lt; jLen; ++j) &#123;
+          if (field.options[j].selected) &#123;
+            result.push(encodeURIComponent(fieldName) + &#39;=&#39; +
+              encodeURIComponent(field.options[j].value || field.options[j].text));
+          &#125;
+        &#125; // end for
+        break;
+
+      case &#39;file&#39;:
+      case &#39;submit&#39;:
+        break; // 是否处理？
+
+      default:
+        break;
+    &#125; // end switch
+  &#125; // end for
+
+    return result.join(&#39;&amp;&#39;);
+&#125;
+
+var form = document.getElementById(&#39;target&#39;);
+console.log(serializeForm(form));
+&lt;/script&gt;</code></pre>
+<h3 id="使用原生-javascript-给下面列表中的-li-节点绑定点击事件-点击时创建一个-Object-对象-兼容-IE-和标准浏览器"><a href="#使用原生-javascript-给下面列表中的-li-节点绑定点击事件-点击时创建一个-Object-对象-兼容-IE-和标准浏览器" class="headerlink" title="使用原生 javascript 给下面列表中的 li 节点绑定点击事件,点击时创建一个 Object 对象,兼容 IE 和标准浏览器"></a>使用原生 javascript 给下面列表中的 li 节点绑定点击事件,点击时创建一个 Object 对象,兼容 IE 和标准浏览器</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&lt;ul id&#x3D;&quot;nav&quot;&gt;</span><br><span class="line">    &lt;li&gt;&lt;a href&#x3D;&quot;http:&#x2F;&#x2F;11111&quot;&gt;111&lt;&#x2F;a&gt;&lt;&#x2F;li&gt;</span><br><span class="line">    &lt;li&gt;&lt;a href&#x3D;&quot;http:&#x2F;&#x2F;2222&quot;&gt;222&lt;&#x2F;a&gt;&lt;&#x2F;li&gt;</span><br><span class="line">    &lt;li&gt;&lt;a href&#x3D;&quot;http:&#x2F;&#x2F;333&quot;&gt;333&lt;&#x2F;a&gt;&lt;&#x2F;li&gt;</span><br><span class="line">    &lt;li&gt;&lt;a href&#x3D;&quot;http:&#x2F;&#x2F;444&quot;&gt;444&lt;&#x2F;a&gt;&lt;&#x2F;li&gt;</span><br><span class="line">&lt;&#x2F;ul&gt;</span><br><span class="line"></span><br><span class="line">Object:</span><br><span class="line">&#123;</span><br><span class="line">    &quot;index&quot;: 1,</span><br><span class="line">    &quot;name&quot;: &quot;111&quot;,</span><br><span class="line">    &quot;link&quot;: &quot;http:&#x2F;&#x2F;1111&quot;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>script:</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">var EventUtil &#x3D; &#123;</span><br><span class="line">    getEvent: function (event) &#123;</span><br><span class="line">        return event || window.event;</span><br><span class="line">    &#125;,</span><br><span class="line">    getTarget: function (event) &#123;</span><br><span class="line">        return event.target || event.srcElement;</span><br><span class="line">    &#125;,</span><br><span class="line">    &#x2F;&#x2F; 返回注册成功的监听器，IE中需要使用返回值来移除监听器</span><br><span class="line">    on: function (elem, type, handler) &#123;</span><br><span class="line">        if (elem.addEventListener) &#123;</span><br><span class="line">            elem.addEventListener(type, handler, false);</span><br><span class="line">            return handler;</span><br><span class="line">        &#125; else if (elem.attachEvent) &#123;</span><br><span class="line">            function wrapper(event) &#123;</span><br><span class="line">                return handler.call(elem, event);</span><br><span class="line">            &#125;;</span><br><span class="line">            elem.attachEvent(&#39;on&#39; + type, wrapper);</span><br><span class="line">            return wrapper;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;,</span><br><span class="line">    off: function (elem, type, handler) &#123;</span><br><span class="line">        if (elem.removeEventListener) &#123;</span><br><span class="line">            elem.removeEventListener(type, handler, false);</span><br><span class="line">        &#125; else if (elem.detachEvent) &#123;</span><br><span class="line">            elem.detachEvent(&#39;on&#39; + type, handler);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;,</span><br><span class="line">    preventDefault: function (event) &#123;</span><br><span class="line">        if (event.preventDefault) &#123;</span><br><span class="line">            event.preventDefault();</span><br><span class="line">        &#125; else if (&#39;returnValue&#39; in event) &#123;</span><br><span class="line">            event.returnValue &#x3D; false;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;,</span><br><span class="line">    stopPropagation: function (event) &#123;</span><br><span class="line">        if (event.stopPropagation) &#123;</span><br><span class="line">            event.stopPropagation();</span><br><span class="line">        &#125; else if (&#39;cancelBubble&#39; in event) &#123;</span><br><span class="line">            event.cancelBubble &#x3D; true;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line">var DOMUtil &#x3D; &#123;</span><br><span class="line">    text: function (elem) &#123;</span><br><span class="line">        if (&#39;textContent&#39; in elem) &#123;</span><br><span class="line">            return elem.textContent;</span><br><span class="line">        &#125; else if (&#39;innerText&#39; in elem) &#123;</span><br><span class="line">            return elem.innerText;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;,</span><br><span class="line">    prop: function (elem, propName) &#123;</span><br><span class="line">        return elem.getAttribute(propName);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">var nav &#x3D; document.getElementById(&#39;nav&#39;);</span><br><span class="line"></span><br><span class="line">EventUtil.on(nav, &#39;click&#39;, function (event) &#123;</span><br><span class="line">    var event &#x3D; EventUtil.getEvent(event);</span><br><span class="line">    var target &#x3D; EventUtil.getTarget(event);</span><br><span class="line"></span><br><span class="line">    var children &#x3D; this.children;</span><br><span class="line">    var i, len;</span><br><span class="line">    var anchor;</span><br><span class="line">    var obj &#x3D; &#123;&#125;;</span><br><span class="line"></span><br><span class="line">    for (i &#x3D; 0, len &#x3D; children.length; i &lt; len; ++i) &#123;</span><br><span class="line">        if (children[i] &#x3D;&#x3D;&#x3D; target) &#123;</span><br><span class="line">            obj.index &#x3D; i + 1;</span><br><span class="line">            anchor &#x3D; target.getElementsByTagName(&#39;a&#39;)[0];</span><br><span class="line">            obj.name &#x3D; DOMUtil.text(anchor);</span><br><span class="line">            obj.link &#x3D; DOMUtil.prop(anchor, &#39;href&#39;);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    alert(&#39;index: &#39; + obj.index + &#39; name: &#39; + obj.name +</span><br><span class="line">        &#39; link: &#39; + obj.link);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+
+<h3 id="有一个大数组-var-a-‘1’-‘2’-‘3’-…-a-的长度是-100-内容填充随机整数的字符串-请先构造此数组-a-然后设计一个算法将其内容去重"><a href="#有一个大数组-var-a-‘1’-‘2’-‘3’-…-a-的长度是-100-内容填充随机整数的字符串-请先构造此数组-a-然后设计一个算法将其内容去重" class="headerlink" title="有一个大数组,var a = [‘1’, ‘2’, ‘3’, …];a 的长度是 100,内容填充随机整数的字符串.请先构造此数组 a,然后设计一个算法将其内容去重"></a>有一个大数组,var a = [‘1’, ‘2’, ‘3’, …];a 的长度是 100,内容填充随机整数的字符串.请先构造此数组 a,然后设计一个算法将其内容去重</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&#x2F;**</span><br><span class="line">* 数组去重</span><br><span class="line">**&#x2F;</span><br><span class="line">function normalize(arr) &#123;</span><br><span class="line">    if (arr &amp;&amp; Array.isArray(arr)) &#123;</span><br><span class="line">        var i, len, map &#x3D; &#123;&#125;;</span><br><span class="line">        for (i &#x3D; arr.length; i &gt;&#x3D; 0; --i) &#123;</span><br><span class="line">            if (arr[i] in map) &#123;</span><br><span class="line">                arr.splice(i, 1);</span><br><span class="line">            &#125; else &#123;</span><br><span class="line">                map[arr[i]] &#x3D; true;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    return arr;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">&#x2F;**</span><br><span class="line">* 用100个随机整数对应的字符串填充数组。</span><br><span class="line">**&#x2F;</span><br><span class="line">function fillArray(arr, start, end) &#123;</span><br><span class="line">    start &#x3D; start &#x3D;&#x3D; undefined ? 1 : start;</span><br><span class="line">    end &#x3D; end &#x3D;&#x3D; undefined ?  100 : end;</span><br><span class="line"></span><br><span class="line">    if (end &lt;&#x3D; start) &#123;</span><br><span class="line">        end &#x3D; start + 100;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    var width &#x3D; end - start;</span><br><span class="line">    var i;</span><br><span class="line">    for (i &#x3D; 100; i &gt;&#x3D; 1; --i) &#123;</span><br><span class="line">        arr.push(&#39;&#39; + (Math.floor(Math.random() * width) + start));</span><br><span class="line">    &#125;</span><br><span class="line">    return arr;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">var input &#x3D; [];</span><br><span class="line">fillArray(input, 1, 100);</span><br><span class="line">input.sort(function (a, b) &#123;</span><br><span class="line">    return a - b;</span><br><span class="line">&#125;);</span><br><span class="line">console.log(input);</span><br><span class="line"></span><br><span class="line">normalize(input);</span><br><span class="line">console.log(input);</span><br></pre></td></tr></table></figure>
+]]></content>
+      <categories>
+        <category>面试</category>
+      </categories>
+      <tags>
+        <tag>面试</tag>
+      </tags>
+  </entry>
+</search>

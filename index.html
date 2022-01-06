@@ -1,0 +1,1756 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"blog.yuki520.cn","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":false,"style":null},"back2top":{"enable":false,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="起风了！唯有努力生存">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Yuki&#39;s Blog">
+<meta property="og:url" content="https://blog.yuki520.cn/index.html">
+<meta property="og:site_name" content="Yuki&#39;s Blog">
+<meta property="og:description" content="起风了！唯有努力生存">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:author" content="Yuki">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="https://blog.yuki520.cn/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : true,
+    isPost : false,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>Yuki's Blog</title>
+  
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-TY1REQXEDG"></script>
+    <script>
+      if (CONFIG.hostname === location.hostname) {
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'G-TY1REQXEDG');
+      }
+    </script>
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+<link rel="alternate" href="/atom.xml" title="Yuki's Blog" type="application/atom+xml">
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Yuki's Blog</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">记录每一天</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content index posts-expand">
+            
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://blog.yuki520.cn/archives/263f3be4.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="https://cos.yuki520.cn/blog/avatar.jpg">
+      <meta itemprop="name" content="Yuki">
+      <meta itemprop="description" content="起风了！唯有努力生存">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Yuki's Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/archives/263f3be4.html" class="post-title-link" itemprop="url">原型</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2022-01-06 04:37:43" itemprop="dateCreated datePublished" datetime="2022-01-06T04:37:43Z">2022-01-06</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E5%89%8D%E7%AB%AF/" itemprop="url" rel="index"><span itemprop="name">前端</span></a>
+                </span>
+            </span>
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>1.2k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>1 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>原型（prototype）是JavaScript里的一个重要概念。它本来是极简单的。但因为一些原因，原型时常让试图了解它的人感到复杂。</p>
+<p><strong>原型是对象的属性，它可以让一个对象从其他对象处获得额外的数据和方法</strong>。对象的原型一般也是对象，它也可以有原型，这便形成了<strong>原型链</strong>。</p>
+<p><img src="https://robberfree.github.io/fe/2021-01-03/image/prototype.png" alt="img"></p>
+<h2 id="1-设置对象的原型"><a href="#1-设置对象的原型" class="headerlink" title="1.设置对象的原型"></a>1.设置对象的原型</h2><p>可以通过如下几种方式设置对象的原型。</p>
+<ul>
+<li><p>.<strong>proto</strong><br>因为原型就是对象的属性，直接设置对象的__proto__属性是最<strong>符合直觉</strong>的。但这反而是ES标准不推荐的用法。部分原因是并不是所有的浏览器都暴露了__proto__属性。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> fish=&#123;&#125;;</span><br><span class="line">fish.__proto__=&#123;</span><br><span class="line">    age:<span class="number">16</span></span><br><span class="line">&#125;</span><br><span class="line">fish.age;<span class="comment">//16</span></span><br></pre></td></tr></table></figure>
+
+
+
+</li>
+</ul>
+<ul>
+<li><p>Object.setPrototypeOf(object,prototype)<br>推荐的设置对象原型的方式。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> fish = &#123;&#125;;</span><br><span class="line"><span class="built_in">Object</span>.setPrototypeOf(fish, &#123; <span class="attr">age</span>: <span class="number">16</span> &#125;);</span><br><span class="line">fish.age; <span class="comment">//16</span></span><br></pre></td></tr></table></figure>
+
+
+
+</li>
+</ul>
+<ul>
+<li><p>Constructor.prototype<br>设置构造器函数的prototype属性，那么通过new Constructor()生成的对象的原型就是Constructor.prototype本身。不要和对象的__proto__属性混淆了，只有函数（构造器函数）有prototype属性。这两个属性是两种设置对象原型的方式，殊途同归。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Fish</span>(<span class="params">age</span>) </span>&#123;</span><br><span class="line">  <span class="built_in">this</span>.age = age;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">Fish.prototype.sayHello = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">&#x27;我是一条鱼，今年&#x27;</span> + <span class="built_in">this</span>.age + <span class="string">&#x27;岁&#x27;</span>);</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> fish = <span class="keyword">new</span> Fish(<span class="number">16</span>);</span><br><span class="line">fish.sayHello(); <span class="comment">//我是一条鱼，今年16岁</span></span><br><span class="line">fish.__proto__ === Fish.prototype; <span class="comment">// true</span></span><br></pre></td></tr></table></figure>
+
+
+
+</li>
+</ul>
+<ul>
+<li><p>Object.create(prototype)<br>创建对象时，指定它的原型。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> fish = <span class="built_in">Object</span>.create(&#123; <span class="attr">age</span>: <span class="number">16</span> &#125;);</span><br><span class="line">fish.age; <span class="comment">//16</span></span><br></pre></td></tr></table></figure>
+
+
+
+</li>
+</ul>
+<h2 id="2-读取对象的原型"><a href="#2-读取对象的原型" class="headerlink" title="2.读取对象的原型"></a>2.读取对象的原型</h2><p>与设置对象的原型相对应，读取对象的原型有以下几种方式</p>
+<ul>
+<li>  .<strong>proto</strong></li>
+<li>  Object.getPrototypeOf(object)</li>
+<li>  Constructor.prototype</li>
+</ul>
+<h2 id="3-原型有什么用？"><a href="#3-原型有什么用？" class="headerlink" title="3.原型有什么用？"></a>3.原型有什么用？</h2><p>无论通过哪种方式设置对象的原型，目的都是<strong>让对象获得额外的数据和方法</strong>。</p>
+<p>有点像是A对象在“借”B对象的属性，海棠花“借得梅花一缕魂”的那个借。比如内置的数组对象，它的原型是Array.prototype，每个数组自然就“有”了Array.prototype里的方法。</p>
+<p>另外原型链的存在，可以让一个对象“借”得更远。比如A的原型是B，B的原型是C，那么A也可以访问C的属性。</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://blog.yuki520.cn/archives/9b1b0f9c.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="https://cos.yuki520.cn/blog/avatar.jpg">
+      <meta itemprop="name" content="Yuki">
+      <meta itemprop="description" content="起风了！唯有努力生存">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Yuki's Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/archives/9b1b0f9c.html" class="post-title-link" itemprop="url">定型数组</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2022-01-06 04:37:43" itemprop="dateCreated datePublished" datetime="2022-01-06T04:37:43Z">2022-01-06</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E5%89%8D%E7%AB%AF/" itemprop="url" rel="index"><span itemprop="name">前端</span></a>
+                </span>
+            </span>
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>1.8k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>2 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h2 id="1-ArrayBuffer和TypedArray、DataView的关系"><a href="#1-ArrayBuffer和TypedArray、DataView的关系" class="headerlink" title="1. ArrayBuffer和TypedArray、DataView的关系"></a>1. ArrayBuffer和TypedArray、DataView的关系</h2><p>ArrayBuffer存储了固定byte(字节)的raw binary data(原始二进制数据)。不能直接通过ArrayBuffer读取和修改数据。只能通过view(<strong>视图</strong>)来操作。其他编程语言里有相似的概念，一般叫做byte array(字节数组)，可以直接操作，元素值的范围在[0,255]之间，类似于Uint8Array。个人觉得ByteArray比ArrayBuffer这个命名要好。同一ArrayBuffer可以用不同的视图，以不同的<strong>“视角”</strong>去读写。</p>
+<p><img src="/images/relationship.png" alt="img"></p>
+<h3 id="1-1-TypedArray是ArrayBuffer的视图"><a href="#1-1-TypedArray是ArrayBuffer的视图" class="headerlink" title="1.1 TypedArray是ArrayBuffer的视图"></a>1.1 TypedArray是ArrayBuffer的视图</h3><p>TypedArray是类数组对象，TypedArray里元素值的类型都相同(Array元素值的类型可以不相同)。共有10种具体的TypedArray:</p>
+<ul>
+<li>  Int8Array</li>
+<li>  Uint8Array</li>
+<li>  Uint8ClampedArray</li>
+<li>  Uint16Array</li>
+<li>  Int32Array</li>
+<li>  Uint32Array</li>
+<li>  Float32Array</li>
+<li>  Float64Array</li>
+<li>  BigInt64Array</li>
+<li>  BigUint64Array</li>
+</ul>
+<p>Uint8Array的常见使用场景:</p>
+<ul>
+<li>  16进制是二进制数据的标准数字格式，8位无符号(+-)二进制的范围是[0,255]，表示成16进制是[00,ff]，在需要处理二进制数据时，多使用Uint8Array。</li>
+<li>  Uint8Array还可以用来存储<strong>ASCII</strong>字符码，ASCII也使用无符号的8位来存储字符码，共编码了128个字符。</li>
+</ul>
+<p>Uint8ClampedArray的元素值被“裁切”限制在[0,255]之间。用它来存储颜色值是个不错的选择。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> u8a = <span class="keyword">new</span> <span class="built_in">Uint8Array</span>(<span class="number">3</span>); </span><br><span class="line">u8a.fill(<span class="number">256</span>);<span class="comment">//[0,0,0]</span></span><br><span class="line"><span class="keyword">const</span> u8ca=<span class="keyword">new</span> <span class="built_in">Uint8ClampedArray</span>(<span class="number">3</span>); </span><br><span class="line">u8ca.fill(<span class="number">256</span>); <span class="comment">//[255,255,255]</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="1-2-DataView是ArrayBuffer的另一种视图"><a href="#1-2-DataView是ArrayBuffer的另一种视图" class="headerlink" title="1.2 DataView是ArrayBuffer的另一种视图"></a>1.2 DataView是ArrayBuffer的另一种视图</h3><ol start="2">
+<li>如何创建ArrayBuffer</li>
+</ol>
+<hr>
+<p>创建ArrayBuffer主要有两种方式:</p>
+<h3 id="2-1-通过构造器函数创建"><a href="#2-1-通过构造器函数创建" class="headerlink" title="2.1 通过构造器函数创建"></a>2.1 通过构造器函数创建</h3><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//创建了8个字节长度的ArrayBuffer </span></span><br><span class="line"><span class="keyword">var</span> buffer=<span class="keyword">new</span> <span class="built_in">ArrayBuffer</span>(<span class="number">8</span>);<span class="string">`</span></span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="2-2-通过既有数据转化"><a href="#2-2-通过既有数据转化" class="headerlink" title="2.2 通过既有数据转化"></a>2.2 通过既有数据转化</h3><p>比如读取本地文件再转换成ArrayBuffer。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> fileReader = <span class="keyword">new</span> FileReader(); fileReader.readAsArrayBuffer(file);</span><br></pre></td></tr></table></figure>
+
+
+
+<ol start="3">
+<li>举例</li>
+</ol>
+<hr>
+<p>MDN上有个稍微复杂的例子—— <a target="_blank" rel="noopener external nofollow noreferrer" href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Typed_arrays#Working_with_complex_data_structures">Working with complex data structures</a>。但这个例子太理论化了。我想做一个更实际的例子——<a target="_blank" rel="noopener external nofollow noreferrer" href="https://robberfree.github.io/free-front-end/02_arraybuffer/demo/index.html">通过ArrayBuffer检测文件的类型</a>(示例只检测了图片类型，可以根据具体情况予以完善，<a target="_blank" rel="noopener external nofollow noreferrer" href="https://github.com/sindresorhus/file-type">file-type</a>这个js库检测的类型很全面)。算法的核心流程大致如下: <img src="/images/flow.png" alt="img"></p>
+<ul>
+<li>  文件里的<strong>magic number</strong>简单理解就是文件数据里的常量，用来标识这个文件的数据，检测这些magic number可以简单有效地区分文件的格式。详情参考<a target="_blank" rel="noopener external nofollow noreferrer" href="https://en.wikipedia.org/wiki/Magic_number_(programming)#Magic_numbers_in_files">wiki</a>。如果无法访问，可以浏览<a target="_blank" rel="noopener external nofollow noreferrer" href="https://enacademic.com/dic.nsf/enwiki/206430/Magic_number_(programming)#Magic_numbers_in_files">enacademic</a>。</li>
+<li>  16进制中A-F是<strong>大小写无关</strong>的。js里toString(16)返回的a-f是小写的。</li>
+<li>  Char Array和<del>Hex Array</del>并不同时需要。因为magic number这个常量一定可以用16进制数值表示，有些也可以用ASCII字符表示。ASCII字符可能直观一点，16进制数值更直接。</li>
+<li>  并不需要提前把Uint8Array转成Char Array或<del>Hex Array</del>。可以在与magic number比较时，再转换。这样延迟操作既可以节约空间、又可以避免过早地浪费计算能力。(十进制数和16进制数可以直接比较，所以<del>Hex Array</del>多余了。)</li>
+</ul>
+<ol start="4">
+<li>思考题</li>
+</ol>
+<hr>
+<p>使用ArrayBuffer做一个简易版的hex editor。可以参考<a target="_blank" rel="noopener external nofollow noreferrer" href="https://github.com/ridiculousfish/HexFiend">Hex Fiend</a>。</p>
+<ol start="5">
+<li>参考</li>
+</ol>
+<hr>
+<ul>
+<li>  <a target="_blank" rel="noopener external nofollow noreferrer" href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/ArrayBuffer">https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/ArrayBuffer</a></li>
+<li>  [<a target="_blank" rel="noopener external nofollow noreferrer" href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/TypedArray]">https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/TypedArray]</a>(</li>
+</ul>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://blog.yuki520.cn/archives/e9df773b.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="https://cos.yuki520.cn/blog/avatar.jpg">
+      <meta itemprop="name" content="Yuki">
+      <meta itemprop="description" content="起风了！唯有努力生存">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Yuki's Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/archives/e9df773b.html" class="post-title-link" itemprop="url">思维概述</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2022-01-06 04:37:43" itemprop="dateCreated datePublished" datetime="2022-01-06T04:37:43Z">2022-01-06</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E6%80%9D%E7%BB%B4/" itemprop="url" rel="index"><span itemprop="name">思维</span></a>
+                </span>
+            </span>
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>651</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>1 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h2 id="科学思维"><a href="#科学思维" class="headerlink" title="科学思维"></a>科学思维</h2><h3 id="什么是思维？"><a href="#什么是思维？" class="headerlink" title="什么是思维？"></a>什么是思维？</h3><p>“思维”是人接收信息、存储信息、加工信息以及输出信息的活动过程，而且是概括地反应客观现实的过程。从思维的本质来说，思维是具有意识的人脑对客观现实的本质属性、内部规律的自觉的间接的和概括的反映。</p>
+<p>科学思维是指人类从事科学活动的思维形式。因此科学思维通常是指理性认知及其过程，是在科学研究中通过对各种经验材料的比较与分析，去其次要本质因素，形成科学抽象的成果–概念、符号和思想模型所进行的揭示研究对象的普遍规律和因果关系的思维方法，是主体对客体本质理性的、逻辑的、系统的认识过程，是人脑对客观事物能动的和科学的反映。</p>
+<p>在科学思维的谱系中，具备了系统和完善的表达体系的思维模式只有三个：逻辑思维、实证思维、计算思维。</p>
+<h3 id="什么是逻辑思维（数学代表）？"><a href="#什么是逻辑思维（数学代表）？" class="headerlink" title="什么是逻辑思维（数学代表）？"></a>什么是逻辑思维（数学代表）？</h3><p>逻辑思维又称理论思维，其推理来源于数学，是通过定义、定理、证明和公理化方法，以推理和演绎为特征，利用抽象概括建立描述事物本质的概念，并应用科学的方法探寻概念之间的一种思维方法。逻辑思维以数学学科为代表，支撑着所有的学科领域。</p>
+<h3 id="什么是实证思维（物理代表）？"><a href="#什么是实证思维（物理代表）？" class="headerlink" title="什么是实证思维（物理代表）？"></a>什么是实证思维（物理代表）？</h3><p>通过观察和实验获得自然规律法则的一种思维方法。实证思维以观察和归纳自然规律为特征，往往需要借助特定设备来获取数据并进行分析，以物理学科为代表。</p>
+<h3 id="什么是计算思维？"><a href="#什么是计算思维？" class="headerlink" title="什么是计算思维？"></a>什么是计算思维？</h3><p>计算思维是通过简约、抽象、转化和仿真等方法，利用计算机学科的基本概念把困难的问题重新阐述，或利用一个何时的方式去陈述问题，或对问题相关方面进行建模使其变得易于处理的思维方法。它以设计和构造为特征，以计算机学科为代表，其本质为抽象和自动化。</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://blog.yuki520.cn/archives/c3d6d626.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="https://cos.yuki520.cn/blog/avatar.jpg">
+      <meta itemprop="name" content="Yuki">
+      <meta itemprop="description" content="起风了！唯有努力生存">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Yuki's Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/archives/c3d6d626.html" class="post-title-link" itemprop="url">数据驱动的思考方式</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2022-01-06 04:37:43" itemprop="dateCreated datePublished" datetime="2022-01-06T04:37:43Z">2022-01-06</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E5%89%8D%E7%AB%AF/" itemprop="url" rel="index"><span itemprop="name">前端</span></a>
+                </span>
+            </span>
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>200</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>1 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h3 id="数据驱动的思考方式"><a href="#数据驱动的思考方式" class="headerlink" title="数据驱动的思考方式"></a>数据驱动的思考方式</h3><p><img src="/images/image-20211006142903090.png" alt="image-20211006142903090"></p>
+<h3 id="前端技能模型"><a href="#前端技能模型" class="headerlink" title="前端技能模型"></a>前端技能模型</h3><p><img src="/images/image-20211006144752628.png" alt="image-20211006144752628"></p>
+<h3 id="工具链"><a href="#工具链" class="headerlink" title="工具链"></a>工具链</h3><p><img src="/images/image-20211006145025735.png" alt="image-20211006145025735"></p>
+<h3 id="持续集成"><a href="#持续集成" class="headerlink" title="持续集成"></a>持续集成</h3><p><strong>客户端软件持续集成</strong>：Daily build，BVT</p>
+<p><strong>前端持续集成</strong>：Check-in build，Lint + Rule Check</p>
+<p><img src="/images/image-20211006150858373.png" alt="image-20211006150858373"></p>
+<h3 id="技术架构"><a href="#技术架构" class="headerlink" title="技术架构"></a>技术架构</h3><p><strong>客户端架构</strong>：解决软件需求规模带来的复杂性</p>
+<p><strong>服务端架构</strong>：解决大量用户访问带来的复杂性</p>
+<p><strong>前端架构</strong>：解决大量页面需求带来的重复劳动问题</p>
+<p><strong>库</strong>：有复用价值的代码</p>
+<ul>
+<li>URL</li>
+<li>AJAX</li>
+<li>ENV</li>
+</ul>
+<p><strong>组件</strong>：UI上多次出现的元素</p>
+<ul>
+<li>轮播</li>
+<li>Tab</li>
+</ul>
+<p><strong>模块</strong>：经常被使用的业务区块</p>
+<ul>
+<li>登录</li>
+</ul>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://blog.yuki520.cn/archives/8135dd95.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="https://cos.yuki520.cn/blog/avatar.jpg">
+      <meta itemprop="name" content="Yuki">
+      <meta itemprop="description" content="起风了！唯有努力生存">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Yuki's Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/archives/8135dd95.html" class="post-title-link" itemprop="url">CSS实现气球泡泡对话框</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2022-01-06 04:37:43" itemprop="dateCreated datePublished" datetime="2022-01-06T04:37:43Z">2022-01-06</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E5%89%8D%E7%AB%AF/" itemprop="url" rel="index"><span itemprop="name">前端</span></a>
+                </span>
+            </span>
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>5.8k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>5 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h3 id="一、关于纯-CSS-实现气泡对话框"><a href="#一、关于纯-CSS-实现气泡对话框" class="headerlink" title="一、关于纯 CSS 实现气泡对话框"></a>一、关于纯 CSS 实现气泡对话框</h3><p>首先，来张大图：<br><a target="_blank" rel="noopener external nofollow noreferrer" href="http://image.zhangxinxu.com/image/blog/201003/2010-03-12_222928.png"><img src="http://image.zhangxinxu.com/image/blog/201003/2010-03-12_222928.png"></a></p>
+<p>上边这张黄黄的，大大的，圆圆的，有个小尾巴，文字内容有些 YY 的图片，就是使用纯 CSS 实现的气泡对话框效果，一点图片都没有哦。看到这里，你是不是跟我一样，有些惊叹 CSS 的潜力呢。关于这张图片，暂时先放到一边，下面我要讲一些与主旨相关的比较重要的，同时又很实用的一些技术。</p>
+<p>我们首先看下面这一张图片（截自人人网）：<br><a target="_blank" rel="noopener external nofollow noreferrer" href="http://image.zhangxinxu.com/image/blog/201003/2010-03-12_224559.png"><img src="http://image.zhangxinxu.com/image/blog/201003/2010-03-12_224559.png"></a></p>
+<p>可能颜色有点淡，在左上角有个 90 度的尖角，于是整个形成了一个气泡对话框。现在考考你，如果你来实现这个效果，你会怎么做？//zxx: 假设你已经思考了一会儿｡◕‿◕｡ 我想，如果您没有看本文标题，可能就想到的是做个 90 度等腰三角形小图片；就算您知道可以用 CSS 实现上面的效果，但是您知道是什么方法吗？当然，是绝对兼容的方法（从已经在美国办了隆重葬礼的 IE6 到很多人喜欢的 Firefox 和 Safari）。您有主意吗？</p>
+<p>好，我们先来看看人人网是怎么实现的，我们用小 bug（//zxx: 指 firebug，我喜欢亲切的称之为 “小 bug”）看一看，原来也是使用的图片，600*6 像素的图片，见下图：<br><a target="_blank" rel="noopener external nofollow noreferrer" href="http://image.zhangxinxu.com/image/blog/201003/2010-03-12_230212.png"><img src="http://image.zhangxinxu.com/image/blog/201003/2010-03-12_230212.png"></a></p>
+<p>查看此图片点此链接：<a target="_blank" rel="noopener external nofollow noreferrer" href="http://xnimg.cn/imgpro/box/box_arrow.png" title="点击查看原图">http://xnimg.cn/imgpro/box/box_arrow.png</a></p>
+<p>这可是活生生的多了一次图片请求啊，而且是个独立的小图片，关键是在访问量惊人的首页上。优秀与平庸的差异在哪里呢？前者追求极致，后者追随大流。</p>
+<p>这里的图片完全没有必要，使用 CSS 可以实现近乎一样的效果，并且方法不止一种，我目前知道的有两种方法可以实现上面人人网的气泡对话框效果。我将这两个方法自己定义为 “边框法” 与“字符法”。</p>
+<p>本文地址： <a target="_blank" rel="noopener external nofollow noreferrer" href="http://www.zhangxinxu.com/wordpress/?p=651">http://www.zhangxinxu.com/wordpress/?p=651</a></p>
+<h3 id="二、“字符法”-与-“边框法”"><a href="#二、“字符法”-与-“边框法”" class="headerlink" title="二、“字符法” 与 “边框法”"></a>二、“字符法” 与 “边框法”</h3><p><strong>1. 字符法</strong><br>关于 “字符法”，其实在我的 “<a target="_blank" rel="noopener external nofollow noreferrer" href="http://www.zhangxinxu.com/wordpress/?p=332" title="打开告别图片—使用字符实现兼容性的圆角尖角效果beta版一文 张鑫旭-鑫空间-鑫生活">告别图片—使用字符实现兼容性的圆角尖角效果 beta 版</a>” 一文中已经比较详尽的提及过。</p>
+<p>这里再简单讲述下，世界上的语言多种多样，字符的种类也是千差万别，形状也是千奇百怪，所以，有些字符就可以当作图形来使用，以模拟一些 web 表现效果。例如，上面的人人网对话框尖角就可以使用棱形字符 (◆) 来实现，看到这个形状上面的 90 度的尖角了吗，我们可以让其溢出 div 显示，不就有了尖角效果了吗！定位可以使用 margin 负值或是 absolute 绝对定位。</p>
+<p>在我的网站上就应用了这个方法，您可以在网站的 “<a target="_blank" rel="noopener external nofollow noreferrer" href="http://www.zhangxinxu.com/php/question.php">提问与交流</a>” 页面看到类似下图所示的内容：<br><a target="_blank" rel="noopener external nofollow noreferrer" href="http://image.zhangxinxu.com/image/blog/201003/2010-03-13_000543.png"><img src="http://image.zhangxinxu.com/image/blog/201003/2010-03-13_000543.png"></a></p>
+<p>具体使用，您可以狠狠地点击这里：<a target="_blank" rel="noopener external nofollow noreferrer" href="http://www.zhangxinxu.com/study/201003/pure-css-speech-bubbles.html">“字符法” 实现气泡对话框 demo</a><br>里面显示了 CSS 与 HTML 代码。</p>
+<p><strong>2. 边框法</strong><br>关于 “边框法”，这说起来话就长了。不急，慢慢来。<br>我们首先来看下面一段样式代码：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">.test&#123;width:10px; height:10px; border:10px solid; border-color:#ff3300 #0000ff #339966 #00ff00;&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>当某个 div 应用了上面这个样式后，结果会如何？见下图（截自 Firefox3.5，IE 浏览器有细节上的差异）：<br><a target="_blank" rel="noopener external nofollow noreferrer" href="http://image.zhangxinxu.com/image/blog/201003/2010-03-13_001825.png"><img src="http://image.zhangxinxu.com/image/blog/201003/2010-03-13_001825.png"></a></p>
+<p>仔细观察边框色的交界处，四个角落有 4 个 45° 的斜边，将整个边框分成了四个等腰梯形。</p>
+<p>现在，设想一下，如果我们现在只保留一个一个上边框，其余边框均 transparent 透明（或与背景色同色），那么是不是就只显示一个上面红色的边框了，我们测试下，与上面类似的代码，只是修改下其余三个边框的颜色。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">.test&#123;width:10px; height:10px; border:10px solid; border-color:#ff3300 #ffffff #ffffff #ffffff;&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>结果如下图（截自 Firefox3.5）：<br><a target="_blank" rel="noopener external nofollow noreferrer" href="http://image.zhangxinxu.com/image/blog/201003/2010-03-13_002528.png"><img src="http://image.zhangxinxu.com/image/blog/201003/2010-03-13_002528.png"></a></p>
+<p>可见显示结果正如我们预想的。现在，再次开动脑筋，试想下，如果上面样式中的宽度和高度都是 0，也就是<code>width:10px; height:10px;</code>变成了<code>width:0; height:0;</code>。对了，那么显示的将不会是个等腰梯形了，而是个等腰直角三角形。做个简单测试就知道答案了，如下的代码：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">.test&#123;width:0; height:0; border:10px solid; border-color:#ff3300 #ffffff #ffffff #ffffff;&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>结果如下（依旧截图自 Firefox3.5）：<br><a target="_blank" rel="noopener external nofollow noreferrer" href="http://image.zhangxinxu.com/image/blog/201003/2010-03-13_003545.png"><img src="http://image.zhangxinxu.com/image/blog/201003/2010-03-13_003545.png"></a></p>
+<p>此时，我们惊奇的发现，使用 border 属性居然产生了一个等腰直角三角形，而这个等腰直角三角形用做气泡对话框的尖角再合适不过了。所以，上面的人人网对话框的尖角就可以用 border 实现了，只要让下边框有颜色，其他透明（或与外背景同色）就好了。</p>
+<p>关于 “边框法” 实现的效果，您可以狠狠地点击这里：<a target="_blank" rel="noopener external nofollow noreferrer" href="http://www.zhangxinxu.com/study/201003/pure-css-speech-bubbles.html">“边框法” 实现气泡对话框 demo</a>，或参见下图。<br><a target="_blank" rel="noopener external nofollow noreferrer" href="http://image.zhangxinxu.com/image/blog/201003/2010-03-13_004216.png"><img src="http://image.zhangxinxu.com/image/blog/201003/2010-03-13_004216.png"></a></p>
+<p>还没完，我们现在再开动我们智慧的大脑，设想下，如果各个边框的宽度不一致，又会产生怎样的结果呢？我们把测试代码再修改一下，让其边框宽度不一致，如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">.test&#123;width:0; height:0; border-width:20px 10px; border-style:solid; border-color:#ff3300 #ffffff #ffffff #ffffff;&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>得到的结果如下图：<br><a target="_blank" rel="noopener external nofollow noreferrer" href="http://image.zhangxinxu.com/image/blog/201003/2010-03-13_005156.png"><img src="http://image.zhangxinxu.com/image/blog/201003/2010-03-13_005156.png"></a></p>
+<p>可以发现，尖角被拉高了，也就是相邻边框宽度的比例会影响单个边框形状的高与低的比例，这不难理解。</p>
+<p>现在，我们再开动一下我们的脑筋，如果我们让相邻两个边框显示颜色会怎么样呢？测试一下吧，如下代码：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">.test&#123;width:0; height:0; border-width:20px 10px; border-style:solid; border-color:#ff3300 #ff3300 #ffffff #ffffff;&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>结果如下图：<br><a target="_blank" rel="noopener external nofollow noreferrer" href="http://image.zhangxinxu.com/image/blog/201003/2010-03-13_005753.png"><img src="http://image.zhangxinxu.com/image/blog/201003/2010-03-13_005753.png"></a></p>
+<p>这不就不多说什么了，大伙儿都看到，上个相邻边框尖角实现的气泡对话框效果吧。<br><a target="_blank" rel="noopener external nofollow noreferrer" href="http://image.zhangxinxu.com/image/blog/201003/2010-03-13_010328.png"><img src="http://image.zhangxinxu.com/image/blog/201003/2010-03-13_010328.png"></a></p>
+<p>本文地址： <a target="_blank" rel="noopener external nofollow noreferrer" href="http://www.zhangxinxu.com/wordpress/?p=651">http://www.zhangxinxu.com/wordpress/?p=651</a></p>
+<h3 id="三、“边框法”-的高级应用"><a href="#三、“边框法”-的高级应用" class="headerlink" title="三、“边框法” 的高级应用"></a>三、“边框法” 的高级应用</h3><p>说是高级应用，准确讲应该是 “复杂应用”。就是说用两个标签（或无标签 – 使用: before 与: after 伪类）形成的两个不同的边框进行组合显示实现的一些效果。</p>
+<p>看下面两个图，本单元就是要实现下面两种效果：<br><a target="_blank" rel="noopener external nofollow noreferrer" href="http://image.zhangxinxu.com/image/blog/201003/2010-03-13_014809.png"><img src="http://image.zhangxinxu.com/image/blog/201003/2010-03-13_014809.png"></a><br><a target="_blank" rel="noopener external nofollow noreferrer" href="http://image.zhangxinxu.com/image/blog/201003/2010-03-13_020758.png"><img src="http://image.zhangxinxu.com/image/blog/201003/2010-03-13_020758.png"></a></p>
+<p><strong>1、效果 (1)</strong><br>CSS 代码如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">.test&#123;width:300px; padding:30px 20px; margin-left:60px; background:#beceeb; position:relative;&#125;</span><br><span class="line">.test span&#123;width:0; height:0; font-size:0; overflow:hidden; position:absolute;&#125;</span><br><span class="line">.test span.bot&#123;</span><br><span class="line">    border-width:20px; </span><br><span class="line">    border-style:solid; </span><br><span class="line">    border-color:#ffffff #beceeb #beceeb #ffffff; </span><br><span class="line">    left:-40px; </span><br><span class="line">    top:40px;</span><br><span class="line">&#125;</span><br><span class="line">.test span.top&#123;</span><br><span class="line">    border-width:10px 20px; </span><br><span class="line">    border-style:dashed solid solid dashed; </span><br><span class="line">    border-color:transparent #ffffff #ffffff transparent; </span><br><span class="line">    left:-40px; </span><br><span class="line">    top:60px;</span><br><span class="line">&#125;</span><br><span class="line">                </span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>HTML 代码如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&lt;div&gt;</span><br><span class="line">    &lt;span&gt;&lt;&#x2F;span&gt;</span><br><span class="line">    &lt;span&gt;&lt;&#x2F;span&gt;</span><br><span class="line">    CSS “边框法”实现气泡对话框效果一</span><br><span class="line">&lt;&#x2F;div&gt;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>您可以狠狠地点击这里：<a target="_blank" rel="noopener external nofollow noreferrer" href="http://www.zhangxinxu.com/study/201003/css-border-popup-effect-demo1.html">效果 (1)demo</a></p>
+<p><strong>2、效果 (2)</strong><br>CSS 代码如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">.test&#123;width:300px; padding:30px 20px; border:5px solid #beceeb; position:relative;&#125;</span><br><span class="line">.test span&#123;width:0; height:0; font-size:0; overflow:hidden; position:absolute;&#125;</span><br><span class="line">.test span.bot&#123;</span><br><span class="line">    border-width:20px; </span><br><span class="line">    border-style:solid dashed dashed; </span><br><span class="line">    border-color:#beceeb transparent transparent; </span><br><span class="line">    left:80px; </span><br><span class="line">    bottom:-40px;</span><br><span class="line">&#125;</span><br><span class="line">.test span.top&#123;</span><br><span class="line">    border-width:20px; </span><br><span class="line">    border-style:solid dashed dashed; </span><br><span class="line">    border-color:#ffffff transparent transparent; </span><br><span class="line">    left:80px; </span><br><span class="line">    bottom:-33px;</span><br><span class="line">&#125;                </span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>HTML 代码如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&lt;div&gt;</span><br><span class="line">    &lt;span&gt;&lt;&#x2F;span&gt;</span><br><span class="line">    &lt;span&gt;&lt;&#x2F;span&gt;</span><br><span class="line">    CSS “边框法”实现气泡对话框效果二</span><br><span class="line">&lt;&#x2F;div&gt;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>您可以狠狠地点击这里：<a target="_blank" rel="noopener external nofollow noreferrer" href="http://www.zhangxinxu.com/study/201003/css-border-popup-effect-demo2.html">效果 (2)demo</a></p>
+<p><strong>3、效果原理简述</strong><br>原理的关键字就是 “覆盖”，另外一个边框形成的尖角覆盖之前的一个，只要控制好覆盖的位置，然后就形成了实际上的不规则尖角或是尖角边框。您还可以发挥您的创造力，实现更多其它的效果。</p>
+<p>本文地址： <a target="_blank" rel="noopener external nofollow noreferrer" href="http://www.zhangxinxu.com/wordpress/?p=651">http://www.zhangxinxu.com/wordpress/?p=651</a></p>
+<h3 id="四、关于-“边框法”-的一些说明"><a href="#四、关于-“边框法”-的一些说明" class="headerlink" title="四、关于 “边框法” 的一些说明"></a>四、关于 “边框法” 的一些说明</h3><p>关于 “边框法”，有一些知识必须要提一下。</p>
+<p><strong>1. IE6 的奇偶 bug</strong><br>如果定位外框高度或是宽度为奇数，则 IE6 下，绝对定位元素的低定位和右定位会有 1 像素的误差。所以，尽量保证外框的高度或宽度为偶数值。</p>
+<p><strong>2. IE6 的空 div 莫名高度 bug</strong><br>IE6 下，空 div 会有莫名的高度，也就是说 height:0; 不顶用，此时形成的尖角的实际占高于其他浏览器是有差异的。可使用 font-size:0; + overflow:hidden; 修复此问题。</p>
+<p><strong>3. IE6 不支持实线边框透明 transparent 属性</strong><br>IE6 不支持实线边框透明 transparent 属性，当某边框设置为 transparent 属性，且有宽度的话，那么透明会以默认的黑色显示的。解决方法有两个，一是将需要隐藏的颜色设置为背景色，这样与透明效果一样，此法有局限性，在复杂 “边框法” 应用下是行不通的；二是可以使用 dashed 代替 solid，可以实现 IE6 下边框 transparent 透明。为什么能够实现透明？您可以参考默尘的这篇文章 <a target="_blank" rel="noopener external nofollow noreferrer" href="http://blog.silentash.com/2009/12/ie6-border-transparent/" title="Permanent Link to Dotted&amp;Dashed终极分析及IE6透明边框">Dotted&amp;Dashed 终极分析及 IE6 透明边框</a>，我说点题外话，其对原因的解释似乎说的通，但是，是不是如此，我是相当怀疑的，我尚未有时间验证，这个可以标记一下。</p>
+<p>本文地址： <a target="_blank" rel="noopener external nofollow noreferrer" href="http://www.zhangxinxu.com/wordpress/?p=651">http://www.zhangxinxu.com/wordpress/?p=651</a></p>
+<h3 id="五、利用-CSS3-实现气泡样式的对话框"><a href="#五、利用-CSS3-实现气泡样式的对话框" class="headerlink" title="五、利用 CSS3 实现气泡样式的对话框"></a>五、利用 CSS3 实现气泡样式的对话框</h3><p>之前我们所说的一切，是全兼容现在所有主流浏览器的。而这里的方法，只支持对 CSS3 支持良好的浏览器，例如 Firefox3.5+，chrome 以及 Safari。本文一开头的那张黄黄的大图就是使用的 CSS3 实现的圆形以及圆弧状的拐角尾巴。</p>
+<p>效果的核心就是 CSS3 的圆角属性：<a target="_blank" rel="noopener external nofollow noreferrer" href="http://www.zhangxinxu.com/css3/css3-border-radius.php">border-radius</a>，例如开始的大尾巴图片，就是使用 border-radius 实现的三个圆组成的，大圆形成主体内容，两个小一点的圆相互遮盖，形成圆弧小尾巴，但这个不具体讲，现在，以一个相对简单点的例子做示例。</p>
+<p>CSS 代码如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line">.test&#123;</span><br><span class="line">    width:300px;</span><br><span class="line">    padding:80px 20px;</span><br><span class="line">    margin-left:100px;</span><br><span class="line">    background:#beceeb;</span><br><span class="line">    -webkit-border-top-left-radius:220px 120px;</span><br><span class="line">    -webkit-border-top-right-radius:220px 120px;</span><br><span class="line">    -webkit-border-bottom-right-radius:220px 120px;</span><br><span class="line">    -webkit-border-bottom-left-radius:220px 120px;</span><br><span class="line">    -moz-border-radius:220px &#x2F; 120px;</span><br><span class="line">    border-radius:220px &#x2F; 120px;</span><br><span class="line">    position:relative;</span><br><span class="line">&#125;</span><br><span class="line">.test span&#123;width:0; height:0; font-size:0; background:#beceeb; overflow:hidden; position:absolute;&#125;</span><br><span class="line">.test span.bot&#123;</span><br><span class="line">    width:30px;</span><br><span class="line">    height:30px;</span><br><span class="line">    -moz-border-radius:30px;</span><br><span class="line">    -webkit-border-radius:30px;</span><br><span class="line">    border-radius:30px;</span><br><span class="line">    left:10px;</span><br><span class="line">    bottom:-20px;</span><br><span class="line">&#125;</span><br><span class="line">.test span.top&#123;</span><br><span class="line">    width:15px;</span><br><span class="line">    height:15px;</span><br><span class="line">    -moz-border-radius:15px;</span><br><span class="line">    -webkit-border-radius:15px;</span><br><span class="line">    border-radius:15px;</span><br><span class="line">    left:0px;</span><br><span class="line">    bottom:-40px;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>HTML 代码如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&lt;div&gt;</span><br><span class="line">    &lt;span&gt;&lt;&#x2F;span&gt;</span><br><span class="line">    &lt;span&gt;&lt;&#x2F;span&gt;</span><br><span class="line">    CSS3 border-radius实现气泡对话框效果 </span><br><span class="line">&lt;&#x2F;div&gt;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>最后的效果如下图：<br><a target="_blank" rel="noopener external nofollow noreferrer" href="http://image.zhangxinxu.com/image/blog/201003/2010-03-13_030217.png"><img src="http://image.zhangxinxu.com/image/blog/201003/2010-03-13_030217.png"></a></p>
+<p>您可以狠狠地点击这里：<a target="_blank" rel="noopener external nofollow noreferrer" href="http://www.zhangxinxu.com/study/201003/css-border-popup-effect-demo3.html">效果 (3)demo</a></p>
+<h3 id="六、结语"><a href="#六、结语" class="headerlink" title="六、结语"></a>六、结语</h3><p>还是那句话，资历有限，错误难免，欢迎大力指正。</p>
+<p>（本篇完）<img src="https://image.zhangxinxu.com/image/emtion/emoji/1f44d.svg"> 是不是学到了很多？可以分享到微信！<br><img src="https://image.zhangxinxu.com/image/emtion/emoji/1f44a.svg"> 有话要说？点击<a href="#comment" title="点击定位到评论">这里</a>。</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://blog.yuki520.cn/archives/8868e6e9.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="https://cos.yuki520.cn/blog/avatar.jpg">
+      <meta itemprop="name" content="Yuki">
+      <meta itemprop="description" content="起风了！唯有努力生存">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Yuki's Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/archives/8868e6e9.html" class="post-title-link" itemprop="url">编程语言通识与JavaScript语言设计</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2022-01-06 04:37:43" itemprop="dateCreated datePublished" datetime="2022-01-06T04:37:43Z">2022-01-06</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E5%89%8D%E7%AB%AF/" itemprop="url" rel="index"><span itemprop="name">前端</span></a>
+                </span>
+            </span>
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>3.2k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>3 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="编程语言通识与JavaScript语言设计"><a href="#编程语言通识与JavaScript语言设计" class="headerlink" title="编程语言通识与JavaScript语言设计"></a>编程语言通识与JavaScript语言设计</h1><h2 id="语言按语法分类"><a href="#语言按语法分类" class="headerlink" title="语言按语法分类"></a>语言按语法分类</h2><h3 id="非形式语言"><a href="#非形式语言" class="headerlink" title="非形式语言"></a>非形式语言</h3><ul>
+<li>中文，英文…</li>
+</ul>
+<h3 id="形式语言（乔姆斯基谱系）"><a href="#形式语言（乔姆斯基谱系）" class="headerlink" title="形式语言（乔姆斯基谱系）"></a>形式语言（乔姆斯基谱系）</h3><ul>
+<li><p>0型 无限制文法</p>
+<p>?::=?</p>
+</li>
+<li><p>1型 上下文相关文法</p>
+<p>?<A>?::=?<B>?</p>
+</li>
+<li><p>2型 上下文无关文法</p>
+<p><A>::=?</p>
+</li>
+<li><p>3型 正则文法</p>
+<p><A>::=<A>?</p>
+</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th align="center">文法</th>
+<th align="center">语言</th>
+<th align="center">自动机</th>
+<th align="center">产生式规则</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">0-型</td>
+<td align="center">递归可枚举语言</td>
+<td align="center">图灵机</td>
+<td align="center">α -&gt; β（无限制）</td>
+</tr>
+<tr>
+<td align="center">1-型</td>
+<td align="center">上下文相关语言</td>
+<td align="center">线性有界非确定图灵机</td>
+<td align="center">α<em>A</em>β -&gt; αγβ</td>
+</tr>
+<tr>
+<td align="center">2-型</td>
+<td align="center">上下文无关语言</td>
+<td align="center">非确定下推自动机</td>
+<td align="center"><em>A</em> -&gt; γ</td>
+</tr>
+<tr>
+<td align="center">3-型</td>
+<td align="center">正则语言</td>
+<td align="center">有限状态自动机</td>
+<td align="center"><em>A</em> -&gt; <em>aB</em> <em>A</em> -&gt; <em>a</em></td>
+</tr>
+</tbody></table>
+<h2 id="文法"><a href="#文法" class="headerlink" title="文法"></a>文法</h2><h3 id="文法的概念"><a href="#文法的概念" class="headerlink" title="文法的概念"></a>文法的概念</h3><p>在形式语言理论中，<strong>文法</strong>（为了避免歧义，常称作“形式文法”）是形式语言中字符串的一套产生式规则。这些规则描述了如何用语言的字母表生成符合语法的有效的字符串。文法不描述字符串的含义，也不描述在任何上下文中可以用它们做什么——只描述它们的形式。</p>
+<h3 id="BNF范式"><a href="#BNF范式" class="headerlink" title="BNF范式"></a>BNF范式</h3><p>BNF(Backus-Naur Form)是描述<strong>编程语言的文法</strong>。巴科斯范式是一种用于表示上下文无关文法的语言，上下文无关文法描述了一类形式语言。</p>
+<p>BNF规定是推导规则(产生式)的集合，写为：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">符号 ::&#x3D; &lt;使用符号的表达式&gt;</span><br></pre></td></tr></table></figure>
+
+<p>这里的 <code>&lt;符号&gt;</code> 是非终结符，而表达式由一个符号序列，或用指示选择的竖杠 <code>&#39;|&#39;</code> 分隔的多个符号序列构成，每个符号序列整体都是左端的符号的一种可能的替代。从未在左端出现的符号叫做终结符。</p>
+<h2 id="终结符和非终结符"><a href="#终结符和非终结符" class="headerlink" title="终结符和非终结符"></a>终结符和非终结符</h2><p><strong>终结符</strong>：终结符是一个形式语言的基本符号。就是说，它们能在一个形式语法的推导规则的输入或输出字符串存在，而且他们不能被分解为更小的单位。确切的说，一个语法的规则不能改变终结符。一个形式语法所推导的形式语言必须完全由终结符组成。</p>
+<p><strong>非终结符</strong>：非终结符是可以被取代的符号。一个形式文法中必须有一个起始符号，这个起始符号属于非终结符的集合。在上下文无关文法中，每个推导规则的左边只能有一个非终结符而不能有两个以上的非终结符或终结符。（并非所有的语言都可以被上下文无关文法产生）</p>
+<h2 id="BNF范式的语法"><a href="#BNF范式的语法" class="headerlink" title="BNF范式的语法"></a>BNF范式的语法</h2><p>在BNF中，双引号中的字(“word”)代表着这些字符本身。而double_quote用来代表双引号。</p>
+<p>在双引号外的字（有可能有下划线）代表着语法部分。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">&lt; &gt;     : 内包含的为必选项。</span><br><span class="line">[ ]     : 内包含的为可选项。</span><br><span class="line">&#123; &#125;     : 内包含的为可重复0至无数次的项。</span><br><span class="line">|       : 表示在其左右两边任选一项，相当于&quot;OR&quot;的意思。</span><br><span class="line">::&#x3D;     : 是“被定义为”的意思</span><br><span class="line">&quot;...&quot;   : 术语符号</span><br><span class="line">[...]   : 选项，最多出现一次</span><br><span class="line">&#123;...&#125;   : 重复项，任意次数，包括 0 次</span><br><span class="line">(...)   : 分组</span><br><span class="line">|       : 并列选项，只能选一个</span><br></pre></td></tr></table></figure>
+
+<p>例如，Java语言总的<code>for</code>语句的BNF范式定义如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">FOR_STATEMENT ::&#x3D;</span><br><span class="line">    &quot;for&quot; &quot;(&quot; ( variable_declaration |</span><br><span class="line">    ( expression &quot;;&quot; ) | &quot;;&quot; )</span><br><span class="line">    [ expression ] &quot;;&quot;</span><br><span class="line">    [ expression ]</span><br><span class="line">    &quot;)&quot; statement</span><br></pre></td></tr></table></figure>
+
+<h2 id="ABBF"><a href="#ABBF" class="headerlink" title="ABBF"></a>ABBF</h2><p>RFC2234 定义了扩展的巴科斯范式(ABNF)。近年来在Internet的定义中 ABNF 被广泛使用。扩充巴科斯-诺尔范式(ABNF)基于了巴科斯-诺尔范式(BNF)，但由它自己的语法和推导规则构成。这种元语言的发起原则是描述作为通信协议(双向规范)的语言的形式系统。</p>
+<p>ABNF 规定是一组推导规则，写为：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">规则 &#x3D; 定义 ; 注释 CR LF</span><br></pre></td></tr></table></figure>
+
+<p>这里的规则是大小写敏感的非终止符，定义由定义这个规则的符号序列，一个文档注释组成，并结束于回车换行。</p>
+<p>规则名字是大小写不敏感的: <code>&lt;rulename&gt;</code>, <code>&lt;Rulename&gt;</code>, <code>&lt;RULENAME&gt;</code> 和 <code>&lt;rUlENamE&gt;</code> 都提及同一个规则。规则名字由开始于一个字母的字母、数字和连字符组成。不要求用尖括号(“<code>&lt;</code>”, “<code>&gt;</code>”) (如 BNF 那样)包围规则名字。但是它们可以用来界定规则名字，比如在冗文中识别出规则名字的时候。ABNF 使用 7-位 ASCII 编码，在 8-位域中把高位置零。</p>
+<p>终结符由一个或多个数值字符指定。数值字符可以指定为跟随着基数(b = 二进制, d = 十进制, x = 十六进制)的一个百分号“%”，随后是这个数值，或数值的串联(用“.” 来指示)。例如回车可以指定为十进制的 %d13 或十六进制的 %x0D。回车换行可以指定为 %d13.10。</p>
+<p>文字正文通过使用包围在引号(“)中字符串来指定。这些字符串是大小写不敏感的，使用的字符集是 US-ASCII。所以字符串“abc”将匹配“abc”, “Abc”, “aBc”, “abC”, “ABc”, “AbC”, “aBC” 和 “ABC”。对于大小写敏感匹配，必须定义明确的字符: 要匹配 “aBc” 定义将是 %d97 %d66 %d99。</p>
+<h4 id="用括号括起来的名称来表示语法结构名"><a href="#用括号括起来的名称来表示语法结构名" class="headerlink" title="用括号括起来的名称来表示语法结构名"></a>用括号括起来的名称来表示语法结构名</h4><h4 id="语法结构分成基础结构和需要用其他语法结构定义的复合结构"><a href="#语法结构分成基础结构和需要用其他语法结构定义的复合结构" class="headerlink" title="语法结构分成基础结构和需要用其他语法结构定义的复合结构"></a>语法结构分成基础结构和需要用其他语法结构定义的复合结构</h4><ul>
+<li>基础结构称终结符</li>
+<li>复合结构称非终结符</li>
+</ul>
+<h4 id="引号和中间的字符表示终结符"><a href="#引号和中间的字符表示终结符" class="headerlink" title="引号和中间的字符表示终结符"></a>引号和中间的字符表示终结符</h4><h4 id="可以有括号"><a href="#可以有括号" class="headerlink" title="可以有括号"></a>可以有括号</h4><h4 id="表示重复多次"><a href="#表示重复多次" class="headerlink" title="*表示重复多次"></a>*表示重复多次</h4><h4 id="表示或"><a href="#表示或" class="headerlink" title="|表示或"></a>|表示或</h4><h4 id="表示至少一次"><a href="#表示至少一次" class="headerlink" title="+表示至少一次"></a>+表示至少一次</h4><h4 id="四则运算："><a href="#四则运算：" class="headerlink" title="四则运算："></a>四则运算：</h4><ul>
+<li>1+2*3</li>
+</ul>
+<h4 id="终结符"><a href="#终结符" class="headerlink" title="终结符:"></a>终结符:</h4><ul>
+<li>Number</li>
+<li>+-*/</li>
+</ul>
+<h4 id="非终结符："><a href="#非终结符：" class="headerlink" title="非终结符："></a>非终结符：</h4><ul>
+<li>MultiplicativeExpression</li>
+<li>AddtiveExpression</li>
+</ul>
+<h2 id="现代语言的特例"><a href="#现代语言的特例" class="headerlink" title="现代语言的特例"></a>现代语言的特例</h2><ul>
+<li>C++中，*可以表示乘号或者指针，具体是哪个，取决于星号前面 的标识符是否被声明为类型</li>
+<li>VB中，&lt;可能是小于号，也可能是XML直接量的开始，取决于当前位置是否可以接受XML直接量</li>
+<li>Python中，行首的tab和空格会根据上一行的行首空白以一定规则被处理成虚拟终结符indent或者dedent</li>
+<li>Javascript中，/可能是除号，也可能是正则表达式开头，处理方式类似于VB，字符串模板中也需要特殊处理，还有自动插入分号规则</li>
+</ul>
+<h2 id="图灵完备性"><a href="#图灵完备性" class="headerlink" title="图灵完备性"></a>图灵完备性</h2><h3 id="图灵机"><a href="#图灵机" class="headerlink" title="图灵机"></a>图灵机</h3><p>又称确定型图灵机，其更抽象的意义为一种<a target="_blank" rel="noopener external nofollow noreferrer" href="https://zh.wikipedia.org/wiki/%E8%AE%A1%E7%AE%97%E6%A8%A1%E5%9E%8B">计算模型</a>，可以看作等价于任何有限逻辑数学过程的终极强大逻辑机器。</p>
+<h3 id="图灵完备性-1"><a href="#图灵完备性-1" class="headerlink" title="图灵完备性"></a>图灵完备性</h3><p>在<a target="_blank" rel="noopener external nofollow noreferrer" href="https://zh.wikipedia.org/wiki/%E5%8F%AF%E8%AE%A1%E7%AE%97%E6%80%A7%E7%90%86%E8%AE%BA">可计算性理论</a>，如果一系列操作数据的规则（如<a target="_blank" rel="noopener external nofollow noreferrer" href="https://zh.wikipedia.org/wiki/%E6%8C%87%E4%BB%A4%E9%9B%86">指令集</a>、<a target="_blank" rel="noopener external nofollow noreferrer" href="https://zh.wikipedia.org/wiki/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80">编程语言</a>、<a target="_blank" rel="noopener external nofollow noreferrer" href="https://zh.wikipedia.org/wiki/%E7%B4%B0%E8%83%9E%E8%87%AA%E5%8B%95%E6%A9%9F">细胞自动机</a>）可以用来模拟任何<a target="_blank" rel="noopener external nofollow noreferrer" href="https://zh.wikipedia.org/wiki/%E5%9B%BE%E7%81%B5%E6%9C%BA">图灵机</a>，那么它是<strong>图灵完备</strong>的。这意味着这个系统也可以识别其他数据处理规则集，图灵完备性被用作表达这种数据处理规则集的一种属性。</p>
+<p><strong>命令式—图灵机</strong></p>
+<ul>
+<li>goto</li>
+<li>if 和while</li>
+</ul>
+<p><strong>声明式—lambda</strong></p>
+<ul>
+<li>递归</li>
+</ul>
+<h2 id="动态与静态"><a href="#动态与静态" class="headerlink" title="动态与静态"></a>动态与静态</h2><h3 id="动态"><a href="#动态" class="headerlink" title="动态"></a>动态</h3><ul>
+<li>在用户的设备/在线服务器上</li>
+<li>产品实际运行时</li>
+<li>Runtime</li>
+</ul>
+<h3 id="静态"><a href="#静态" class="headerlink" title="静态"></a>静态</h3><ul>
+<li>在程序员的设备上</li>
+<li>产品开始时</li>
+<li>Compiletime</li>
+</ul>
+<h2 id="类型系统"><a href="#类型系统" class="headerlink" title="类型系统"></a>类型系统</h2><h3 id="动态类型系统与静态类型系统"><a href="#动态类型系统与静态类型系统" class="headerlink" title="动态类型系统与静态类型系统"></a>动态类型系统与静态类型系统</h3><h3 id="强类型与弱类型"><a href="#强类型与弱类型" class="headerlink" title="强类型与弱类型"></a>强类型与弱类型</h3><ul>
+<li>String + Number</li>
+<li>String == Boolean</li>
+</ul>
+<h3 id="复合类型"><a href="#复合类型" class="headerlink" title="复合类型"></a>复合类型</h3><ul>
+<li>结构体</li>
+<li>函数签名</li>
+</ul>
+<h3 id="子类型"><a href="#子类型" class="headerlink" title="子类型"></a>子类型</h3><ul>
+<li>逆变/协变</li>
+</ul>
+<h2 id="一般命令式编程语言"><a href="#一般命令式编程语言" class="headerlink" title="一般命令式编程语言"></a>一般命令式编程语言</h2><h3 id="Atom"><a href="#Atom" class="headerlink" title="Atom"></a>Atom</h3><ul>
+<li>Identifier</li>
+<li>Literal</li>
+</ul>
+<h3 id="Expression"><a href="#Expression" class="headerlink" title="Expression"></a>Expression</h3><ul>
+<li>Atom</li>
+<li>Operator</li>
+<li>Punctuator</li>
+</ul>
+<h3 id="Statement"><a href="#Statement" class="headerlink" title="Statement"></a>Statement</h3><ul>
+<li>Expression</li>
+<li>Keyword</li>
+<li>Punctuator</li>
+</ul>
+<h3 id="Structure"><a href="#Structure" class="headerlink" title="Structure"></a>Structure</h3><ul>
+<li>Function</li>
+<li>Class</li>
+<li>Process</li>
+<li>NameSpace</li>
+<li>…</li>
+</ul>
+<h3 id="Program"><a href="#Program" class="headerlink" title="Program"></a>Program</h3><ul>
+<li>Program</li>
+<li>Module</li>
+<li>Package</li>
+<li>Library</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">docker run -p 3306:3306 --name mysql \</span><br><span class="line">-v &#x2F;mydata&#x2F;mysql&#x2F;log:&#x2F;var&#x2F;log&#x2F;mysql \</span><br><span class="line">-v &#x2F;mydata&#x2F;mysql&#x2F;data:&#x2F;var&#x2F;lib&#x2F;mysql \</span><br><span class="line">-v &#x2F;mydata&#x2F;mysql&#x2F;conf:&#x2F;etc&#x2F;mysql \</span><br><span class="line">-e MYSQL_ROOT_PASSWORD&#x3D;root  \</span><br><span class="line">-d mysql:5.7</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://blog.yuki520.cn/archives/a070bf7.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="https://cos.yuki520.cn/blog/avatar.jpg">
+      <meta itemprop="name" content="Yuki">
+      <meta itemprop="description" content="起风了！唯有努力生存">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Yuki's Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/archives/a070bf7.html" class="post-title-link" itemprop="url">编译原理概述</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2022-01-06 04:37:43" itemprop="dateCreated datePublished" datetime="2022-01-06T04:37:43Z">2022-01-06</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E7%BC%96%E8%AF%91%E5%8E%9F%E7%90%86/" itemprop="url" rel="index"><span itemprop="name">编译原理</span></a>
+                </span>
+            </span>
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>3.2k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>3 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h2 id="什么是编译程序？"><a href="#什么是编译程序？" class="headerlink" title="什么是编译程序？"></a>什么是编译程序？</h2><p>从功能上看，一个编译程序就是一个语言翻译程序。把一种语言（即源程序）书写的程序翻译成另一种语言（目标程序）的等价程序。</p>
+<p><img src="/images/image-20211007180707329.png" alt="image-20211007180707329"></p>
+<p>但是除了编译程序外，还需要一些其他的程序才能生成可在计算机上执行的目标程序。</p>
+<p><img src="/images/image-20211007180836858.png" alt="image-20211007180836858"></p>
+<h2 id="编译过程和编译程序的结构"><a href="#编译过程和编译程序的结构" class="headerlink" title="编译过程和编译程序的结构"></a>编译过程和编译程序的结构</h2><p>编译程序完成从源程序到目标程序的翻译工作，划分成阶段进行，每个阶段将源程序的一种表示形式转换成另一种表示形式。典型的划分方法是将编译过程划分为词法分析、语法分析、语义分析、中间代码生成、代码优化和目标代码生成6个阶段。</p>
+<p><img src="/images/image-20211007181312682.png"></p>
+<h3 id="编译程序过程概述"><a href="#编译程序过程概述" class="headerlink" title="编译程序过程概述"></a>编译程序过程概述</h3><h4 id="词法分析-lexical-analysis"><a href="#词法分析-lexical-analysis" class="headerlink" title="词法分析(lexical analysis)"></a>词法分析(lexical analysis)</h4><p>词法分析的任务是从左到右一个字符一个字符地读入源程序，对构成源程序的字符流进行扫描和分解，从而识别出一个个单词（有时候也称为单词符号或符号）,确定单词类型，将识别出的单词转换成统一的机内表示—词法单元（token）形式。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">token: &lt;种别码，属性值&gt;</span><br></pre></td></tr></table></figure>
+
+<table>
+<thead>
+<tr>
+<th>单词类型</th>
+<th>种别</th>
+<th>种别码</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>关键词</td>
+<td>Program、if、else…</td>
+<td>一词一码</td>
+</tr>
+<tr>
+<td>标识符</td>
+<td>变量名、数组名、记录名、过程名…</td>
+<td>多词一码</td>
+</tr>
+<tr>
+<td>常量</td>
+<td>整型、浮点型、字符型、布尔型…</td>
+<td>一型一码</td>
+</tr>
+<tr>
+<td>运算符</td>
+<td>算术（+ - * / ++）、关系（&gt;,&lt;,==,!=,&gt;=,&lt;=）逻辑（&amp;|~）</td>
+<td>一词一码或一型一码</td>
+</tr>
+<tr>
+<td>界限符</td>
+<td>;()={}…</td>
+<td>一词一码</td>
+</tr>
+</tbody></table>
+<p>例如：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">position = initial + rate * <span class="number">60</span></span><br></pre></td></tr></table></figure>
+
+<p>这个赋值语句中的字符可以组合成如下字素（lexeme），并映射成为如下词法单元。这些词法单元将被传递给语法分析阶段。</p>
+<ol>
+<li>positon是一个词素，被映射成词法单元&lt;id,1&gt;，其中id是表示标识符(identifier)的抽象符号，而1指向符号表中position对应的条目。一个标识符对应的符号表条目存放该标识符有关的信息，比如他的名字和类型。</li>
+<li>赋值符号=是一个词素，被映射成词法单元&lt;=&gt;。因为这个词法单元不需要属性值，所以我们省略第二个分量，也可以使用assign这样的抽象符号作为词法单元的名字。</li>
+<li>initial是一个词素，被映射成&lt;id,2&gt;，其中2指向initial对应的符号表条目。</li>
+<li>+是一个词素，被映射成词法单元&lt;+&gt;。</li>
+<li>rate是一个词素，被映射成词法单元&lt;id,3&gt;，其中3指向rate对应的符号表条目。</li>
+<li>*是一个词素，被映射成词法单元&lt;*&gt;。</li>
+<li>60是一个词素，被映射成词法单元&lt;60&gt;(技术上讲是建立一个&lt;number,4&gt;的词法单元)。</li>
+</ol>
+<p>所以上面的复制语句被表示成如下的词法单元序列：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;id,1&gt; &lt;&#x3D;&gt; &lt;id,2&gt; &lt;+&gt; &lt;id,3&gt; &lt;*&gt; &lt;number,4&gt;</span><br></pre></td></tr></table></figure>
+
+<p>![image-20211009185656328](/Users/yuki/Library/Application Support/typora-user-images/image-20211009185656328.png)</p>
+<h4 id="语法分析"><a href="#语法分析" class="headerlink" title="语法分析"></a>语法分析</h4><p>语法分析的任务是在词法分析的基础上将单词序列分解成各类语法短语（也称为语法单位），可以表示成语法树。</p>
+<p>如单词序列：</p>
+<figure class="highlight pascal"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">id1 := id2 + id3 * <span class="number">10</span></span><br></pre></td></tr></table></figure>
+
+<p><img src="/images/image-20211007182058600.png" alt="image-20211007182058600"></p>
+<p>词法分析所依据的是语言的语法规则，即描述程序结构的规则。程序的结构通常是由递归规则表示的，例如，可以用下面的规则来表示表达式：</p>
+<ol>
+<li>任何标识符是表达式。</li>
+<li>任何常数（整常数、实常数）是表达式。</li>
+<li>若表达式1和2都是表达式，那么：<code>表达式1+表达式2</code> 、<code>表达式1*表达式2</code>都是表达式。</li>
+</ol>
+<h4 id="语义分析"><a href="#语义分析" class="headerlink" title="语义分析"></a>语义分析</h4><p>语义分析是审查源程序有无语义错误，为代码生成阶段收集类型信息。语义分析的一个工作是进行类型审查，审查每个算符是否具有规范允许的运算对象，当不符合语言规范时，编译程序应报告错误。</p>
+<h4 id="中间代码生成"><a href="#中间代码生成" class="headerlink" title="中间代码生成"></a>中间代码生成</h4><p>进行了语法分析和语义分析之后，有的编译程序将源程序变成一种内部表示形式，即中间语言或中间代码。中间代码是一种结构简单、含意明确的记号系统。</p>
+<h4 id="代码优化"><a href="#代码优化" class="headerlink" title="代码优化"></a>代码优化</h4><p>该阶段的任务是将中间代码进行变换或进行改造，目的是使生成的目标代码更为高效，即省时间和省空间。</p>
+<h4 id="目标代码生成"><a href="#目标代码生成" class="headerlink" title="目标代码生成"></a>目标代码生成</h4><p>把中间代码变换成特定机器上的绝对指令代码或可重定位的指令代码或编译指令代码。</p>
+<h3 id="编译程序的结构"><a href="#编译程序的结构" class="headerlink" title="编译程序的结构"></a>编译程序的结构</h3><p>6个阶段的任务对应6个模块完成：词法分析程序、语法分析程序、语义分析程序、中间代码生成程序、代码优化程序和目标代码生成程序。另外完整的编译程序还必需包括表格管理程序和出错处理程序。</p>
+<p><img src="/images/image-20211007212938427.png"></p>
+<h3 id="编译阶段的组合"><a href="#编译阶段的组合" class="headerlink" title="编译阶段的组合"></a>编译阶段的组合</h3><p>编译的过程可分为前端（analysis：分析部分）和后端（synthesis：综合部分），前端的工作主要依赖于源语言而与目标机无关。前端通常包括词法分析、语法分析、语义分析和中间代码生成，某些优化工作也可放在前端做，还包括与前端相关的出错处理工作和符号表管理工作。后端指的是那些依赖于目标机而一般不依赖于源程序，只与中间代码有关的那些阶段工作，即目标代码生成，以及相关出错处理和符号表操作。</p>
+<h2 id="解释程序和一些软件工具"><a href="#解释程序和一些软件工具" class="headerlink" title="解释程序和一些软件工具"></a>解释程序和一些软件工具</h2><h3 id="解释程序"><a href="#解释程序" class="headerlink" title="解释程序"></a>解释程序</h3><p><strong>解释型语言</strong>（英语：Interpreted language）是一种编程语言类型。这种类型的编程语言，会将代码一句一句直接运行，不需要像编译语言（Compiled language）一样，经过编译器]先行编译为机器代码，之后再运行。JavaScript也是解释语言。</p>
+<p><img src="/images/image-20211007223843742.png" alt="image-20211007223843742"></p>
+<p>编译程序与解释程序的不同工作模式：</p>
+<p><img src="/images/image-20211007223929684.png" alt="image-20211007223929684"></p>
+<p>解析程序的输入包括源程序和源程序的初始数据（输入数据），它不生成目标代码，直接输出结果。</p>
+<p>编译程序和解释程序的存储组织也有很大不同。经由编译程序处理时，在源程序被编译的阶段，存储区要为源程序（中间形式）和目标代码开辟空间，要存放编译用的各种表格，如符号表。在目标代码运行阶段，存储区主要是目标代码和数据，编译所用的任何信息都不需要了。</p>
+<p>解释程序一般是把源程序一个语句一个语句地进行语法分析，转换为一种内部表示形式，存放在源程序区。解释程序允许在执行用户程序时修改用户程序，这要求在解释程序工作的整个过程中，源程序、符号表等内容始终存放在存储区中，并且存放格式要设计得易于使用和修改。</p>
+<p><img src="/images/image-20211007224751572.png" alt="image-20211007224751572"></p>
+<p>程序的解释是非常慢的，在有些语言（如Java）的处理环境既有编译程序，也有解释程序。</p>
+<p><img src="/images/image-20211007225544832.png" alt="image-20211007225544832"></p>
+<h3 id="处理源程序的软件工具"><a href="#处理源程序的软件工具" class="headerlink" title="处理源程序的软件工具"></a>处理源程序的软件工具</h3><p>为了提高软件开发的效率和质量，需要有一套软件开发过程所遵循的规范和标准，应使用先进的软件开发方法，并有相迎的软件工具的支持。</p>
+<h4 id="软件的结构化编辑器"><a href="#软件的结构化编辑器" class="headerlink" title="软件的结构化编辑器"></a>软件的结构化编辑器</h4><p>结构化编辑器不仅具有通常的正文编辑器的正文编辑和修改功能，而且还能像编译程序那样对源程序正文进行分析，能够执行一些对正确编制程序有帮助的附加任务。</p>
+<h4 id="语言程序的调试工具"><a href="#语言程序的调试工具" class="headerlink" title="语言程序的调试工具"></a>语言程序的调试工具</h4><p>调试工具的作用是让编程人员了解程序的执行结果和编程人员的意图是否一致，程序的执行石沟实现预期的算法和功能。</p>
+<h4 id="格式化工具"><a href="#格式化工具" class="headerlink" title="格式化工具"></a>格式化工具</h4><p>程序格式化工具分析源程序并以使程序结构变得清晰可读的形式打印出来。</p>
+<h4 id="语言程序测试工具"><a href="#语言程序测试工具" class="headerlink" title="语言程序测试工具"></a>语言程序测试工具</h4><p>语言程序的测试工具有两种：静态分析器和动态测试器。</p>
+<p><strong>静态分析器</strong>：是在不运行程序的情况下对源程序进行静态分析，以发现程序中潜在的错误或异常。它对源程序进行语法分析并制定相应表格，检查变量定值与引用的关系，如某变量未被赋值就被引用，或定值后未被引用，或多余的源代码等一些编译程序的语法分析发现不了的错误。</p>
+<p><strong>动态测试工具</strong>：也是首先对源程序进行分析，在分析基础上将用于记录和显示程序执行轨迹的语句或函数插入到源程序的适当位置，并用测试用例记录和显示程序运行时的实际路径，将运行结果与预期的结果进行比较分析，帮助编程人员查找问题。</p>
+<h4 id="程序理解工具"><a href="#程序理解工具" class="headerlink" title="程序理解工具"></a>程序理解工具</h4><p>程序理解工具对程序进行分析，确定模块间的调用关系，记录程序数据静态属性和结构属性，并画出控制流程图，帮助用户理解程序。</p>
+<h4 id="高级语言之间的转换工具"><a href="#高级语言之间的转换工具" class="headerlink" title="高级语言之间的转换工具"></a>高级语言之间的转换工具</h4><p>转换工具是把一种高级语言转换成另一种高级语言，乃至汇编 语言转换成高级语言的工具。转换工作要对被转换的语言进行词法和语法分析，只不过生成的目标语言是另一种高级语言而已。</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://blog.yuki520.cn/archives/9906e5a2.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="https://cos.yuki520.cn/blog/avatar.jpg">
+      <meta itemprop="name" content="Yuki">
+      <meta itemprop="description" content="起风了！唯有努力生存">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Yuki's Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/archives/9906e5a2.html" class="post-title-link" itemprop="url">职业发展规划</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2022-01-06 04:37:43" itemprop="dateCreated datePublished" datetime="2022-01-06T04:37:43Z">2022-01-06</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E8%81%8C%E4%B8%9A/" itemprop="url" rel="index"><span itemprop="name">职业</span></a>
+                </span>
+            </span>
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>190</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>1 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <!-- <img src="/Users/yuki/Documents/Projects/blog/yuki0320.github.io/source/images/image-20211005181421300.png" alt="image-20211005181421300" style="zoom: 25%;" /> -->
+<p><img src="/images/image-20211005181421300.png"></p>
+<h2 id="成就"><a href="#成就" class="headerlink" title="成就"></a>成就</h2><h3 id="业务型成就"><a href="#业务型成就" class="headerlink" title="业务型成就"></a>业务型成就</h3><h4 id="业务目标"><a href="#业务目标" class="headerlink" title="业务目标"></a>业务目标</h4><ul>
+<li>理解公司业务的核心目标</li>
+<li>目标转化成指标</li>
+</ul>
+<h4 id="技术方案"><a href="#技术方案" class="headerlink" title="技术方案"></a>技术方案</h4><ul>
+<li>业务指标到技术指标的转化</li>
+<li>形成纸面方案、完成小规模试验</li>
+</ul>
+<h4 id="实施方案"><a href="#实施方案" class="headerlink" title="实施方案"></a>实施方案</h4><ul>
+<li>确定实施目标、参与人</li>
+<li>管理实施进度</li>
+</ul>
+<h4 id="结果评估"><a href="#结果评估" class="headerlink" title="结果评估"></a>结果评估</h4><ul>
+<li>数据采集、数据报表</li>
+<li>向上级汇报</li>
+</ul>
+<h3 id="技术难题"><a href="#技术难题" class="headerlink" title="技术难题"></a>技术难题</h3><p><strong>目标</strong>：公认的技术难点</p>
+<p><strong>方案与实施</strong>：依靠扎实的编程能力、架构能力形成解决方案</p>
+<p><strong>结果</strong>：问题解决</p>
+<h3 id="工程型成就"><a href="#工程型成就" class="headerlink" title="工程型成就"></a>工程型成就</h3><p><strong>目标</strong>：质量、效率</p>
+<p><strong>方案与实施</strong>：1.规章制度，2.库，3.工具，4.系统</p>
+<p><strong>结果</strong>：线上监控</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://blog.yuki520.cn/archives/f86000d3.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="https://cos.yuki520.cn/blog/avatar.jpg">
+      <meta itemprop="name" content="Yuki">
+      <meta itemprop="description" content="起风了！唯有努力生存">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Yuki's Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/archives/f86000d3.html" class="post-title-link" itemprop="url">前端工程化简介</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2021-08-29 11:45:17" itemprop="dateCreated datePublished" datetime="2021-08-29T11:45:17Z">2021-08-29</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2022-01-06 04:37:43" itemprop="dateModified" datetime="2022-01-06T04:37:43Z">2022-01-06</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E5%89%8D%E7%AB%AF/" itemprop="url" rel="index"><span itemprop="name">前端</span></a>
+                </span>
+            </span>
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>505</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>1 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h2 id="什么是前端工程化？"><a href="#什么是前端工程化？" class="headerlink" title="什么是前端工程化？"></a>什么是前端工程化？</h2><p>前端工程化是指将前端开发的流程规范化、标准化，包括开发流程、技术选型、代码规范、构建发布等，用于提升前端工程师的开发效率和代码质量。</p>
+<p><strong>开发流程</strong>：需求分析、版本控制、缺陷管理、文档管理、自动化、性能测试、发布部署</p>
+<p><strong>技术选型</strong>：</p>
+<p>​    <strong>UI框架</strong>：iView、Ant、Element、Mint、Cube</p>
+<p>​    <strong>JS框架</strong>：MVVM</p>
+<p><strong>代码规范</strong>：</p>
+<p>​    标准：Standard、airbnb、Prettier</p>
+<p>​    公司：google、百度、腾讯、美团、饿了么</p>
+<p>​    <strong>模块化</strong></p>
+<p><strong>构建发布：</strong></p>
+<p>​    Jenkins、Webpack、Gulp、Yarn、Docker、Rancher、Kubernetes、Harbor、ECS</p>
+<h2 id="为什么需要前端工程化？"><a href="#为什么需要前端工程化？" class="headerlink" title="为什么需要前端工程化？"></a>为什么需要前端工程化？</h2><p><strong>复杂度高</strong>：前端项目的多功能、多页面、多状态、多系统</p>
+<p><strong>规模大</strong>：团队开发、多人协作、代码质量管理</p>
+<p><strong>要求高</strong>：页面性能优化（CDN/异步加载/请求合并），CSS兼容性、单页面应用、服务端渲染…</p>
+<h2 id="怎么做？"><a href="#怎么做？" class="headerlink" title="怎么做？"></a>怎么做？</h2><p><strong>从业务着手</strong></p>
+<p>简单的单页面应用，使用gulp打包+同步工具实现开发全流程</p>
+<p><strong>从复杂度考虑</strong></p>
+<p>jenkins git/gilab webpack React/Vue/Angular</p>
+<p><strong>从已知向未知扩展</strong></p>
+<p>不同的技术有不同的适应点，选择适合的才是最好的</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://blog.yuki520.cn/archives/9f7c9eb7.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="https://cos.yuki520.cn/blog/avatar.jpg">
+      <meta itemprop="name" content="Yuki">
+      <meta itemprop="description" content="起风了！唯有努力生存">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Yuki's Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/archives/9f7c9eb7.html" class="post-title-link" itemprop="url">前端面试考点</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2021-01-14 11:16:17" itemprop="dateCreated datePublished" datetime="2021-01-14T11:16:17Z">2021-01-14</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2022-01-06 04:37:43" itemprop="dateModified" datetime="2022-01-06T04:37:43Z">2022-01-06</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E9%9D%A2%E8%AF%95/" itemprop="url" rel="index"><span itemprop="name">面试</span></a>
+                </span>
+            </span>
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>57k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>52 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>转载于: <a target="_blank" rel="noopener external nofollow noreferrer" href="https://github.com/qiu-deqing/FE-interview">https://github.com/qiu-deqing/FE-interview</a></p>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/archives/9f7c9eb7.html#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Yuki"
+      src="https://cos.yuki520.cn/blog/avatar.jpg">
+  <p class="site-author-name" itemprop="name">Yuki</p>
+  <div class="site-description" itemprop="description">起风了！唯有努力生存</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">10</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">5</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">20</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/yuki0320" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;yuki0320" rel="noopener external nofollow noreferrer" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:yukitan0202@gmail.com" title="E-Mail → mailto:yukitan0202@gmail.com" rel="noopener external nofollow noreferrer" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Yuki</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-area"></i>
+    </span>
+      <span class="post-meta-item-text">站点总字数：</span>
+    <span title="站点总字数">74k</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+      <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
+    <span title="站点阅读时长">1:07</span>
+</div>
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span class="post-meta-item" id="busuanzi_container_site_uv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+<div class="moon-menu">
+  <div class="moon-menu-items">
+    
+    <div class="moon-menu-item" onclick="back2bottom()">
+      <i class='fa fa-chevron-down'></i>    </div>
+    
+    <div class="moon-menu-item" onclick="back2top()">
+      <i class='fa fa-chevron-up'></i>    </div>
+    
+  </div>
+  <div class="moon-menu-button">
+    <svg class="moon-menu-bg">
+      <circle class="moon-menu-cricle" cx="50%" cy="50%" r="44%"></circle>
+      <circle class="moon-menu-border" cx="50%" cy="50%" r="48%"></circle>
+    </svg>
+    <div class="moon-menu-content">
+      <div class="moon-menu-icon"><i class='fas fa-ellipsis-v'></i></div>
+      <div class="moon-menu-text"></div>
+    </div>
+  </div>
+</div><script src="/js/injector.js"></script>
+</body>
+</html>

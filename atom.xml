@@ -1,0 +1,304 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+  <title>Yuki&#39;s Blog</title>
+  <icon>https://blog.yuki520.cn/icon.png</icon>
+  <subtitle>记录每一天</subtitle>
+  <link href="https://blog.yuki520.cn/atom.xml" rel="self"/>
+  
+  <link href="https://blog.yuki520.cn/"/>
+  <updated>2022-01-06T04:37:43.143Z</updated>
+  <id>https://blog.yuki520.cn/</id>
+  
+  <author>
+    <name>Yuki</name>
+    
+  </author>
+  
+  <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>原型</title>
+    <link href="https://blog.yuki520.cn/archives/263f3be4.html"/>
+    <id>https://blog.yuki520.cn/archives/263f3be4.html</id>
+    <published>2022-01-06T04:37:43.143Z</published>
+    <updated>2022-01-06T04:37:43.143Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;p&gt;原型（prototype）是JavaScript里的一个重要概念。它本来是极简单的。但因为一些原因，原型时常让试图了解它的人感到复杂。&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;原型是对象的属性，它可以让一个对象从其他对象处获得额外的数据和方法&lt;/strong&gt;。对象的原型一般也是对象</summary>
+        
+      
+    
+    
+    
+    <category term="前端" scheme="https://blog.yuki520.cn/categories/%E5%89%8D%E7%AB%AF/"/>
+    
+    
+    <category term="前端" scheme="https://blog.yuki520.cn/tags/%E5%89%8D%E7%AB%AF/"/>
+    
+    <category term="原型" scheme="https://blog.yuki520.cn/tags/%E5%8E%9F%E5%9E%8B/"/>
+    
+    <category term="JavaScript" scheme="https://blog.yuki520.cn/tags/JavaScript/"/>
+    
+    <category term="语言基础" scheme="https://blog.yuki520.cn/tags/%E8%AF%AD%E8%A8%80%E5%9F%BA%E7%A1%80/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>定型数组</title>
+    <link href="https://blog.yuki520.cn/archives/9b1b0f9c.html"/>
+    <id>https://blog.yuki520.cn/archives/9b1b0f9c.html</id>
+    <published>2022-01-06T04:37:43.143Z</published>
+    <updated>2022-01-06T04:37:43.143Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h2 id=&quot;1-ArrayBuffer和TypedArray、DataView的关系&quot;&gt;&lt;a href=&quot;#1-ArrayBuffer和TypedArray、DataView的关系&quot; class=&quot;headerlink&quot; title=&quot;1.</summary>
+        
+      
+    
+    
+    
+    <category term="前端" scheme="https://blog.yuki520.cn/categories/%E5%89%8D%E7%AB%AF/"/>
+    
+    
+    <category term="前端" scheme="https://blog.yuki520.cn/tags/%E5%89%8D%E7%AB%AF/"/>
+    
+    <category term="JavaScript" scheme="https://blog.yuki520.cn/tags/JavaScript/"/>
+    
+    <category term="语言基础" scheme="https://blog.yuki520.cn/tags/%E8%AF%AD%E8%A8%80%E5%9F%BA%E7%A1%80/"/>
+    
+    <category term="定型数组" scheme="https://blog.yuki520.cn/tags/%E5%AE%9A%E5%9E%8B%E6%95%B0%E7%BB%84/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>思维概述</title>
+    <link href="https://blog.yuki520.cn/archives/e9df773b.html"/>
+    <id>https://blog.yuki520.cn/archives/e9df773b.html</id>
+    <published>2022-01-06T04:37:43.143Z</published>
+    <updated>2022-01-06T04:37:43.143Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h2 id=&quot;科学思维&quot;&gt;&lt;a href=&quot;#科学思维&quot; class=&quot;headerlink&quot; title=&quot;科学思维&quot;&gt;&lt;/a&gt;科学思维&lt;/h2&gt;&lt;h3 id=&quot;什么是思维？&quot;&gt;&lt;a href=&quot;#什么是思维？&quot; class=&quot;headerlink&quot;</summary>
+        
+      
+    
+    
+    
+    <category term="思维" scheme="https://blog.yuki520.cn/categories/%E6%80%9D%E7%BB%B4/"/>
+    
+    
+    <category term="逻辑思维" scheme="https://blog.yuki520.cn/tags/%E9%80%BB%E8%BE%91%E6%80%9D%E7%BB%B4/"/>
+    
+    <category term="计算思维" scheme="https://blog.yuki520.cn/tags/%E8%AE%A1%E7%AE%97%E6%80%9D%E7%BB%B4/"/>
+    
+    <category term="实证思维" scheme="https://blog.yuki520.cn/tags/%E5%AE%9E%E8%AF%81%E6%80%9D%E7%BB%B4/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>数据驱动的思考方式</title>
+    <link href="https://blog.yuki520.cn/archives/c3d6d626.html"/>
+    <id>https://blog.yuki520.cn/archives/c3d6d626.html</id>
+    <published>2022-01-06T04:37:43.143Z</published>
+    <updated>2022-01-06T04:37:43.143Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h3 id=&quot;数据驱动的思考方式&quot;&gt;&lt;a href=&quot;#数据驱动的思考方式&quot; class=&quot;headerlink&quot; title=&quot;数据驱动的思考方式&quot;&gt;&lt;/a&gt;数据驱动的思考方式&lt;/h3&gt;&lt;p&gt;&lt;img</summary>
+        
+      
+    
+    
+    
+    <category term="前端" scheme="https://blog.yuki520.cn/categories/%E5%89%8D%E7%AB%AF/"/>
+    
+    
+    <category term="工程化" scheme="https://blog.yuki520.cn/tags/%E5%B7%A5%E7%A8%8B%E5%8C%96/"/>
+    
+    <category term="前端" scheme="https://blog.yuki520.cn/tags/%E5%89%8D%E7%AB%AF/"/>
+    
+    <category term="数据驱动" scheme="https://blog.yuki520.cn/tags/%E6%95%B0%E6%8D%AE%E9%A9%B1%E5%8A%A8/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>CSS实现气球泡泡对话框</title>
+    <link href="https://blog.yuki520.cn/archives/8135dd95.html"/>
+    <id>https://blog.yuki520.cn/archives/8135dd95.html</id>
+    <published>2022-01-06T04:37:43.143Z</published>
+    <updated>2022-01-06T04:37:43.143Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h3 id=&quot;一、关于纯-CSS-实现气泡对话框&quot;&gt;&lt;a href=&quot;#一、关于纯-CSS-实现气泡对话框&quot; class=&quot;headerlink&quot; title=&quot;一、关于纯 CSS 实现气泡对话框&quot;&gt;&lt;/a&gt;一、关于纯 CSS</summary>
+        
+      
+    
+    
+    
+    <category term="前端" scheme="https://blog.yuki520.cn/categories/%E5%89%8D%E7%AB%AF/"/>
+    
+    
+    <category term="前端" scheme="https://blog.yuki520.cn/tags/%E5%89%8D%E7%AB%AF/"/>
+    
+    <category term="css模块" scheme="https://blog.yuki520.cn/tags/css%E6%A8%A1%E5%9D%97/"/>
+    
+    <category term="样式" scheme="https://blog.yuki520.cn/tags/%E6%A0%B7%E5%BC%8F/"/>
+    
+    <category term="CSS" scheme="https://blog.yuki520.cn/tags/CSS/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>编程语言通识与JavaScript语言设计</title>
+    <link href="https://blog.yuki520.cn/archives/8868e6e9.html"/>
+    <id>https://blog.yuki520.cn/archives/8868e6e9.html</id>
+    <published>2022-01-06T04:37:43.143Z</published>
+    <updated>2022-01-06T04:37:43.143Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h1 id=&quot;编程语言通识与JavaScript语言设计&quot;&gt;&lt;a href=&quot;#编程语言通识与JavaScript语言设计&quot; class=&quot;headerlink&quot;</summary>
+        
+      
+    
+    
+    
+    <category term="前端" scheme="https://blog.yuki520.cn/categories/%E5%89%8D%E7%AB%AF/"/>
+    
+    
+    <category term="工程化" scheme="https://blog.yuki520.cn/tags/%E5%B7%A5%E7%A8%8B%E5%8C%96/"/>
+    
+    <category term="前端" scheme="https://blog.yuki520.cn/tags/%E5%89%8D%E7%AB%AF/"/>
+    
+    <category term="JavaScript" scheme="https://blog.yuki520.cn/tags/JavaScript/"/>
+    
+    <category term="语言设计" scheme="https://blog.yuki520.cn/tags/%E8%AF%AD%E8%A8%80%E8%AE%BE%E8%AE%A1/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>编译原理概述</title>
+    <link href="https://blog.yuki520.cn/archives/a070bf7.html"/>
+    <id>https://blog.yuki520.cn/archives/a070bf7.html</id>
+    <published>2022-01-06T04:37:43.143Z</published>
+    <updated>2022-01-06T04:37:43.143Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h2 id=&quot;什么是编译程序？&quot;&gt;&lt;a href=&quot;#什么是编译程序？&quot; class=&quot;headerlink&quot;</summary>
+        
+      
+    
+    
+    
+    <category term="编译原理" scheme="https://blog.yuki520.cn/categories/%E7%BC%96%E8%AF%91%E5%8E%9F%E7%90%86/"/>
+    
+    
+    <category term="计算机基础" scheme="https://blog.yuki520.cn/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9F%BA%E7%A1%80/"/>
+    
+    <category term="编译原理" scheme="https://blog.yuki520.cn/tags/%E7%BC%96%E8%AF%91%E5%8E%9F%E7%90%86/"/>
+    
+    <category term="编译程序" scheme="https://blog.yuki520.cn/tags/%E7%BC%96%E8%AF%91%E7%A8%8B%E5%BA%8F/"/>
+    
+    <category term="解析程序" scheme="https://blog.yuki520.cn/tags/%E8%A7%A3%E6%9E%90%E7%A8%8B%E5%BA%8F/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>职业发展规划</title>
+    <link href="https://blog.yuki520.cn/archives/9906e5a2.html"/>
+    <id>https://blog.yuki520.cn/archives/9906e5a2.html</id>
+    <published>2022-01-06T04:37:43.143Z</published>
+    <updated>2022-01-06T04:37:43.143Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;!-- &lt;img src=&quot;/Users/yuki/Documents/Projects/blog/yuki0320.github.io/source/images/image-20211005181421300.png&quot;</summary>
+        
+      
+    
+    
+    
+    <category term="职业" scheme="https://blog.yuki520.cn/categories/%E8%81%8C%E4%B8%9A/"/>
+    
+    
+    <category term="职业规划" scheme="https://blog.yuki520.cn/tags/%E8%81%8C%E4%B8%9A%E8%A7%84%E5%88%92/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>前端工程化简介</title>
+    <link href="https://blog.yuki520.cn/archives/f86000d3.html"/>
+    <id>https://blog.yuki520.cn/archives/f86000d3.html</id>
+    <published>2021-08-29T11:45:17.000Z</published>
+    <updated>2022-01-06T04:37:43.143Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h2 id=&quot;什么是前端工程化？&quot;&gt;&lt;a href=&quot;#什么是前端工程化？&quot; class=&quot;headerlink&quot;</summary>
+        
+      
+    
+    
+    
+    <category term="前端" scheme="https://blog.yuki520.cn/categories/%E5%89%8D%E7%AB%AF/"/>
+    
+    
+    <category term="工程化" scheme="https://blog.yuki520.cn/tags/%E5%B7%A5%E7%A8%8B%E5%8C%96/"/>
+    
+    <category term="前端" scheme="https://blog.yuki520.cn/tags/%E5%89%8D%E7%AB%AF/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>前端面试考点</title>
+    <link href="https://blog.yuki520.cn/archives/9f7c9eb7.html"/>
+    <id>https://blog.yuki520.cn/archives/9f7c9eb7.html</id>
+    <published>2021-01-14T11:16:17.000Z</published>
+    <updated>2022-01-06T04:37:43.143Z</updated>
+    
+    
+    <summary type="html">&lt;p&gt;转载于: &lt;a href=&quot;https://github.com/qiu-deqing/FE-interview&quot;&gt;https://github.com/qiu-deqing/FE-interview&lt;/a&gt;&lt;/p&gt;</summary>
+    
+    
+    
+    <category term="面试" scheme="https://blog.yuki520.cn/categories/%E9%9D%A2%E8%AF%95/"/>
+    
+    
+    <category term="面试" scheme="https://blog.yuki520.cn/tags/%E9%9D%A2%E8%AF%95/"/>
+    
+  </entry>
+  
+</feed>

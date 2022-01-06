@@ -1,0 +1,667 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"blog.yuki520.cn","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":false,"style":null},"back2top":{"enable":false,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="一、关于纯 CSS 实现气泡对话框首先，来张大图： 上边这张黄黄的，大大的，圆圆的，有个小尾巴，文字内容有些 YY 的图片，就是使用纯 CSS 实现的气泡对话框效果，一点图片都没有哦。看到这里，你是不是跟我一样，有些惊叹 CSS 的潜力呢。关于这张图片，暂时先放到一边，下面我要讲一些与主旨相关的比较重要的，同时又很实用的一些技术。 我们首先看下面这一张图片（截自人人网）： 可能颜色有点淡，在左上角">
+<meta property="og:type" content="article">
+<meta property="og:title" content="CSS实现气球泡泡对话框">
+<meta property="og:url" content="https://blog.yuki520.cn/archives/8135dd95.html">
+<meta property="og:site_name" content="Yuki&#39;s Blog">
+<meta property="og:description" content="一、关于纯 CSS 实现气泡对话框首先，来张大图： 上边这张黄黄的，大大的，圆圆的，有个小尾巴，文字内容有些 YY 的图片，就是使用纯 CSS 实现的气泡对话框效果，一点图片都没有哦。看到这里，你是不是跟我一样，有些惊叹 CSS 的潜力呢。关于这张图片，暂时先放到一边，下面我要讲一些与主旨相关的比较重要的，同时又很实用的一些技术。 我们首先看下面这一张图片（截自人人网）： 可能颜色有点淡，在左上角">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://image.zhangxinxu.com/image/blog/201003/2010-03-12_222928.png">
+<meta property="og:image" content="http://image.zhangxinxu.com/image/blog/201003/2010-03-12_224559.png">
+<meta property="og:image" content="http://image.zhangxinxu.com/image/blog/201003/2010-03-12_230212.png">
+<meta property="og:image" content="http://image.zhangxinxu.com/image/blog/201003/2010-03-13_000543.png">
+<meta property="og:image" content="http://image.zhangxinxu.com/image/blog/201003/2010-03-13_001825.png">
+<meta property="og:image" content="http://image.zhangxinxu.com/image/blog/201003/2010-03-13_002528.png">
+<meta property="og:image" content="http://image.zhangxinxu.com/image/blog/201003/2010-03-13_003545.png">
+<meta property="og:image" content="http://image.zhangxinxu.com/image/blog/201003/2010-03-13_004216.png">
+<meta property="og:image" content="http://image.zhangxinxu.com/image/blog/201003/2010-03-13_005156.png">
+<meta property="og:image" content="http://image.zhangxinxu.com/image/blog/201003/2010-03-13_005753.png">
+<meta property="og:image" content="http://image.zhangxinxu.com/image/blog/201003/2010-03-13_010328.png">
+<meta property="og:image" content="http://image.zhangxinxu.com/image/blog/201003/2010-03-13_014809.png">
+<meta property="og:image" content="http://image.zhangxinxu.com/image/blog/201003/2010-03-13_020758.png">
+<meta property="og:image" content="http://image.zhangxinxu.com/image/blog/201003/2010-03-13_030217.png">
+<meta property="og:image" content="https://image.zhangxinxu.com/image/emtion/emoji/1f44d.svg">
+<meta property="og:image" content="https://image.zhangxinxu.com/image/emtion/emoji/1f44a.svg">
+<meta property="article:published_time" content="2022-01-06T04:37:43.143Z">
+<meta property="article:modified_time" content="2022-01-06T04:37:43.143Z">
+<meta property="article:author" content="Yuki">
+<meta property="article:tag" content="前端">
+<meta property="article:tag" content="css模块">
+<meta property="article:tag" content="样式">
+<meta property="article:tag" content="CSS">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://image.zhangxinxu.com/image/blog/201003/2010-03-12_222928.png">
+
+<link rel="canonical" href="https://blog.yuki520.cn/archives/8135dd95.html">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>CSS实现气球泡泡对话框 | Yuki's Blog</title>
+  
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-TY1REQXEDG"></script>
+    <script>
+      if (CONFIG.hostname === location.hostname) {
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'G-TY1REQXEDG');
+      }
+    </script>
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+<link rel="alternate" href="/atom.xml" title="Yuki's Blog" type="application/atom+xml">
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Yuki's Blog</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">记录每一天</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://blog.yuki520.cn/archives/8135dd95.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="https://cos.yuki520.cn/blog/avatar.jpg">
+      <meta itemprop="name" content="Yuki">
+      <meta itemprop="description" content="起风了！唯有努力生存">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Yuki's Blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          CSS实现气球泡泡对话框
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2022-01-06 04:37:43" itemprop="dateCreated datePublished" datetime="2022-01-06T04:37:43Z">2022-01-06</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E5%89%8D%E7%AB%AF/" itemprop="url" rel="index"><span itemprop="name">前端</span></a>
+                </span>
+            </span>
+
+          
+            <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv" style="display: none;">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span id="busuanzi_value_page_pv"></span>
+            </span><br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>5.8k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>5 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h3 id="一、关于纯-CSS-实现气泡对话框"><a href="#一、关于纯-CSS-实现气泡对话框" class="headerlink" title="一、关于纯 CSS 实现气泡对话框"></a>一、关于纯 CSS 实现气泡对话框</h3><p>首先，来张大图：<br><a target="_blank" rel="noopener external nofollow noreferrer" href="http://image.zhangxinxu.com/image/blog/201003/2010-03-12_222928.png"><img src="http://image.zhangxinxu.com/image/blog/201003/2010-03-12_222928.png"></a></p>
+<p>上边这张黄黄的，大大的，圆圆的，有个小尾巴，文字内容有些 YY 的图片，就是使用纯 CSS 实现的气泡对话框效果，一点图片都没有哦。看到这里，你是不是跟我一样，有些惊叹 CSS 的潜力呢。关于这张图片，暂时先放到一边，下面我要讲一些与主旨相关的比较重要的，同时又很实用的一些技术。</p>
+<p>我们首先看下面这一张图片（截自人人网）：<br><a target="_blank" rel="noopener external nofollow noreferrer" href="http://image.zhangxinxu.com/image/blog/201003/2010-03-12_224559.png"><img src="http://image.zhangxinxu.com/image/blog/201003/2010-03-12_224559.png"></a></p>
+<p>可能颜色有点淡，在左上角有个 90 度的尖角，于是整个形成了一个气泡对话框。现在考考你，如果你来实现这个效果，你会怎么做？//zxx: 假设你已经思考了一会儿｡◕‿◕｡ 我想，如果您没有看本文标题，可能就想到的是做个 90 度等腰三角形小图片；就算您知道可以用 CSS 实现上面的效果，但是您知道是什么方法吗？当然，是绝对兼容的方法（从已经在美国办了隆重葬礼的 IE6 到很多人喜欢的 Firefox 和 Safari）。您有主意吗？</p>
+<p>好，我们先来看看人人网是怎么实现的，我们用小 bug（//zxx: 指 firebug，我喜欢亲切的称之为 “小 bug”）看一看，原来也是使用的图片，600*6 像素的图片，见下图：<br><a target="_blank" rel="noopener external nofollow noreferrer" href="http://image.zhangxinxu.com/image/blog/201003/2010-03-12_230212.png"><img src="http://image.zhangxinxu.com/image/blog/201003/2010-03-12_230212.png"></a></p>
+<p>查看此图片点此链接：<a target="_blank" rel="noopener external nofollow noreferrer" href="http://xnimg.cn/imgpro/box/box_arrow.png" title="点击查看原图">http://xnimg.cn/imgpro/box/box_arrow.png</a></p>
+<p>这可是活生生的多了一次图片请求啊，而且是个独立的小图片，关键是在访问量惊人的首页上。优秀与平庸的差异在哪里呢？前者追求极致，后者追随大流。</p>
+<p>这里的图片完全没有必要，使用 CSS 可以实现近乎一样的效果，并且方法不止一种，我目前知道的有两种方法可以实现上面人人网的气泡对话框效果。我将这两个方法自己定义为 “边框法” 与“字符法”。</p>
+<p>本文地址： <a target="_blank" rel="noopener external nofollow noreferrer" href="http://www.zhangxinxu.com/wordpress/?p=651">http://www.zhangxinxu.com/wordpress/?p=651</a></p>
+<h3 id="二、“字符法”-与-“边框法”"><a href="#二、“字符法”-与-“边框法”" class="headerlink" title="二、“字符法” 与 “边框法”"></a>二、“字符法” 与 “边框法”</h3><p><strong>1. 字符法</strong><br>关于 “字符法”，其实在我的 “<a target="_blank" rel="noopener external nofollow noreferrer" href="http://www.zhangxinxu.com/wordpress/?p=332" title="打开告别图片—使用字符实现兼容性的圆角尖角效果beta版一文 张鑫旭-鑫空间-鑫生活">告别图片—使用字符实现兼容性的圆角尖角效果 beta 版</a>” 一文中已经比较详尽的提及过。</p>
+<p>这里再简单讲述下，世界上的语言多种多样，字符的种类也是千差万别，形状也是千奇百怪，所以，有些字符就可以当作图形来使用，以模拟一些 web 表现效果。例如，上面的人人网对话框尖角就可以使用棱形字符 (◆) 来实现，看到这个形状上面的 90 度的尖角了吗，我们可以让其溢出 div 显示，不就有了尖角效果了吗！定位可以使用 margin 负值或是 absolute 绝对定位。</p>
+<p>在我的网站上就应用了这个方法，您可以在网站的 “<a target="_blank" rel="noopener external nofollow noreferrer" href="http://www.zhangxinxu.com/php/question.php">提问与交流</a>” 页面看到类似下图所示的内容：<br><a target="_blank" rel="noopener external nofollow noreferrer" href="http://image.zhangxinxu.com/image/blog/201003/2010-03-13_000543.png"><img src="http://image.zhangxinxu.com/image/blog/201003/2010-03-13_000543.png"></a></p>
+<p>具体使用，您可以狠狠地点击这里：<a target="_blank" rel="noopener external nofollow noreferrer" href="http://www.zhangxinxu.com/study/201003/pure-css-speech-bubbles.html">“字符法” 实现气泡对话框 demo</a><br>里面显示了 CSS 与 HTML 代码。</p>
+<p><strong>2. 边框法</strong><br>关于 “边框法”，这说起来话就长了。不急，慢慢来。<br>我们首先来看下面一段样式代码：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">.test&#123;width:10px; height:10px; border:10px solid; border-color:#ff3300 #0000ff #339966 #00ff00;&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>当某个 div 应用了上面这个样式后，结果会如何？见下图（截自 Firefox3.5，IE 浏览器有细节上的差异）：<br><a target="_blank" rel="noopener external nofollow noreferrer" href="http://image.zhangxinxu.com/image/blog/201003/2010-03-13_001825.png"><img src="http://image.zhangxinxu.com/image/blog/201003/2010-03-13_001825.png"></a></p>
+<p>仔细观察边框色的交界处，四个角落有 4 个 45° 的斜边，将整个边框分成了四个等腰梯形。</p>
+<p>现在，设想一下，如果我们现在只保留一个一个上边框，其余边框均 transparent 透明（或与背景色同色），那么是不是就只显示一个上面红色的边框了，我们测试下，与上面类似的代码，只是修改下其余三个边框的颜色。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">.test&#123;width:10px; height:10px; border:10px solid; border-color:#ff3300 #ffffff #ffffff #ffffff;&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>结果如下图（截自 Firefox3.5）：<br><a target="_blank" rel="noopener external nofollow noreferrer" href="http://image.zhangxinxu.com/image/blog/201003/2010-03-13_002528.png"><img src="http://image.zhangxinxu.com/image/blog/201003/2010-03-13_002528.png"></a></p>
+<p>可见显示结果正如我们预想的。现在，再次开动脑筋，试想下，如果上面样式中的宽度和高度都是 0，也就是<code>width:10px; height:10px;</code>变成了<code>width:0; height:0;</code>。对了，那么显示的将不会是个等腰梯形了，而是个等腰直角三角形。做个简单测试就知道答案了，如下的代码：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">.test&#123;width:0; height:0; border:10px solid; border-color:#ff3300 #ffffff #ffffff #ffffff;&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>结果如下（依旧截图自 Firefox3.5）：<br><a target="_blank" rel="noopener external nofollow noreferrer" href="http://image.zhangxinxu.com/image/blog/201003/2010-03-13_003545.png"><img src="http://image.zhangxinxu.com/image/blog/201003/2010-03-13_003545.png"></a></p>
+<p>此时，我们惊奇的发现，使用 border 属性居然产生了一个等腰直角三角形，而这个等腰直角三角形用做气泡对话框的尖角再合适不过了。所以，上面的人人网对话框的尖角就可以用 border 实现了，只要让下边框有颜色，其他透明（或与外背景同色）就好了。</p>
+<p>关于 “边框法” 实现的效果，您可以狠狠地点击这里：<a target="_blank" rel="noopener external nofollow noreferrer" href="http://www.zhangxinxu.com/study/201003/pure-css-speech-bubbles.html">“边框法” 实现气泡对话框 demo</a>，或参见下图。<br><a target="_blank" rel="noopener external nofollow noreferrer" href="http://image.zhangxinxu.com/image/blog/201003/2010-03-13_004216.png"><img src="http://image.zhangxinxu.com/image/blog/201003/2010-03-13_004216.png"></a></p>
+<p>还没完，我们现在再开动我们智慧的大脑，设想下，如果各个边框的宽度不一致，又会产生怎样的结果呢？我们把测试代码再修改一下，让其边框宽度不一致，如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">.test&#123;width:0; height:0; border-width:20px 10px; border-style:solid; border-color:#ff3300 #ffffff #ffffff #ffffff;&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>得到的结果如下图：<br><a target="_blank" rel="noopener external nofollow noreferrer" href="http://image.zhangxinxu.com/image/blog/201003/2010-03-13_005156.png"><img src="http://image.zhangxinxu.com/image/blog/201003/2010-03-13_005156.png"></a></p>
+<p>可以发现，尖角被拉高了，也就是相邻边框宽度的比例会影响单个边框形状的高与低的比例，这不难理解。</p>
+<p>现在，我们再开动一下我们的脑筋，如果我们让相邻两个边框显示颜色会怎么样呢？测试一下吧，如下代码：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">.test&#123;width:0; height:0; border-width:20px 10px; border-style:solid; border-color:#ff3300 #ff3300 #ffffff #ffffff;&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>结果如下图：<br><a target="_blank" rel="noopener external nofollow noreferrer" href="http://image.zhangxinxu.com/image/blog/201003/2010-03-13_005753.png"><img src="http://image.zhangxinxu.com/image/blog/201003/2010-03-13_005753.png"></a></p>
+<p>这不就不多说什么了，大伙儿都看到，上个相邻边框尖角实现的气泡对话框效果吧。<br><a target="_blank" rel="noopener external nofollow noreferrer" href="http://image.zhangxinxu.com/image/blog/201003/2010-03-13_010328.png"><img src="http://image.zhangxinxu.com/image/blog/201003/2010-03-13_010328.png"></a></p>
+<p>本文地址： <a target="_blank" rel="noopener external nofollow noreferrer" href="http://www.zhangxinxu.com/wordpress/?p=651">http://www.zhangxinxu.com/wordpress/?p=651</a></p>
+<h3 id="三、“边框法”-的高级应用"><a href="#三、“边框法”-的高级应用" class="headerlink" title="三、“边框法” 的高级应用"></a>三、“边框法” 的高级应用</h3><p>说是高级应用，准确讲应该是 “复杂应用”。就是说用两个标签（或无标签 – 使用: before 与: after 伪类）形成的两个不同的边框进行组合显示实现的一些效果。</p>
+<p>看下面两个图，本单元就是要实现下面两种效果：<br><a target="_blank" rel="noopener external nofollow noreferrer" href="http://image.zhangxinxu.com/image/blog/201003/2010-03-13_014809.png"><img src="http://image.zhangxinxu.com/image/blog/201003/2010-03-13_014809.png"></a><br><a target="_blank" rel="noopener external nofollow noreferrer" href="http://image.zhangxinxu.com/image/blog/201003/2010-03-13_020758.png"><img src="http://image.zhangxinxu.com/image/blog/201003/2010-03-13_020758.png"></a></p>
+<p><strong>1、效果 (1)</strong><br>CSS 代码如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">.test&#123;width:300px; padding:30px 20px; margin-left:60px; background:#beceeb; position:relative;&#125;</span><br><span class="line">.test span&#123;width:0; height:0; font-size:0; overflow:hidden; position:absolute;&#125;</span><br><span class="line">.test span.bot&#123;</span><br><span class="line">    border-width:20px; </span><br><span class="line">    border-style:solid; </span><br><span class="line">    border-color:#ffffff #beceeb #beceeb #ffffff; </span><br><span class="line">    left:-40px; </span><br><span class="line">    top:40px;</span><br><span class="line">&#125;</span><br><span class="line">.test span.top&#123;</span><br><span class="line">    border-width:10px 20px; </span><br><span class="line">    border-style:dashed solid solid dashed; </span><br><span class="line">    border-color:transparent #ffffff #ffffff transparent; </span><br><span class="line">    left:-40px; </span><br><span class="line">    top:60px;</span><br><span class="line">&#125;</span><br><span class="line">                </span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>HTML 代码如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&lt;div&gt;</span><br><span class="line">    &lt;span&gt;&lt;&#x2F;span&gt;</span><br><span class="line">    &lt;span&gt;&lt;&#x2F;span&gt;</span><br><span class="line">    CSS “边框法”实现气泡对话框效果一</span><br><span class="line">&lt;&#x2F;div&gt;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>您可以狠狠地点击这里：<a target="_blank" rel="noopener external nofollow noreferrer" href="http://www.zhangxinxu.com/study/201003/css-border-popup-effect-demo1.html">效果 (1)demo</a></p>
+<p><strong>2、效果 (2)</strong><br>CSS 代码如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">.test&#123;width:300px; padding:30px 20px; border:5px solid #beceeb; position:relative;&#125;</span><br><span class="line">.test span&#123;width:0; height:0; font-size:0; overflow:hidden; position:absolute;&#125;</span><br><span class="line">.test span.bot&#123;</span><br><span class="line">    border-width:20px; </span><br><span class="line">    border-style:solid dashed dashed; </span><br><span class="line">    border-color:#beceeb transparent transparent; </span><br><span class="line">    left:80px; </span><br><span class="line">    bottom:-40px;</span><br><span class="line">&#125;</span><br><span class="line">.test span.top&#123;</span><br><span class="line">    border-width:20px; </span><br><span class="line">    border-style:solid dashed dashed; </span><br><span class="line">    border-color:#ffffff transparent transparent; </span><br><span class="line">    left:80px; </span><br><span class="line">    bottom:-33px;</span><br><span class="line">&#125;                </span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>HTML 代码如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&lt;div&gt;</span><br><span class="line">    &lt;span&gt;&lt;&#x2F;span&gt;</span><br><span class="line">    &lt;span&gt;&lt;&#x2F;span&gt;</span><br><span class="line">    CSS “边框法”实现气泡对话框效果二</span><br><span class="line">&lt;&#x2F;div&gt;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>您可以狠狠地点击这里：<a target="_blank" rel="noopener external nofollow noreferrer" href="http://www.zhangxinxu.com/study/201003/css-border-popup-effect-demo2.html">效果 (2)demo</a></p>
+<p><strong>3、效果原理简述</strong><br>原理的关键字就是 “覆盖”，另外一个边框形成的尖角覆盖之前的一个，只要控制好覆盖的位置，然后就形成了实际上的不规则尖角或是尖角边框。您还可以发挥您的创造力，实现更多其它的效果。</p>
+<p>本文地址： <a target="_blank" rel="noopener external nofollow noreferrer" href="http://www.zhangxinxu.com/wordpress/?p=651">http://www.zhangxinxu.com/wordpress/?p=651</a></p>
+<h3 id="四、关于-“边框法”-的一些说明"><a href="#四、关于-“边框法”-的一些说明" class="headerlink" title="四、关于 “边框法” 的一些说明"></a>四、关于 “边框法” 的一些说明</h3><p>关于 “边框法”，有一些知识必须要提一下。</p>
+<p><strong>1. IE6 的奇偶 bug</strong><br>如果定位外框高度或是宽度为奇数，则 IE6 下，绝对定位元素的低定位和右定位会有 1 像素的误差。所以，尽量保证外框的高度或宽度为偶数值。</p>
+<p><strong>2. IE6 的空 div 莫名高度 bug</strong><br>IE6 下，空 div 会有莫名的高度，也就是说 height:0; 不顶用，此时形成的尖角的实际占高于其他浏览器是有差异的。可使用 font-size:0; + overflow:hidden; 修复此问题。</p>
+<p><strong>3. IE6 不支持实线边框透明 transparent 属性</strong><br>IE6 不支持实线边框透明 transparent 属性，当某边框设置为 transparent 属性，且有宽度的话，那么透明会以默认的黑色显示的。解决方法有两个，一是将需要隐藏的颜色设置为背景色，这样与透明效果一样，此法有局限性，在复杂 “边框法” 应用下是行不通的；二是可以使用 dashed 代替 solid，可以实现 IE6 下边框 transparent 透明。为什么能够实现透明？您可以参考默尘的这篇文章 <a target="_blank" rel="noopener external nofollow noreferrer" href="http://blog.silentash.com/2009/12/ie6-border-transparent/" title="Permanent Link to Dotted&amp;Dashed终极分析及IE6透明边框">Dotted&amp;Dashed 终极分析及 IE6 透明边框</a>，我说点题外话，其对原因的解释似乎说的通，但是，是不是如此，我是相当怀疑的，我尚未有时间验证，这个可以标记一下。</p>
+<p>本文地址： <a target="_blank" rel="noopener external nofollow noreferrer" href="http://www.zhangxinxu.com/wordpress/?p=651">http://www.zhangxinxu.com/wordpress/?p=651</a></p>
+<h3 id="五、利用-CSS3-实现气泡样式的对话框"><a href="#五、利用-CSS3-实现气泡样式的对话框" class="headerlink" title="五、利用 CSS3 实现气泡样式的对话框"></a>五、利用 CSS3 实现气泡样式的对话框</h3><p>之前我们所说的一切，是全兼容现在所有主流浏览器的。而这里的方法，只支持对 CSS3 支持良好的浏览器，例如 Firefox3.5+，chrome 以及 Safari。本文一开头的那张黄黄的大图就是使用的 CSS3 实现的圆形以及圆弧状的拐角尾巴。</p>
+<p>效果的核心就是 CSS3 的圆角属性：<a target="_blank" rel="noopener external nofollow noreferrer" href="http://www.zhangxinxu.com/css3/css3-border-radius.php">border-radius</a>，例如开始的大尾巴图片，就是使用 border-radius 实现的三个圆组成的，大圆形成主体内容，两个小一点的圆相互遮盖，形成圆弧小尾巴，但这个不具体讲，现在，以一个相对简单点的例子做示例。</p>
+<p>CSS 代码如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line">.test&#123;</span><br><span class="line">    width:300px;</span><br><span class="line">    padding:80px 20px;</span><br><span class="line">    margin-left:100px;</span><br><span class="line">    background:#beceeb;</span><br><span class="line">    -webkit-border-top-left-radius:220px 120px;</span><br><span class="line">    -webkit-border-top-right-radius:220px 120px;</span><br><span class="line">    -webkit-border-bottom-right-radius:220px 120px;</span><br><span class="line">    -webkit-border-bottom-left-radius:220px 120px;</span><br><span class="line">    -moz-border-radius:220px &#x2F; 120px;</span><br><span class="line">    border-radius:220px &#x2F; 120px;</span><br><span class="line">    position:relative;</span><br><span class="line">&#125;</span><br><span class="line">.test span&#123;width:0; height:0; font-size:0; background:#beceeb; overflow:hidden; position:absolute;&#125;</span><br><span class="line">.test span.bot&#123;</span><br><span class="line">    width:30px;</span><br><span class="line">    height:30px;</span><br><span class="line">    -moz-border-radius:30px;</span><br><span class="line">    -webkit-border-radius:30px;</span><br><span class="line">    border-radius:30px;</span><br><span class="line">    left:10px;</span><br><span class="line">    bottom:-20px;</span><br><span class="line">&#125;</span><br><span class="line">.test span.top&#123;</span><br><span class="line">    width:15px;</span><br><span class="line">    height:15px;</span><br><span class="line">    -moz-border-radius:15px;</span><br><span class="line">    -webkit-border-radius:15px;</span><br><span class="line">    border-radius:15px;</span><br><span class="line">    left:0px;</span><br><span class="line">    bottom:-40px;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>HTML 代码如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&lt;div&gt;</span><br><span class="line">    &lt;span&gt;&lt;&#x2F;span&gt;</span><br><span class="line">    &lt;span&gt;&lt;&#x2F;span&gt;</span><br><span class="line">    CSS3 border-radius实现气泡对话框效果 </span><br><span class="line">&lt;&#x2F;div&gt;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>最后的效果如下图：<br><a target="_blank" rel="noopener external nofollow noreferrer" href="http://image.zhangxinxu.com/image/blog/201003/2010-03-13_030217.png"><img src="http://image.zhangxinxu.com/image/blog/201003/2010-03-13_030217.png"></a></p>
+<p>您可以狠狠地点击这里：<a target="_blank" rel="noopener external nofollow noreferrer" href="http://www.zhangxinxu.com/study/201003/css-border-popup-effect-demo3.html">效果 (3)demo</a></p>
+<h3 id="六、结语"><a href="#六、结语" class="headerlink" title="六、结语"></a>六、结语</h3><p>还是那句话，资历有限，错误难免，欢迎大力指正。</p>
+<p>（本篇完）<img src="https://image.zhangxinxu.com/image/emtion/emoji/1f44d.svg"> 是不是学到了很多？可以分享到微信！<br><img src="https://image.zhangxinxu.com/image/emtion/emoji/1f44a.svg"> 有话要说？点击<a href="#comment" title="点击定位到评论">这里</a>。</p>
+
+    </div>
+
+    
+    
+    
+      
+  <div class="popular-posts-header">相关文章推荐</div>
+  <ul class="popular-posts">
+    <li class="popular-posts-item">
+      <div class="popular-posts-title"><a href="/archives/f86000d3.html" rel="bookmark">前端工程化简介</a></div>
+    </li>
+    <li class="popular-posts-item">
+      <div class="popular-posts-title"><a href="/archives/263f3be4.html" rel="bookmark">原型</a></div>
+    </li>
+    <li class="popular-posts-item">
+      <div class="popular-posts-title"><a href="/archives/9b1b0f9c.html" rel="bookmark">定型数组</a></div>
+    </li>
+    <li class="popular-posts-item">
+      <div class="popular-posts-title"><a href="/archives/c3d6d626.html" rel="bookmark">数据驱动的思考方式</a></div>
+    </li>
+    <li class="popular-posts-item">
+      <div class="popular-posts-title"><a href="/archives/8868e6e9.html" rel="bookmark">编程语言通识与JavaScript语言设计</a></div>
+    </li>
+  </ul>
+
+        
+
+<div>
+<ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者： </strong>Yuki
+  </li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="https://blog.yuki520.cn/archives/8135dd95.html" title="CSS实现气球泡泡对话框">https://blog.yuki520.cn/archives/8135dd95.html</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener external nofollow noreferrer" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/%E5%89%8D%E7%AB%AF/" rel="tag"># 前端</a>
+              <a href="/tags/css%E6%A8%A1%E5%9D%97/" rel="tag"># css模块</a>
+              <a href="/tags/%E6%A0%B7%E5%BC%8F/" rel="tag"># 样式</a>
+              <a href="/tags/CSS/" rel="tag"># CSS</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/archives/8868e6e9.html" rel="prev" title="编程语言通识与JavaScript语言设计">
+      <i class="fa fa-chevron-left"></i> 编程语言通识与JavaScript语言设计
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/archives/c3d6d626.html" rel="next" title="数据驱动的思考方式">
+      数据驱动的思考方式 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%80%E3%80%81%E5%85%B3%E4%BA%8E%E7%BA%AF-CSS-%E5%AE%9E%E7%8E%B0%E6%B0%94%E6%B3%A1%E5%AF%B9%E8%AF%9D%E6%A1%86"><span class="nav-number">1.</span> <span class="nav-text">一、关于纯 CSS 实现气泡对话框</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BA%8C%E3%80%81%E2%80%9C%E5%AD%97%E7%AC%A6%E6%B3%95%E2%80%9D-%E4%B8%8E-%E2%80%9C%E8%BE%B9%E6%A1%86%E6%B3%95%E2%80%9D"><span class="nav-number">2.</span> <span class="nav-text">二、“字符法” 与 “边框法”</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%89%E3%80%81%E2%80%9C%E8%BE%B9%E6%A1%86%E6%B3%95%E2%80%9D-%E7%9A%84%E9%AB%98%E7%BA%A7%E5%BA%94%E7%94%A8"><span class="nav-number">3.</span> <span class="nav-text">三、“边框法” 的高级应用</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%9B%9B%E3%80%81%E5%85%B3%E4%BA%8E-%E2%80%9C%E8%BE%B9%E6%A1%86%E6%B3%95%E2%80%9D-%E7%9A%84%E4%B8%80%E4%BA%9B%E8%AF%B4%E6%98%8E"><span class="nav-number">4.</span> <span class="nav-text">四、关于 “边框法” 的一些说明</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BA%94%E3%80%81%E5%88%A9%E7%94%A8-CSS3-%E5%AE%9E%E7%8E%B0%E6%B0%94%E6%B3%A1%E6%A0%B7%E5%BC%8F%E7%9A%84%E5%AF%B9%E8%AF%9D%E6%A1%86"><span class="nav-number">5.</span> <span class="nav-text">五、利用 CSS3 实现气泡样式的对话框</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%85%AD%E3%80%81%E7%BB%93%E8%AF%AD"><span class="nav-number">6.</span> <span class="nav-text">六、结语</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Yuki"
+      src="https://cos.yuki520.cn/blog/avatar.jpg">
+  <p class="site-author-name" itemprop="name">Yuki</p>
+  <div class="site-description" itemprop="description">起风了！唯有努力生存</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">10</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">5</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">20</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/yuki0320" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;yuki0320" rel="noopener external nofollow noreferrer" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:yukitan0202@gmail.com" title="E-Mail → mailto:yukitan0202@gmail.com" rel="noopener external nofollow noreferrer" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Yuki</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-area"></i>
+    </span>
+      <span class="post-meta-item-text">站点总字数：</span>
+    <span title="站点总字数">74k</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+      <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
+    <span title="站点阅读时长">1:07</span>
+</div>
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span class="post-meta-item" id="busuanzi_container_site_uv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+<div class="moon-menu">
+  <div class="moon-menu-items">
+    
+    <div class="moon-menu-item" onclick="back2bottom()">
+      <i class='fa fa-chevron-down'></i>    </div>
+    
+    <div class="moon-menu-item" onclick="back2top()">
+      <i class='fa fa-chevron-up'></i>    </div>
+    
+  </div>
+  <div class="moon-menu-button">
+    <svg class="moon-menu-bg">
+      <circle class="moon-menu-cricle" cx="50%" cy="50%" r="44%"></circle>
+      <circle class="moon-menu-border" cx="50%" cy="50%" r="48%"></circle>
+    </svg>
+    <div class="moon-menu-content">
+      <div class="moon-menu-icon"><i class='fas fa-ellipsis-v'></i></div>
+      <div class="moon-menu-text"></div>
+    </div>
+  </div>
+</div><script src="/js/injector.js"></script>
+</body>
+</html>
