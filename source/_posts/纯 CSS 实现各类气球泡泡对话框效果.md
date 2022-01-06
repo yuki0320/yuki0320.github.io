@@ -1,10 +1,13 @@
-> 本文由 [简悦 SimpRead](http://ksria.com/simpread/) 转码， 原文地址 [www.zhangxinxu.com](https://www.zhangxinxu.com/wordpress/2010/03/%E7%BA%AFcss%E5%AE%9E%E7%8E%B0%E5%90%84%E7%B1%BB%E6%B0%94%E7%90%83%E6%B3%A1%E6%B3%A1%E5%AF%B9%E8%AF%9D%E6%A1%86%E6%95%88%E6%9E%9C/)
-
-> 本文的知识点较多，内容也较多，展现了 CSS 惊人的力量，如果使用纯粹的 CSS 实现视觉良好，体验上佳的 web 界面。
-
-by [zhangxinxu](http://www.zhangxinxu.com/) from [http://www.zhangxinxu.com](http://www.zhangxinxu.com/)  
-本文地址：[http://www.zhangxinxu.com/wordpress/?p=651](http://www.zhangxinxu.com/wordpress/?p=651)
-
+---
+title: CSS实现气球泡泡对话框
+tags:
+  - css模块
+  - 前端
+  - 样式
+  - CSS
+categories: 前端
+abbrlink: 8135dd95
+---
 ### 一、关于纯 CSS 实现气泡对话框
 
 首先，来张大图：  
